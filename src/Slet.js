@@ -4,13 +4,12 @@ const fs = require('fs')
 const resolve = require('path').resolve
 const Koa = require('koa');
 const methods = require('methods');
-var slice = Array.prototype.slice;
-const app = new Koa();
+const slice = Array.prototype.slice;
+const router = require('koa-router')();
+const views = require('koa-views');
+const bodyParser = require('koa-bodyparser');
 
-var router = require('koa-router')();
-var views = require('koa-views');
-var bodyParser = require('koa-bodyparser');
-
+// local
 const ApiController = require('./controller/ApiController')
 const ViewController = require('./controller/ViewController')
 const defaultConfig = require('./config')

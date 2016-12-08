@@ -1,5 +1,20 @@
 # slet
 
+Core
+
+- Controller
+- Router
+- View
+- Config
+
+Extention
+
+- db
+- session
+- upload
+- uploadCdn
+
+
 ## Controller
 
 - 分类
@@ -71,10 +86,11 @@ app.routerDir('app/controller' )
 
 ## Config
 
-默认
 
+## 插件
 
-```
-app.routerDir('app/controller' )  
-```
+- db
+- session
+- upload
+- uploadCdn
 
