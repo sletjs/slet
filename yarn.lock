@@ -7,13 +7,23 @@ accepts@^1.2.2:
     mime-types "~2.1.11"
     negotiator "0.6.1"
 
-any-promise@^1.1.0:
+any-promise@^1.0.0, any-promise@^1.1.0:
   version "1.3.0"
   resolved "http://r.cnpmjs.org/any-promise/download/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
+
+bluebird@^3.1.1:
+  version "3.4.6"
+  resolved "http://r.cnpmjs.org/bluebird/download/bluebird-3.4.6.tgz#01da8d821d87813d158967e743d5fe6c62cf8c0f"
 
 co@^4.6.0:
   version "4.6.0"
   resolved "http://r.cnpmjs.org/co/download/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
+
+consolidate@^0.14.1:
+  version "0.14.5"
+  resolved "http://r.cnpmjs.org/consolidate/download/consolidate-0.14.5.tgz#5a25047bc76f73072667c8cb52c989888f494c63"
+  dependencies:
+    bluebird "^3.1.1"
 
 content-disposition@~0.5.0:
   version "0.5.1"
@@ -30,7 +40,7 @@ cookies@~0.6.1:
     depd "~1.1.0"
     keygrip "~1.0.1"
 
-debug@*:
+debug@*, debug@^2.1.3, debug@^2.2.0:
   version "2.3.3"
   resolved "http://r.cnpmjs.org/debug/download/debug-2.3.3.tgz#40c453e67e6e13c901ddec317af8986cda9eff8c"
   dependencies:
@@ -75,7 +85,7 @@ http-assert@^1.1.0:
     deep-equal "~1.0.0"
     http-errors "~1.4.0"
 
-http-errors@^1.2.8:
+http-errors@^1.2.8, http-errors@^1.3.1, http-errors@~1.5.0:
   version "1.5.1"
   resolved "http://r.cnpmjs.org/http-errors/download/http-errors-1.5.1.tgz#788c0d2c1de2c81b9e6e8c01843b6b97eb920750"
   dependencies:
@@ -102,6 +112,10 @@ is-generator-function@^1.0.3:
   version "1.0.3"
   resolved "http://r.cnpmjs.org/is-generator-function/download/is-generator-function-1.0.3.tgz#d374ca57e807444fa2658be3728ed6b174b326b1"
 
+isarray@0.0.1:
+  version "0.0.1"
+  resolved "http://r.cnpmjs.org/isarray/download/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
+
 keygrip@~1.0.1:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/keygrip/download/keygrip-1.0.1.tgz#b02fa4816eef21a8c4b35ca9e52921ffc89a30e9"
@@ -122,6 +136,34 @@ koa-convert@^1.2.0:
 koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/koa-is-json/download/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
+
+koa-router@next:
+  version "7.0.1"
+  resolved "http://r.cnpmjs.org/koa-router/download/koa-router-7.0.1.tgz#800a61d0a3342d3d1f96d8c688b84ed2a6314d97"
+  dependencies:
+    debug "^2.2.0"
+    http-errors "^1.3.1"
+    koa-compose "^3.0.0"
+    methods "^1.0.1"
+    path-to-regexp "^1.1.1"
+
+koa-send@^3.1.0:
+  version "3.2.0"
+  resolved "http://r.cnpmjs.org/koa-send/download/koa-send-3.2.0.tgz#a4063c2631b7ebed9f9fc2a77568799ba606449b"
+  dependencies:
+    co "^4.6.0"
+    debug "*"
+    mz "^2.3.1"
+    resolve-path "^1.3.1"
+
+koa-views@next:
+  version "5.2.0"
+  resolved "http://r.cnpmjs.org/koa-views/download/koa-views-5.2.0.tgz#c4282eb50a4ed15a8732474b42e54e575d2e4593"
+  dependencies:
+    consolidate "^0.14.1"
+    debug "^2.1.3"
+    koa-send "^3.1.0"
+    mz "^2.4.0"
 
 koa@next:
   version "2.0.0-alpha.7"
@@ -156,7 +198,7 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "http://r.cnpmjs.org/media-typer/download/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
-methods:
+methods, methods@^1.0.1:
   version "1.1.2"
   resolved "http://r.cnpmjs.org/methods/download/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
 
@@ -174,9 +216,21 @@ ms@0.7.2:
   version "0.7.2"
   resolved "http://r.cnpmjs.org/ms/download/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
+mz@^2.3.1, mz@^2.4.0:
+  version "2.6.0"
+  resolved "http://r.cnpmjs.org/mz/download/mz-2.6.0.tgz#c8b8521d958df0a4f2768025db69c719ee4ef1ce"
+  dependencies:
+    any-promise "^1.0.0"
+    object-assign "^4.0.1"
+    thenify-all "^1.0.0"
+
 negotiator@0.6.1:
   version "0.6.1"
   resolved "http://r.cnpmjs.org/negotiator/download/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+object-assign@^4.0.1:
+  version "4.1.0"
+  resolved "http://r.cnpmjs.org/object-assign/download/object-assign-4.1.0.tgz#7a3b3d0e98063d43f4c03f2e8ae6cd51a86883a0"
 
 on-finished@^2.1.0:
   version "2.3.0"
@@ -192,6 +246,23 @@ parseurl@^1.3.0:
   version "1.3.1"
   resolved "http://r.cnpmjs.org/parseurl/download/parseurl-1.3.1.tgz#c8ab8c9223ba34888aa64a297b28853bec18da56"
 
+path-is-absolute@1.0.1:
+  version "1.0.1"
+  resolved "http://r.cnpmjs.org/path-is-absolute/download/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
+
+path-to-regexp@^1.1.1:
+  version "1.7.0"
+  resolved "http://r.cnpmjs.org/path-to-regexp/download/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
+  dependencies:
+    isarray "0.0.1"
+
+resolve-path@^1.3.1:
+  version "1.3.3"
+  resolved "http://r.cnpmjs.org/resolve-path/download/resolve-path-1.3.3.tgz#4d83aba6468c2b8e632a575e3f52b0fa0dbe1a5c"
+  dependencies:
+    http-errors "~1.5.0"
+    path-is-absolute "1.0.1"
+
 setprototypeof@1.0.2:
   version "1.0.2"
   resolved "http://r.cnpmjs.org/setprototypeof/download/setprototypeof-1.0.2.tgz#81a552141ec104b88e89ce383103ad5c66564d08"
@@ -199,6 +270,18 @@ setprototypeof@1.0.2:
 "statuses@>= 1.2.1 < 2", "statuses@>= 1.3.1 < 2", statuses@^1.2.0:
   version "1.3.1"
   resolved "http://r.cnpmjs.org/statuses/download/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"
+
+thenify-all@^1.0.0:
+  version "1.6.0"
+  resolved "http://r.cnpmjs.org/thenify-all/download/thenify-all-1.6.0.tgz#1a1918d402d8fc3f98fbf234db0bcc8cc10e9726"
+  dependencies:
+    thenify ">= 3.1.0 < 4"
+
+"thenify@>= 3.1.0 < 4":
+  version "3.2.1"
+  resolved "http://r.cnpmjs.org/thenify/download/thenify-3.2.1.tgz#251fd1c80aff6e5cf57cb179ab1fcb724269bd11"
+  dependencies:
+    any-promise "^1.0.0"
 
 type-is@^1.5.5:
   version "1.6.14"
