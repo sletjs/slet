@@ -18,12 +18,14 @@
   },
   "homepage": "https://github.com/i5ting/slet#readme",
   "dependencies": {
+    "dirw": "^1.0.3",
     "koa": "next",
     "koa-bodyparser": "next",
     "koa-router": "next",
     "koa-views": "next",
     "methods": "^1.1.2",
     "nunjucks": "^3.0.0",
+    "require-directory": "^2.1.1",
     "v7": "^1.0.1"
   }
 }

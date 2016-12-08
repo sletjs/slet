@@ -12,4 +12,9 @@ app.router('/', require('./ctrl') )
 
 app.router('/2', require('./viewctrl') )  
 
-app.start()
+// app.router(require('./pathctrl') )  
+
+app.router('./pathctrl') 
+
+
+app.start() 
