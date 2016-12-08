@@ -19,6 +19,7 @@ class Slet {
     this.app =  new Koa();
     this.app.use(bodyParser());
     this.app.use(views(opts.root, { map: {html: 'nunjucks' }}))
+    this.routes = []
   }
 
   routerDir(dir) {
@@ -26,7 +27,7 @@ class Slet {
     var controllers = requireDir( resolve(this.opts.root, dir), {recurse: true});
     
     for(let i in controllers) {
-      this.router(controllers[i])      
+      if (controllers[i].path) this.router(controllers[i])      
     }
   }
 
@@ -58,6 +59,25 @@ class Slet {
       path = Controller.path
     }
     
+    if (this.opts.debug) {
+      var mockCtx = new Controller({}, function(){})
+      var m = this._avaiableMethods(mockCtx)
+      let t
+      if(mockCtx instanceof ApiController) {
+        t = 'Api'
+      }
+      
+      if(mockCtx instanceof ViewController) {
+        t = 'View'
+      }
+      console.log(m)
+      this.routes.push({
+        path: path, 
+        class: controller,
+        avaiableMethods: m,
+        type: t
+      })
+    }
     router.all(path, function (ctx, next) {
       console.log(ctx.request.method)
       console.log(ctx.request.path)
@@ -83,12 +103,32 @@ class Slet {
     });
   }
 
+  _avaiableMethods(obj) {
+    let m = Object.getOwnPropertyNames(Object.getPrototypeOf(obj))
+    m.shift()
+
+    let re= []
+    // methods
+    m.forEach(function(method){
+      var a = methods.find(function(n){
+        return n === method
+      })
+      re.push(a)
+    })
+
+    return re
+  }
+
   start(port=3000) {
-      this.app
-        .use(router.routes())
-        .use(router.allowedMethods());
-  
-      this.app.listen(port)
+    if (this.opts.debug) {
+      console.log(this.routes)
+    }
+    
+    this.app
+      .use(router.routes())
+      .use(router.allowedMethods());
+
+    this.app.listen(port)
   }
 }
 

@@ -15,4 +15,10 @@ module.exports = class MainController extends ApiController {
       b: a
     }
   } 
+
+  post(){
+    return {
+      a:1
+    }
+  }
 }

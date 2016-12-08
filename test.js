@@ -1,5 +1,21 @@
-var requireDir = require('require-dir');
-var dir = requireDir('./controller', {recurse: true});
+'use strict'
 
+class T {
+    a() {
+        
+    }
 
-console.log(dir)
+    b() {
+
+    }
+
+    constructor(aa){
+        this.c = 1
+    }
+}
+
+class D extends T {
+
+}
+
+console.log( D)

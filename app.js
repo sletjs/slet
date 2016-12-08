@@ -2,7 +2,8 @@
 
 const Slet = require('./');
 const app = new Slet({
-    root: __dirname
+    root: __dirname,
+    debug: true
 });
 
 // support file path or Controller
