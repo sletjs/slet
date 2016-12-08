@@ -16,5 +16,7 @@ app.router('/2', require('./viewctrl') )
 
 app.router('./pathctrl') 
 
+app.routerDir('controller') 
+
 
 app.start() 

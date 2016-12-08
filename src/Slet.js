@@ -1,6 +1,6 @@
 'use strict';
 
-const _path = require('path')
+const resolve = require('path').resolve
 const Koa = require('koa');
 const methods = require('methods');
 var slice = Array.prototype.slice;
@@ -22,16 +22,23 @@ class Slet {
   }
 
   routerDir(dir) {
-
+    var requireDir = require('require-dir');
+    var controllers = requireDir( resolve(this.opts.root, dir), {recurse: true});
+    
+    for(let i in controllers) {
+      this.router(controllers[i])      
+    }
   }
 
   router() {
     let path, controller
 
     if (arguments.length == 1) {
+      // (controller)
       // path = arguments[0] from controller.path
       controller = arguments[0]
     } else if (arguments.length >= 2) {
+      // (path, controller)
       path = arguments[0]
       controller = arguments[1]
     } else {
@@ -42,7 +49,7 @@ class Slet {
     if (typeof controller === 'string') {
       // 注意.ctrl && ctrl
       // file.exists
-      let file = _path.resolve(this.opts.root, controller)
+      let file = resolve(this.opts.root, controller)
       console.log(file)
       Controller =  require(file)
     }

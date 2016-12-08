@@ -18,10 +18,49 @@
 app.router('/', require('./ctrl') )  
 ```
 
+or
+
+```
+app.router('/', './ctrl')  
+```
+
 第二种，将path写到controller里
 
 ```
-app.router(require('./viewctrl') )  
+app.router(require('./pathctrl') )  
+```
+
+or
+
+```
+app.router('./pathctrl')  
+```
+
+pathctrl代码
+
+```
+'use strict';
+
+const ApiController = require('.').Api
+
+class PathController extends ApiController {
+  constructor(ctx, next) {
+    super(ctx, next)
+  }
+  
+  get() { 
+    var a = this.query.a
+    
+    return {
+      a:1,
+      b: a
+    }
+  } 
+}
+
+PathController.path = '/path/a'
+
+module.exports = PathController
 ```
 
 第三种，指定路径加载
@@ -29,7 +68,6 @@ app.router(require('./viewctrl') )
 ```
 app.routerDir('app/controller' )  
 ```
-
 
 ## Config
 

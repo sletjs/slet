@@ -1,8 +1,5 @@
-class User {
+var requireDir = require('require-dir');
+var dir = requireDir('./controller', {recurse: true});
 
-}
 
-
-User.a = 1
-
-console.log(User)
+console.log(dir)
