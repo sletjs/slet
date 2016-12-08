@@ -1,0 +1,14 @@
+{
+    "debug": false,
+
+    "views" :{
+        "path" : "views",
+        "option": { "map": {"html": "nunjucks" }}
+    },
+    "automount": {
+        "path": "controllers",
+        "option": {
+            "recurse": true
+        }
+    }
+}

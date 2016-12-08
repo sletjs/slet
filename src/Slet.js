@@ -12,19 +12,29 @@ var bodyParser = require('koa-bodyparser');
 
 const ApiController = require('./controller/ApiController')
 const ViewController = require('./controller/ViewController')
+const defaultConfig = require('./config')
 
 class Slet {
   constructor(opts) {
-    this.opts = opts
+    this.opts = Object.assign(defaultConfig, opts);
+
+    this.viewPath = resolve(this.opts.root, this.opts.views.path)
+
+    //
     this.app =  new Koa();
     this.app.use(bodyParser());
-    this.app.use(views(opts.root, { map: {html: 'nunjucks' }}))
+    this.app.use(views(this.viewPath, this.opts.views.option))
     this.routes = []
+
+    if (this.opts.debug === true) {
+      console.log(this.opts)
+    }
   }
 
   routerDir(dir) {
+    this.routerPath = resolve(this.opts.root, dir? dir :this.opts.automount.path)
     var requireDir = require('require-dir');
-    var controllers = requireDir( resolve(this.opts.root, dir), {recurse: true});
+    var controllers = requireDir(this.routerPath, this.opts.automount.option);
     
     for(let i in controllers) {
       if (controllers[i].path) this.router(controllers[i])      
@@ -51,7 +61,7 @@ class Slet {
       // 注意.ctrl && ctrl
       // file.exists
       let file = resolve(this.opts.root, controller)
-      console.log(file)
+      // console.log(file) 
       Controller =  require(file)
     }
 
@@ -70,7 +80,7 @@ class Slet {
       if(mockCtx instanceof ViewController) {
         t = 'View'
       }
-      console.log(m)
+
       this.routes.push({
         path: path, 
         class: controller,
