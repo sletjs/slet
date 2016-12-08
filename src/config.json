@@ -2,7 +2,7 @@
     "debug": false,
 
     "views" :{
-        "path" : "views",
+        "path" : ".",
         "option": { "map": {"html": "nunjucks" }}
     },
     "automount": {

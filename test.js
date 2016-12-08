@@ -1,21 +1,6 @@
 'use strict'
 
-class T {
-    a() {
-        
-    }
 
-    b() {
+var compose = require('koa-compose')
 
-    }
-
-    constructor(aa){
-        this.c = 1
-    }
-}
-
-class D extends T {
-
-}
-
-console.log( D)
+console.log(a)

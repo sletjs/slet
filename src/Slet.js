@@ -1,4 +1,5 @@
 'use strict';
+var debug = require('debug')('slet')
 
 const fs = require('fs')
 const resolve = require('path').resolve
@@ -8,6 +9,7 @@ const slice = Array.prototype.slice;
 const router = require('koa-router')();
 const views = require('koa-views');
 const bodyParser = require('koa-bodyparser');
+const compose = require('koa-compose')
 
 // local
 const ApiController = require('./controller/ApiController')
@@ -22,17 +24,22 @@ class Slet {
 
     //
     this.app =  new Koa();
-    this.app.use(bodyParser());
-    this.app.use(views(this.viewPath, this.opts.views.option))
     this.routes = []
+    this.middlewares = {}
 
     if (this.opts.debug === true) {
       console.log(this.opts)
     }
 
     this.routerDir(this.opts.automount.path)
+    this.initMiddleware()
   }
-
+  
+  initMiddleware() {
+    this.middlewares['koa-bodyparser'] = bodyParser()
+    this.middlewares['koa-views'] = views(this.viewPath, this.opts.views.option)
+  }
+  
   routerDir(dir) {
     this.routerPath = resolve(this.opts.root, dir)
 
@@ -50,6 +57,7 @@ class Slet {
   }
 
   router() {
+    let self = this
     let path, controller
 
     if (arguments.length == 1) {
@@ -77,8 +85,8 @@ class Slet {
       path = Controller.path
     }
     
+    var mockCtx = new Controller({}, function(){})
     if (this.opts.debug) {
-      var mockCtx = new Controller({}, function(){})
       var m = this._avaiableMethods(mockCtx)
       let t
       if(mockCtx instanceof ApiController) {
@@ -93,13 +101,29 @@ class Slet {
         path: path, 
         class: controller,
         avaiableMethods: m,
-        type: t
+        type: t,
+        middlewares: mockCtx.middlewares
       })
     }
-    router.all(path, function (ctx, next) {
+    
+    var _middlewares  =  []
+    
+    for (var i in mockCtx.middlewares) {
+      _middlewares.push(self.middlewares[mockCtx.middlewares[i]])
+    }
+    
+    if (mockCtx.get_filter) {
+      for (var i in mockCtx.get_filter) {
+        _middlewares.push(mockCtx.get_filter[i])
+      }
+    }
+    
+    router.all(path, compose(_middlewares), function (ctx, next) {
       console.log(ctx.request.method)
       console.log(ctx.request.path)
       var ctrl = new Controller(ctx, next)
+      
+      debug(_middlewares)
       
       if(ctrl instanceof ApiController) {
         return ctx.body = ctrl[ctx.request.method.toLowerCase()].apply(ctrl, slice.call(arguments, 1));

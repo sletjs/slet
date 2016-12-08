@@ -5,5 +5,7 @@ module.exports = class ApiController {
     this.ctx = ctx;
     this.query = ctx.query
     this.next = next; 
+    
+    this.middlewares = ['koa-bodyparser', 'koa-views']
   }
 }

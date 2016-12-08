@@ -7,6 +7,8 @@ module.exports = class ViewController {
     this.next = next
     this.tpl = ''
     this.data = {}
+    
+    this.middlewares = ['koa-bodyparser', 'koa-views']
   }
 }
   

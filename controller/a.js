@@ -5,9 +5,18 @@ const ApiController = require('..').Api
 class PathController extends ApiController {
   constructor(ctx, next) {
     super(ctx, next)
+    
+    this.get_filter = [this.log]
   }
   
-  get() { 
+  log(ctx, next){
+    console.log('before')
+    return next().then(function(){
+      console.log('after')
+    })
+  }
+
+  get() {
     var a = this.query.a
     
     return {
