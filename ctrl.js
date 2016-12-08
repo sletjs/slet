@@ -1,6 +1,6 @@
 'use strict';
 
-const ApiController = require('./ApiController')
+const ApiController = require('.').Api
 
 module.exports = class MainController extends ApiController {
   constructor(ctx, next) {

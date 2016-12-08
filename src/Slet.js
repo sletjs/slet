@@ -7,17 +7,21 @@ var slice = Array.prototype.slice;
 const app = new Koa();
 
 var router = require('koa-router')();
+var views = require('koa-views');
+var bodyParser = require('koa-bodyparser');
 
-const ApiController = require('./ApiController')
-const ViewController = require('./ViewController')
+const ApiController = require('./controller/ApiController')
+const ViewController = require('./controller/ViewController')
 
-module.exports = class Moa {
-  constructor(ctx, next) {
+class Slet {
+  constructor(opts) {
     this.app =  new Koa();
+    this.app.use(bodyParser());
+    this.app.use(views(opts.root, { map: {html: 'nunjucks' }}))
   }
   
   router(path, controller) {
-    var Controller =  controller
+    var Controller = controller
     if (typeof controller === 'string') {
       // 注意.ctrl && ctrl
       // file.exists
@@ -57,3 +61,8 @@ module.exports = class Moa {
       this.app.listen(port)
   }
 }
+
+Slet.Api = ApiController
+Slet.View = ViewController
+
+module.exports = Slet 

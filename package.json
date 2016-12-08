@@ -1,5 +1,5 @@
 {
-  "name": "servless",
+  "name": "slet",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/i5ting/servless.git"
+    "url": "git+https://github.com/i5ting/slet.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/i5ting/servless/issues"
+    "url": "https://github.com/i5ting/slet/issues"
   },
-  "homepage": "https://github.com/i5ting/servless#readme",
+  "homepage": "https://github.com/i5ting/slet#readme",
   "dependencies": {
     "koa": "next",
     "koa-bodyparser": "next",
