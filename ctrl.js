@@ -1,16 +1,16 @@
 'use strict';
 
-module.exports = class MainController {
+const ApiController = require('./ApiController')
+
+module.exports = class MainController extends ApiController {
   constructor(ctx, next) {
-    this.ctx = ctx;
-    this.query = ctx.query
-    this.next = next; 
+    super(ctx, next)
   }
   
   get() { 
     var a = this.query.a
     
-    this.ctx.body =  {
+    return {
       a:1,
       b: a
     }

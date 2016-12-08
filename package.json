@@ -19,9 +19,11 @@
   "homepage": "https://github.com/i5ting/servless#readme",
   "dependencies": {
     "koa": "next",
+    "koa-bodyparser": "next",
     "koa-router": "next",
     "koa-views": "next",
     "methods": "^1.1.2",
+    "nunjucks": "^3.0.0",
     "v7": "^1.0.1"
   }
 }
