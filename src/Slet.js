@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs')
 const resolve = require('path').resolve
 const Koa = require('koa');
 const methods = require('methods');
@@ -29,10 +30,18 @@ class Slet {
     if (this.opts.debug === true) {
       console.log(this.opts)
     }
+
+    this.routerDir(this.opts.automount.path)
   }
 
   routerDir(dir) {
-    this.routerPath = resolve(this.opts.root, dir? dir :this.opts.automount.path)
+    this.routerPath = resolve(this.opts.root, dir)
+
+    if (fs.existsSync(this.routerPath) === false) {
+      console.log('router path is not exists: ' + this.routerPath)
+      return;
+    }
+
     var requireDir = require('require-dir');
     var controllers = requireDir(this.routerPath, this.opts.automount.option);
     
