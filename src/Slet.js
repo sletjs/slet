@@ -109,7 +109,7 @@ class Slet {
         class: controller,
         avaiableMethods: avaiableMethods,
         type: t,
-        middlewares: mockCtx.middlewares
+        global_filter: mockCtx.global_filter
       })
     }
 
@@ -135,8 +135,8 @@ class Slet {
           
       var _middlewares  =  []
       
-      for (var i in ctrl.middlewares) {
-        _middlewares.push(self.middlewares[mockCtx.middlewares[i]])
+      for (var i in ctrl.global_filter) {
+        _middlewares.push(self.middlewares[ctrl.global_filter[i]])
       }      
 
       console.dir(_middlewares)
@@ -150,11 +150,11 @@ class Slet {
       
       _middlewares.push(function last(ctx, next) {
         let arg = slice.call(arguments, 1)
-        
+
         // alias this.xxx
         ctrl = require('./alias')(ctrl, ctx)
 
-        if(ctrl instanceof ApiController) {
+        if(ctrl instanceof ApiController) { 
           return ctx.body = ctrl[verb].apply(ctrl, arg);
         }
         

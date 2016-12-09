@@ -86,6 +86,19 @@ app.routerDir('app/controller' )
 
 ## Filter
 
+### 分类
+
+- global_filter 从全局的middlewares里按照名字取，一般定义在base类里，如果需要子类也可以重写
+  - 示例this.global_filter = ['koa-bodyparser', 'koa-views']
+- {verb}_filter 是特定请求verb之的拦截器，仅限于当前verb
+  - 示例this.get_filter = [this.log]
+
+### 加载顺序
+
+> global_filter > {verb}_filter > {verb}()
+
+### {verb}_filter说明
+
 在构造函数里指定filter，所谓的filter即Koa 2.x的中间件，规则是verb + '_filter'
 
 举例：
@@ -94,7 +107,6 @@ app.routerDir('app/controller' )
 - this.post_filter = []
 
 此filter是请求发起之后才生效，所以测试请发起http请求。
-
 
 ```
 'use strict';

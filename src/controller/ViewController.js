@@ -8,7 +8,7 @@ module.exports = class ViewController {
     this.tpl = ''
     this.data = {}
     
-    this.middlewares = ['koa-bodyparser', 'koa-views']
+    this.global_filter = ['koa-bodyparser', 'koa-views']
   }
 }
   

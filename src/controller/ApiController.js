@@ -6,6 +6,6 @@ module.exports = class ApiController {
     this.query = ctx.query
     this.next = next
 
-    this.middlewares = ['koa-bodyparser', 'koa-views']
+    this.global_filter = ['koa-bodyparser', 'koa-views']
   }
 }
