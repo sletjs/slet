@@ -15,6 +15,10 @@ Extention
 - uploadCdn
 
 
+## TODO
+
+- [ ] defineMiddleware从配置里读取
+
 ## Controller
 
 - 分类
@@ -57,7 +61,7 @@ pathctrl代码
 ```
 'use strict';
 
-const ApiController = require('..').Api
+const ApiController = require('..').Base
 
 class PathController extends ApiController {
   constructor(ctx, next) {
@@ -113,7 +117,7 @@ app.routerDir('app/controller' )
 
 ###  global_filter说明
 
-通过app.defineMiddleware()方法定义custom_filter
+通过app.defineMiddleware()方法定义custom_filter（也可以写到配置里，稍后实现）
 
 ```
 app.defineMiddleware('custom_filter', function(ctx, next){
@@ -127,7 +131,7 @@ app.defineMiddleware('custom_filter', function(ctx, next){
 然后在对应的类中
 
 ```
-class PathController extends ApiController {
+class PathController extends BaseController {
   constructor(ctx, next) {
     super(ctx, next)
     
@@ -157,7 +161,7 @@ class PathController extends ApiController {
 ```
 'use strict';
 
-const ApiController = require('..').Api
+const ApiController = require('..').Base
 
 class PathController extends ApiController {
   constructor(ctx, next) {
@@ -174,15 +178,6 @@ class PathController extends ApiController {
   }
 
   get() {
-    var a = this.query.a
-    console.log(a)
-    return {
-      dddd:1,
-      b: a
-    }
-  } 
-  
-  post() {
     var a = this.query.a
     console.log(a)
     return {
@@ -213,12 +208,14 @@ module.exports = PathController
 ## Config
 
 
-## 插件
+## 插件Extention
 
 - db
 - session
 - upload
 - uploadCdn
+
+通过filter方式，实现扩展。所有的扩展都是Koa 2.x标准中间件，可以更好的复用已有的中间件
 
 ## 可视化
 
