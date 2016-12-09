@@ -18,7 +18,16 @@ class PathController extends ApiController {
 
   get() {
     var a = this.query.a
-    
+    console.log(a)
+    return {
+      dddd:1,
+      b: a
+    }
+  } 
+  
+  post() {
+    var a = this.query.a
+    console.log(a)
     return {
       dddd:1,
       b: a

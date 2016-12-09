@@ -86,8 +86,15 @@ class Slet {
     }
     
     var mockCtx = new Controller({}, function(){})
+    var avaiableMethods = this._avaiableMethods(mockCtx)
+
+    var _middlewares  =  []
+    
+    for (var i in mockCtx.middlewares) {
+      _middlewares.push(self.middlewares[mockCtx.middlewares[i]])
+    }
+    
     if (this.opts.debug) {
-      var m = this._avaiableMethods(mockCtx)
       let t
       if(mockCtx instanceof ApiController) {
         t = 'Api'
@@ -100,48 +107,59 @@ class Slet {
       this.routes.push({
         path: path, 
         class: controller,
-        avaiableMethods: m,
+        avaiableMethods: avaiableMethods,
         type: t,
         middlewares: mockCtx.middlewares
       })
     }
-    
-    var _middlewares  =  []
-    
-    for (var i in mockCtx.middlewares) {
-      _middlewares.push(self.middlewares[mockCtx.middlewares[i]])
-    }
-    
-    if (mockCtx.get_filter) {
-      for (var i in mockCtx.get_filter) {
-        _middlewares.push(mockCtx.get_filter[i])
-      }
-    }
-    
+
     router.all(path, compose(_middlewares), function (ctx, next) {
+      let verb = ctx.request.method.toLowerCase();
+      var ctrl = new Controller(ctx, next)
       console.log(ctx.request.method)
       console.log(ctx.request.path)
-      var ctrl = new Controller(ctx, next)
-      
+
+      var match = avaiableMethods.find(function(n){
+        return n === verb
+      })
+      if (!match) {
+        return ctx.body = {
+          code: 1,
+          msg : {
+            "text": path + " " + verb + ' not impl',
+            "controller": (Controller + "").split(' extends')[0]
+          }
+        }
+      }
+      console.log(match)
+
       debug(_middlewares)
       
-      if(ctrl instanceof ApiController) {
-        return ctx.body = ctrl[ctx.request.method.toLowerCase()].apply(ctrl, slice.call(arguments, 1));
-      }
       
-      if(ctrl instanceof ViewController) {
-        var result = ctrl[ctx.request.method.toLowerCase()].apply(ctrl, slice.call(arguments, 1));
 
-        var obj = {
-          data: ctrl.data,
-          tpl: ctrl.tpl
+      let filter = ctrl[verb + '_filter']||[]
+
+      filter.push(function(ctx, next) {
+        if(ctrl instanceof ApiController) {
+          return ctx.body = ctrl[verb].apply(ctrl, slice.call(arguments, 1));
         }
-        Object.assign(obj, result);
+        
+        if(ctrl instanceof ViewController) {
+          var result = ctrl[verb].apply(ctrl, slice.call(arguments, 1));
 
-        return ctx.render(obj.tpl, obj.data) 
-      }
+          var obj = {
+            data: ctrl.data,
+            tpl: ctrl.tpl
+          }
+          Object.assign(obj, result);
 
-      return ctx.body = "ctrl instanceof Controller error"
+          return ctx.render(obj.tpl, obj.data) 
+        }
+
+        return ctx.body = "ctrl instanceof Controller error"
+      })
+
+      return compose(filter)(ctx, next)
     });
   }
 
