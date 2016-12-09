@@ -48,7 +48,7 @@ class Slet {
     this.routerPath = resolve(this.opts.root, dir)
 
     if (fs.existsSync(this.routerPath) === false) {
-      console.log('router path is not exists: ' + this.routerPath)
+      if (this.opts.debug === true) console.log('router path is not exists: ' + this.routerPath)
       return;
     }
 
@@ -102,7 +102,9 @@ class Slet {
     // 如果static controller.path =xxx
     if (!path) {
       path = Controller.path
-    } else {
+    } 
+    
+    if (!path) {
       console.log("you must spec a path to controller")
     }
 
@@ -128,8 +130,8 @@ class Slet {
     router.all(path, function (ctx, next) {
       let verb = ctx.request.method.toLowerCase();
       var ctrl = new Controller(ctx, next)
-      console.log(ctx.request.method)
-      console.log(ctx.request.path)
+      debug(ctx.request.method)
+      debug(ctx.request.path)
 
       var match = avaiableMethods.find(function(n){
         return n === verb
@@ -151,14 +153,14 @@ class Slet {
         _middlewares.push(self.middlewares[ctrl.global_filter[i]])
       }      
 
-      console.dir(_middlewares)
+      debug(_middlewares)
 
       let filter = ctrl[verb + '_filter']||[]
       for (var i in filter) {
         _middlewares.push(filter[i])
       }
 
-      console.dir(_middlewares)
+      debug(_middlewares)
       
       _middlewares.push(function last(ctx, next) {
         let arg = slice.call(arguments, 1)
@@ -185,7 +187,7 @@ class Slet {
         return ctx.body = "ctrl instanceof Controller error"
       })
 
-      console.dir(_middlewares)
+      debug(_middlewares)
 
       return compose(_middlewares)(ctx, next)
     });

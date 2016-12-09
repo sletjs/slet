@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/ava -v test"
+    "test": "./node_modules/.bin/ava -v test -w"
   },
   "repository": {
     "type": "git",
