@@ -123,6 +123,7 @@ class Slet {
         return n === verb
       })
       if (!match) {
+        console.log(path + ' ' + (Controller + "").split(' extends')[0] + " #" + verb + '() not impl')
         return ctx.body = {
           code: 1,
           msg : {
@@ -131,8 +132,7 @@ class Slet {
           }
         }
       }
-      console.log(match)
-
+    
       debug(_middlewares)
       
       
