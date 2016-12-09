@@ -7,12 +7,12 @@ const fs = require('fs')
 fs.writeFileSync( process.cwd() + '/get_filter.log', "")
 
 exec('node ' + __dirname + '/fixtures/app > ' + process.cwd() + '/get_filter.log', (err, stdout, stderr) => {
-  if (err) {
-    console.log(err);
-  }
+  // if (err) {
+  //   console.log(err);
+  // }
 
-  console.log(stdout);
-  console.log(stderr);
+  // console.log(stdout);
+  // console.log(stderr);
 });
 
 test.cb('GET　use this.log before 1 after', t => {

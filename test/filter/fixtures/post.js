@@ -8,7 +8,7 @@ class PathController extends Base {
     
     this.path = '/c'
     // this.global_filter.push('custom_filter')
-    this.get_filter = [this.log]
+    this.post_filter = [this.log]
   }
   
   log(ctx, next){
@@ -18,14 +18,16 @@ class PathController extends Base {
     })
   }
 
-  get() {
-    var a = this.query.a
+  post() {
+    var a = this.pp.a
     console.log(a)
     setTimeout(function(){
        process.exit(0)
     }, 100)
-
-    return {a:1}
+    
+    return {
+      dddd:1
+    }
   } 
 }
 

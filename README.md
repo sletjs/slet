@@ -106,6 +106,8 @@ app.routerDir('app/controller' )
 
 此种情况会默认加载某个目录下的controller，请确保你的controller里有path，无论是属性，还是static属性方式都行。
 
+已测
+
 ## Filter
 
 ### 分类

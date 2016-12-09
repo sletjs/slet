@@ -4,7 +4,7 @@ const app = new Slet({
     debug: false
 });
 
-app.start(6000)
+app.start(6001)
 
 // support file path or Controller
-app.router('./get') 
+app.router('./post')  
