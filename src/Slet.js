@@ -15,6 +15,8 @@ const compose = require('koa-compose')
 const BaseController = require('./controller/BaseController')
 const ViewController = require('./controller/ViewController')
 const defaultConfig = require('./config')
+const _ctx = require('./mockCtx')
+const _next = function(){}
 
 class Slet {
   constructor(opts) {
@@ -56,7 +58,12 @@ class Slet {
     var controllers = requireDir(this.routerPath, this.opts.automount.option);
     
     for(let i in controllers) {
-      if (controllers[i].path) this.router(controllers[i])      
+      let Controller = controllers[i]
+      let mockCtx = new Controller(_ctx, _next)
+      // 兼容static.path
+      if (Controller.path) this.router(Controller)
+      // 兼容object.path 
+      if (mockCtx.path) this.router(Controller)   
     }
   }
 
@@ -85,13 +92,7 @@ class Slet {
       Controller =  require(file)
     }
     
-    var mockCtx = new Controller({
-      request:{
-        body: {
-
-        }
-      }
-    }, function(){})
+    var mockCtx = new Controller(_ctx, _next)
     var avaiableMethods = this._avaiableMethods(mockCtx)
 
     // 如果attr controller this.path =xxx

@@ -44,6 +44,8 @@ or
 app.router('/', './ctrl')  
 ```
 
+已测
+
 ### 第二种，将path写到controller里
 
 ```
@@ -55,6 +57,8 @@ or
 ```
 app.router('./pathctrl')  
 ```
+
+已测
 
 pathctrl代码
 
