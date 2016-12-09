@@ -12,7 +12,7 @@ const bodyParser = require('koa-bodyparser');
 const compose = require('koa-compose')
 
 // local
-const ApiController = require('./controller/ApiController')
+const BaseController = require('./controller/BaseController')
 const ViewController = require('./controller/ViewController')
 const defaultConfig = require('./config')
 
@@ -108,7 +108,7 @@ class Slet {
 
     if (this.opts.debug) {
       let t
-      if(mockCtx instanceof ApiController) {
+      if(mockCtx instanceof BaseController) {
         t = 'Api'
       }
       
@@ -166,7 +166,7 @@ class Slet {
         // alias this.xxx
         ctrl = require('./alias')(ctrl, ctx)
 
-        if(ctrl instanceof ApiController) { 
+        if(ctrl instanceof BaseController) { 
           return ctx.body = ctrl[verb].apply(ctrl, arg);
         }
         
@@ -220,7 +220,7 @@ class Slet {
   }
 }
 
-Slet.Api = ApiController
+Slet.Base = BaseController
 Slet.View = ViewController
 
 module.exports = Slet 
