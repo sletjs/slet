@@ -19,6 +19,13 @@ const app = new Slet({
 
 // app.routerDir('controller') 
 
+app.defineMiddleware('custom_filter', function(ctx, next){
+    console.log('a before')
+    return next().then(function(){
+      console.log('a after')
+    })    
+})
+
  app.router('/d', './controller/a') 
 
 

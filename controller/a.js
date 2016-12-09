@@ -7,7 +7,7 @@ class PathController extends ApiController {
     super(ctx, next)
     
     this.path = '/c'
-    // this.middlewares = []
+    this.global_filter.push('custom_filter')
     this.get_filter = [this.log]
   }
   

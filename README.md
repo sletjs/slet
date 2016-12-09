@@ -86,7 +86,7 @@ module.exports = PathController
 
 亦即
 
-> '/d' > '/c' > '/b'
+> '/d' > '/c' > '/b
 
 
 第三种，指定路径加载
@@ -107,6 +107,38 @@ app.routerDir('app/controller' )
 ### 加载顺序
 
 > global_filter（父类默认继承） > {verb}_filter （当前文件） > {verb}() （当前文件）
+
+###  global_filter说明
+
+通过app.defineMiddleware()方法定义custom_filter
+
+```
+app.defineMiddleware('custom_filter', function(ctx, next){
+    console.log('a before')
+    return next().then(function(){
+      console.log('a after')
+    })    
+})
+```
+
+然后在对应的类中
+
+```
+class PathController extends ApiController {
+  constructor(ctx, next) {
+    super(ctx, next)
+    
+    this.path = '/c'
+    this.global_filter.push('custom_filter')
+  }
+
+  ...
+}
+```
+
+至此，完成了自定义global filter功能。
+
+其实this.global_filter是数组，如果想调整顺序也可以的。
 
 ### {verb}_filter说明
 

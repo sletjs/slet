@@ -32,14 +32,18 @@ class Slet {
     }
 
     this.routerDir(this.opts.automount.path)
-    this.initMiddleware()
+    this._initMiddleware()
   }
   
-  initMiddleware() {
+  _initMiddleware() {
     this.middlewares['koa-bodyparser'] = bodyParser()
     this.middlewares['koa-views'] = views(this.viewPath, this.opts.views.option)
   }
   
+  defineMiddleware(name, fn) {
+    this.middlewares[name] = fn
+  }
+
   routerDir(dir) {
     this.routerPath = resolve(this.opts.root, dir)
 
