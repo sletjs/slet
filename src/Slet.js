@@ -64,7 +64,7 @@ class Slet {
       if (Controller.path) this.router(Controller)
       // 兼容object.path 
       else if (mockCtx.path) this.router(Controller)  
-
+      // warn log
       else console.warn('[WARNING] routerDir at ' + this.routerPath + ' no path config in ' + Controller) 
     }
   }
