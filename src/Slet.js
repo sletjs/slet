@@ -63,7 +63,9 @@ class Slet {
       // 兼容static.path
       if (Controller.path) this.router(Controller)
       // 兼容object.path 
-      if (mockCtx.path) this.router(Controller)   
+      else if (mockCtx.path) this.router(Controller)  
+
+      else console.warn('[WARNING] routerDir at ' + this.routerPath + ' no path config in ' + Controller) 
     }
   }
 
@@ -99,7 +101,7 @@ class Slet {
     if (!path && mockCtx.path) {
       path = mockCtx.path
     }
-    
+
     // 如果static controller.path =xxx
     if (!path) {
       path = Controller.path

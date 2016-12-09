@@ -1,16 +1,13 @@
 import test from 'ava'
  
-// ### 第二种，将path写到controller里
+// ### 第三种，指定路径加载
 
 // ```
-// app.router(require('./pathctrl') )  
+// app.routerDir('app/controller' )  
 // ```
 
-// or
-
-// ```
-// app.router('./pathctrl')  
-// ```
+// 此种情况会默认加载某个目录下的controller，请确保你的controller里有path，无论是属性，还是static属性方式都行。
+// `
 
 const axios = require('axios')
 const Slet = require('../..');
@@ -23,7 +20,7 @@ app.start(4004)
 // support file path or Controller
 app.routerDir('./fixtures' )  
 
-test.cb('GET　http://127.0.0.1:4004/path/a?a=１', t => {
+test.cb('GET /path/a?a=１ static.path', t => {
   axios.get('http://127.0.0.1:4004/path/a?a=1')
   .then(function (response) {
     // console.log(response);
@@ -40,8 +37,7 @@ test.cb('GET　http://127.0.0.1:4004/path/a?a=１', t => {
   });
 })
 
-
-test.cb('GET http://127.0.0.1:4004/path/a?a=2', t => {
+test.cb('GET /path/a?a=2 static.path', t => {
   axios.get('http://127.0.0.1:4004/path/a?a=2')
   .then(function (response) {
     // console.log(response.data);
@@ -59,7 +55,7 @@ test.cb('GET http://127.0.0.1:4004/path/a?a=2', t => {
 })
 
 
-test.cb('GET　http://127.0.0.1:4004/path/this?a=１', t => {
+test.cb('GET /path/this?a=１object.path', t => {
   axios.get('http://127.0.0.1:4004/path/this?a=1')
   .then(function (response) {
     // console.log(response);
@@ -77,7 +73,7 @@ test.cb('GET　http://127.0.0.1:4004/path/this?a=１', t => {
 })
 
 
-test.cb('GET http://127.0.0.1:4004/path/this?a=2', t => {
+test.cb('GET /path/this?a=2 object.path', t => {
   axios.get('http://127.0.0.1:4004/path/this?a=2')
   .then(function (response) {
     // console.log(response.data);
