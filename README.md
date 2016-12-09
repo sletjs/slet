@@ -159,8 +159,8 @@ class PathController extends BaseController {
 
 举例：
 
-- this.get_filter = []
-- this.post_filter = []
+- this.get_filter = [] 已测
+- this.post_filter = [] 已测
 
 此filter是请求发起之后才生效，所以测试请发起http请求。
 
