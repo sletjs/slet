@@ -15,7 +15,7 @@ const compose = require('koa-compose')
 const BaseController = require('./controller/BaseController')
 const ViewController = require('./controller/ViewController')
 const defaultConfig = require('./config')
-const _ctx = require('./mockCtx')
+const _ctx = defaultConfig.mockCtx
 const _next = function(){}
 
 class Slet {
