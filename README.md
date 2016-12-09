@@ -15,6 +15,10 @@ Extention
 - uploadCdn
 
 
+## TODO
+
+- [ ] defineMiddleware从配置里读取
+
 ## Controller
 
 - 分类
@@ -27,7 +31,8 @@ Extention
 
 ## Router
 
-第一种，暴露path和controller（controller内部不需要path）
+### 第一种，暴露path和controller
+（controller内部不需要path）
 
 ```
 app.router('/', require('./ctrl') )  
@@ -39,7 +44,9 @@ or
 app.router('/', './ctrl')  
 ```
 
-第二种，将path写到controller里
+已测
+
+### 第二种，将path写到controller里
 
 ```
 app.router(require('./pathctrl') )  
@@ -51,12 +58,14 @@ or
 app.router('./pathctrl')  
 ```
 
+已测
+
 pathctrl代码
 
 ```
 'use strict';
 
-const ApiController = require('..').Api
+const ApiController = require('..').Base
 
 class PathController extends ApiController {
   constructor(ctx, next) {
@@ -89,11 +98,15 @@ module.exports = PathController
 > '/d' > '/c' > '/b
 
 
-第三种，指定路径加载
+### 第三种，指定路径加载
 
 ```
 app.routerDir('app/controller' )  
 ```
+
+此种情况会默认加载某个目录下的controller，请确保你的controller里有path，无论是属性，还是static属性方式都行。
+
+已测
 
 ## Filter
 
@@ -110,7 +123,7 @@ app.routerDir('app/controller' )
 
 ###  global_filter说明
 
-通过app.defineMiddleware()方法定义custom_filter
+通过app.defineMiddleware()方法定义custom_filter（也可以写到配置里，稍后实现）
 
 ```
 app.defineMiddleware('custom_filter', function(ctx, next){
@@ -124,7 +137,7 @@ app.defineMiddleware('custom_filter', function(ctx, next){
 然后在对应的类中
 
 ```
-class PathController extends ApiController {
+class PathController extends BaseController {
   constructor(ctx, next) {
     super(ctx, next)
     
@@ -146,15 +159,15 @@ class PathController extends ApiController {
 
 举例：
 
-- this.get_filter = []
-- this.post_filter = []
+- this.get_filter = [] 已测
+- this.post_filter = [] 已测
 
 此filter是请求发起之后才生效，所以测试请发起http请求。
 
 ```
 'use strict';
 
-const ApiController = require('..').Api
+const ApiController = require('..').Base
 
 class PathController extends ApiController {
   constructor(ctx, next) {
@@ -171,15 +184,6 @@ class PathController extends ApiController {
   }
 
   get() {
-    var a = this.query.a
-    console.log(a)
-    return {
-      dddd:1,
-      b: a
-    }
-  } 
-  
-  post() {
     var a = this.query.a
     console.log(a)
     return {
@@ -210,12 +214,14 @@ module.exports = PathController
 ## Config
 
 
-## 插件
+## 插件Extention
 
 - db
 - session
 - upload
 - uploadCdn
+
+通过filter方式，实现扩展。所有的扩展都是Koa 2.x标准中间件，可以更好的复用已有的中间件
 
 ## 可视化
 

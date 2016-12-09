@@ -1,6 +1,13 @@
 'use strict'
 
 
-var compose = require('koa-compose')
+var A = require('./test/router/fixtures/thispath')
+var a = new A({
+      request:{
+        body: {
 
-console.log(a)
+        }
+      }
+    }, function(){})
+
+console.log(a.path)

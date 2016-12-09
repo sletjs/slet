@@ -6,25 +6,25 @@ const app = new Slet({
     debug: true
 });
 
-app.defineMiddleware('custom_filter', function(ctx, next){
-    console.log('a before')
-    return next().then(function(){
-      console.log('a after')
-    })    
-})
+// app.defineMiddleware('custom_filter', function(ctx, next){
+//     console.log('a before')
+//     return next().then(function(){
+//       console.log('a after')
+//     })    
+// })
 
-// support file path or Controller
-app.router('/', './ctrl' )  
+// // support file path or Controller
+// app.router('/', './ctrl' )  
 
-app.router('/', require('./ctrl') )  
+// app.router('/', require('./ctrl') )  
 
-app.router('/2', require('./viewctrl') )  
+// app.router('/2', require('./viewctrl') )  
 
-app.router(require('./pathctrl') )  
+// app.router(require('./pathctrl') )  
 
-app.router('./pathctrl') 
+// app.router('./pathctrl') 
 
-app.routerDir('controller') 
+app.routerDir('test/router/fixtures') 
 
 
 //  app.router('/d', './controller/a') 

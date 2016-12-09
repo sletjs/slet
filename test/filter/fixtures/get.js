@@ -1,13 +1,13 @@
 'use strict';
 
-const Base = require('..').Base
+const Base = require('../../../').Base
 
 class PathController extends Base {
   constructor(ctx, next) {
     super(ctx, next)
     
     this.path = '/c'
-    this.global_filter.push('custom_filter')
+    // this.global_filter.push('custom_filter')
     this.get_filter = [this.log]
   }
   
@@ -21,21 +21,12 @@ class PathController extends Base {
   get() {
     var a = this.query.a
     console.log(a)
-    return {
-      dddd:1,
-      b: a
-    }
-  } 
-  
-  post() {
-    var a = this.pp.a
-    console.log(a)
-    return {
-      dddd:1
-    }
+    setTimeout(function(){
+       process.exit(0)
+    }, 100)
+
+    return {a:1}
   } 
 }
-
-PathController.path = '/b'
 
 module.exports = PathController

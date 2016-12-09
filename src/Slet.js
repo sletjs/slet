@@ -15,6 +15,8 @@ const compose = require('koa-compose')
 const BaseController = require('./controller/BaseController')
 const ViewController = require('./controller/ViewController')
 const defaultConfig = require('./config')
+const _ctx = defaultConfig.mockCtx
+const _next = function(){}
 
 class Slet {
   constructor(opts) {
@@ -48,7 +50,7 @@ class Slet {
     this.routerPath = resolve(this.opts.root, dir)
 
     if (fs.existsSync(this.routerPath) === false) {
-      console.log('router path is not exists: ' + this.routerPath)
+      if (this.opts.debug === true) console.log('router path is not exists: ' + this.routerPath)
       return;
     }
 
@@ -56,7 +58,14 @@ class Slet {
     var controllers = requireDir(this.routerPath, this.opts.automount.option);
     
     for(let i in controllers) {
-      if (controllers[i].path) this.router(controllers[i])      
+      let Controller = controllers[i]
+      let mockCtx = new Controller(_ctx, _next)
+      // 兼容static.path
+      if (Controller.path) this.router(Controller)
+      // 兼容object.path 
+      else if (mockCtx.path) this.router(Controller)  
+      // warn log
+      else console.warn('[WARNING] routerDir at ' + this.routerPath + ' no path config in ' + Controller) 
     }
   }
 
@@ -85,24 +94,20 @@ class Slet {
       Controller =  require(file)
     }
     
-    var mockCtx = new Controller({
-      request:{
-        body: {
-
-        }
-      }
-    }, function(){})
+    var mockCtx = new Controller(_ctx, _next)
     var avaiableMethods = this._avaiableMethods(mockCtx)
 
     // 如果attr controller this.path =xxx
     if (!path && mockCtx.path) {
       path = mockCtx.path
     }
-    
+
     // 如果static controller.path =xxx
     if (!path) {
       path = Controller.path
-    } else {
+    } 
+    
+    if (!path) {
       console.log("you must spec a path to controller")
     }
 
@@ -128,8 +133,8 @@ class Slet {
     router.all(path, function (ctx, next) {
       let verb = ctx.request.method.toLowerCase();
       var ctrl = new Controller(ctx, next)
-      console.log(ctx.request.method)
-      console.log(ctx.request.path)
+      debug(ctx.request.method)
+      debug(ctx.request.path)
 
       var match = avaiableMethods.find(function(n){
         return n === verb
@@ -151,14 +156,14 @@ class Slet {
         _middlewares.push(self.middlewares[ctrl.global_filter[i]])
       }      
 
-      console.dir(_middlewares)
+      debug(_middlewares)
 
       let filter = ctrl[verb + '_filter']||[]
       for (var i in filter) {
         _middlewares.push(filter[i])
       }
 
-      console.dir(_middlewares)
+      debug(_middlewares)
       
       _middlewares.push(function last(ctx, next) {
         let arg = slice.call(arguments, 1)
@@ -185,7 +190,7 @@ class Slet {
         return ctx.body = "ctrl instanceof Controller error"
       })
 
-      console.dir(_middlewares)
+      debug(_middlewares)
 
       return compose(_middlewares)(ctx, next)
     });

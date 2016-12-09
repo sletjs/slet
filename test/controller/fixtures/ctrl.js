@@ -1,6 +1,6 @@
 'use strict';
 
-const ApiController = require('.').Base
+const ApiController = require('../../../').Base
 
 module.exports = class MainController extends ApiController {
   constructor(ctx, next) {
