@@ -27,7 +27,8 @@ Extention
 
 ## Router
 
-第一种，暴露path和controller（controller内部不需要path）
+### 第一种，暴露path和controller
+（controller内部不需要path）
 
 ```
 app.router('/', require('./ctrl') )  
@@ -39,7 +40,7 @@ or
 app.router('/', './ctrl')  
 ```
 
-第二种，将path写到controller里
+### 第二种，将path写到controller里
 
 ```
 app.router(require('./pathctrl') )  
@@ -89,11 +90,13 @@ module.exports = PathController
 > '/d' > '/c' > '/b
 
 
-第三种，指定路径加载
+### 第三种，指定路径加载
 
 ```
 app.routerDir('app/controller' )  
 ```
+
+此种情况会默认加载某个目录下的controller，请确保你的controller里有path，无论是属性，还是static属性方式都行。
 
 ## Filter
 
