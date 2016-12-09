@@ -9,13 +9,13 @@ const app = new Slet({
 // support file path or Controller
 //app.router('/', './ctrl' )  
 
-app.router('/', require('./ctrl') )  
+// app.router('/', require('./ctrl') )  
 
-app.router('/2', require('./viewctrl') )  
+// app.router('/2', require('./viewctrl') )  
 
-// app.router(require('./pathctrl') )  
+// // app.router(require('./pathctrl') )  
 
-app.router('./pathctrl') 
+// app.router('./pathctrl') 
 
 app.routerDir('controller') 
 

@@ -141,7 +141,7 @@ module.exports = PathController
 
 这里log即Koa 2.x中间件经典写法
 
-```
+``` 
  log(ctx, next){
     console.log('before')
     return next().then(function(){

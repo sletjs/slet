@@ -85,14 +85,14 @@ class Slet {
       path = Controller.path
     }
     
-    var mockCtx = new Controller({}, function(){})
-    var avaiableMethods = this._avaiableMethods(mockCtx)
+    var mockCtx = new Controller({
+      request:{
+        body: {
 
-    var _middlewares  =  []
-    
-    for (var i in mockCtx.middlewares) {
-      _middlewares.push(self.middlewares[mockCtx.middlewares[i]])
-    }
+        }
+      }
+    }, function(){})
+    var avaiableMethods = this._avaiableMethods(mockCtx)
     
     if (this.opts.debug) {
       let t
@@ -113,7 +113,7 @@ class Slet {
       })
     }
 
-    router.all(path, compose(_middlewares), function (ctx, next) {
+    router.all(path, function (ctx, next) {
       let verb = ctx.request.method.toLowerCase();
       var ctrl = new Controller(ctx, next)
       console.log(ctx.request.method)
@@ -132,20 +132,34 @@ class Slet {
           }
         }
       }
-    
-      debug(_middlewares)
+          
+      var _middlewares  =  []
       
-      
+      for (var i in ctrl.middlewares) {
+        _middlewares.push(self.middlewares[mockCtx.middlewares[i]])
+      }      
+
+      console.dir(_middlewares)
 
       let filter = ctrl[verb + '_filter']||[]
+      for (var i in filter) {
+        _middlewares.push(filter[i])
+      }
 
-      filter.push(function(ctx, next) {
+      console.dir(_middlewares)
+      
+      _middlewares.push(function last(ctx, next) {
+        let arg = slice.call(arguments, 1)
+        
+        // alias this.xxx
+        ctrl = require('./alias')(ctrl, ctx)
+
         if(ctrl instanceof ApiController) {
-          return ctx.body = ctrl[verb].apply(ctrl, slice.call(arguments, 1));
+          return ctx.body = ctrl[verb].apply(ctrl, arg);
         }
         
         if(ctrl instanceof ViewController) {
-          var result = ctrl[verb].apply(ctrl, slice.call(arguments, 1));
+          var result = ctrl[verb].apply(ctrl, arg);
 
           var obj = {
             data: ctrl.data,
@@ -159,7 +173,9 @@ class Slet {
         return ctx.body = "ctrl instanceof Controller error"
       })
 
-      return compose(filter)(ctx, next)
+      console.dir(_middlewares)
+
+      return compose(_middlewares)(ctx, next)
     });
   }
 
@@ -173,7 +189,7 @@ class Slet {
       var a = methods.find(function(n){
         return n === method
       })
-      re.push(a)
+      if (a) re.push(a)
     })
 
     return re

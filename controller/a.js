@@ -6,6 +6,8 @@ class PathController extends ApiController {
   constructor(ctx, next) {
     super(ctx, next)
     
+    
+    // this.middlewares = []
     this.get_filter = [this.log]
   }
   
@@ -26,11 +28,10 @@ class PathController extends ApiController {
   } 
   
   post() {
-    var a = this.query.a
+    var a = this.pp.a
     console.log(a)
     return {
-      dddd:1,
-      b: a
+      dddd:1
     }
   } 
 }
