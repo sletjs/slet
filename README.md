@@ -56,27 +56,38 @@ pathctrl代码
 ```
 'use strict';
 
-const ApiController = require('.').Api
+const ApiController = require('..').Api
 
 class PathController extends ApiController {
   constructor(ctx, next) {
     super(ctx, next)
+    
+    this.path = '/c'
   }
   
-  get() { 
+  get() {
     var a = this.query.a
-    
+    console.log(a)
     return {
-      a:1,
+      dddd:1,
       b: a
     }
   } 
 }
 
-PathController.path = '/path/a'
+PathController.path = '/b'
 
 module.exports = PathController
 ```
+
+优先级
+
+> app.router('/d', './controller/a')  >　this.path= '/ｃ' > Controller.path='/b'
+
+亦即
+
+> '/d' > '/c' > '/b'
+
 
 第三种，指定路径加载
 
@@ -95,7 +106,7 @@ app.routerDir('app/controller' )
 
 ### 加载顺序
 
-> global_filter > {verb}_filter > {verb}()
+> global_filter（父类默认继承） > {verb}_filter （当前文件） > {verb}() （当前文件）
 
 ### {verb}_filter说明
 

@@ -80,10 +80,6 @@ class Slet {
       // console.log(file) 
       Controller =  require(file)
     }
-
-    if (!path) {
-      path = Controller.path
-    }
     
     var mockCtx = new Controller({
       request:{
@@ -93,7 +89,19 @@ class Slet {
       }
     }, function(){})
     var avaiableMethods = this._avaiableMethods(mockCtx)
+
+    // 如果attr controller this.path =xxx
+    if (!path && mockCtx.path) {
+      path = mockCtx.path
+    }
     
+    // 如果static controller.path =xxx
+    if (!path) {
+      path = Controller.path
+    } else {
+      console.log("you must spec a path to controller")
+    }
+
     if (this.opts.debug) {
       let t
       if(mockCtx instanceof ApiController) {

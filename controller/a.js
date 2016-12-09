@@ -6,7 +6,7 @@ class PathController extends ApiController {
   constructor(ctx, next) {
     super(ctx, next)
     
-    
+    this.path = '/c'
     // this.middlewares = []
     this.get_filter = [this.log]
   }

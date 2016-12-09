@@ -17,7 +17,9 @@ const app = new Slet({
 
 // app.router('./pathctrl') 
 
-app.routerDir('controller') 
+// app.routerDir('controller') 
+
+ app.router('/d', './controller/a') 
 
 
 app.start() 
