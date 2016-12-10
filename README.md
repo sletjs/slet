@@ -10,7 +10,7 @@
 ## Features
 
 - Micro Kernel
-- Pluggable
+- Pluggable Controller
 - Build-in Router && Auto-mount Router
 - Convention over Configuration
 
