@@ -11,7 +11,7 @@
 
 - Micro Kernel
 - Pluggable
-- Build-in Router
+- Build-in Router && Auto-mount Router
 - Convention over Configuration
 
 ## Getting Start
