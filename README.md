@@ -81,6 +81,8 @@ $ node app.js
 - [example-basic](https://github.com/sletjs/example-basic)
 - [example-basic-autorouter](https://github.com/sletjs/example-basic-autorouter)
 - [example-view](https://github.com/sletjs/example-view)
+- [example-upload](https://github.com/sletjs/example-upload)
+- [example-upload-view](https://github.com/sletjs/example-upload-view)
 
 ## Controller
 
