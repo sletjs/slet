@@ -186,7 +186,12 @@ class Slet {
         // renderType: default | view
         // ctrl.render()
         if (ctrl.renderType === 'default') {
-          return ctx.body = ctrl.result
+          return new Promise(function(resolve, reject){
+            resolve(ctx.body = ctrl.result)
+          }).then(function(){
+            // after
+            ctrl.after()
+          })
         }
 
         if (ctrl.renderType === 'view') {

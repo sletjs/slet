@@ -5,11 +5,11 @@ const ViewController = require('.').ViewController
 module.exports = class MyController extends ViewController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
-  
   }
   
   get() { 
     var a = this.query.a
+    this.renderType='default'
     
     return {
       tpl: 'index',
