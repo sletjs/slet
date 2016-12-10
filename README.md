@@ -7,23 +7,62 @@
 [![codecov.io](https://codecov.io/github/sletjs/slet/coverage.svg?branch=master)](https://codecov.io/github/sletjs/slet?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+## Features
 
-## design
+- Micro Kernel
+- Pluggable
+- Build-in Router
+- Convention over Configuration
 
-Core
+## Getting Start
 
-- Controller
-- Router
-- View
-- Config
+从app.js开始
 
-Extention
+```
+'use strict';
 
-- db
-- session
-- upload
-- uploadCdn
+const Slet = require('./');
+const app = new Slet({
+    root: __dirname,
+    debug: true
+});
 
+app.router('/', require('./viewctrl') )  
+
+app.start(3000) 
+```
+
+然后编写viewctrl.js
+
+```
+'use strict';
+
+const ViewController = require('.').ViewController
+
+module.exports = class MyController extends ViewController {
+  constructor(app, ctx, next) {
+    super(app, ctx, next)
+  }
+  
+  get() { 
+    var a = this.query.a
+    // this.renderType='view'
+    return {
+      a: 'index',
+      b: {
+        c: 'ssddssdd a= ' + a
+      }
+    }
+  } 
+}
+
+```
+
+最后，执行app.js，启动server
+
+```
+$ node app.js
+```
 
 ## TODO
 
@@ -165,7 +204,7 @@ module.exports = class SomeController extends BasicController {
 }
 
 ```
-     
+
 ## Router
 
 ### 第一种，暴露path和controller
@@ -363,17 +402,32 @@ module.exports = PathController
 
 ## Config
 
+```
+{
+    "debug": false,
 
-## 插件Extention
+    "views" :{
+        "path" : ".",
+        "option": { "map": {"html": "nunjucks" }}
+    },
+    "automount": {
+        "path": "controllers",
+        "option": {
+            "recurse": true
+        }
+    },
 
-- db
-- session
-- upload
-- uploadCdn
+    "mockCtx": {
+        "request":{
+            "body": {
 
-通过filter方式，实现扩展。所有的扩展都是Koa 2.x标准中间件，可以更好的复用已有的中间件
+            }
+        }
+    }
+}
+```
 
-## 可视化
+## 可视化todo
 
 - 全局中间件
 - 创建Controller
@@ -394,23 +448,20 @@ module.exports = PathController
 继承view
   - 
 
-## 插件扩展
+## 扩展
 
-```
-'use strict';
+### controller扩展
 
-module.exports = class BaseController {
-  constructor(app, ctx, next) {
-    this.app = app
-    this.ctx = ctx
-    this.query = ctx.query
-    this.next = next
+- db
+- session
+- upload
+- uploadCdn
 
-    this.global_filter = ['koa-bodyparser']
-  }
-}
+每个都继承相应的Controller即可，最好是作为单独模块，发布到npm上。可以非常好的复用。
 
-```
+### filter扩展
+
+通过filter方式，实现扩展。所有的扩展都是Koa 2.x标准中间件，可以更好的复用已有的中间件
 
 
 ## 集成

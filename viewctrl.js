@@ -10,7 +10,6 @@ module.exports = class MyController extends ViewController {
   get() { 
     var a = this.query.a
     // this.renderType='view'
-    
     return {
       tpl: 'index',
       data: {
@@ -18,8 +17,4 @@ module.exports = class MyController extends ViewController {
       }
     }
   } 
-  
-  after() {
-    console.log('after')
-  }
 }
