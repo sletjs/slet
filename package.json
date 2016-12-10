@@ -29,8 +29,8 @@
     "methods": "^1.1.2",
     "nunjucks": "^3.0.0",
     "require-dir": "^0.3.1",
-    "slet-basiccontroller": "^1.0.1",
-    "slet-viewcontroller": "^1.0.2",
+    "slet-basiccontroller": "^1.0.2",
+    "slet-viewcontroller": "^1.0.5",
     "v7": "^1.0.1"
   },
   "devDependencies": {
