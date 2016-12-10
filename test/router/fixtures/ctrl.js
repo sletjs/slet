@@ -1,8 +1,8 @@
 'use strict';
 
-const ApiController = require('../../../').BasicController
+const BasicController = require('../../../').BasicController
 
-module.exports = class MainController extends ApiController {
+module.exports = class MainController extends BasicController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
   }

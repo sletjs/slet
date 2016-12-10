@@ -28,12 +28,13 @@ Extention
 ## TODO
 
 - [ ] defineMiddleware从配置里读取
-- [ ] Controller机制，类似于插件，将依赖移到controller模块里去，精简
+- [x] Controller机制，类似于插件，将依赖移到controller模块里去，精简
 
 ## Controller
 
 - 分类
-    - base：直接返回json或其他内容
+    - base: 所有controller的基类
+    - basic：直接返回json或其他内容
     - view：返回tpl和data，如果无，从this变量上获取
     - upload：上传文件
     - session：返回tpl和data，如果无，从this变量上获取
@@ -42,6 +43,129 @@ Extention
     - 默认的httpverb（methods模块支持的都支持）
     - 自定义的，比如upload等
 
+### 生命周期
+
+在src/Slet.js中，调用如下
+
+```
+// before
+ctrl.before()
+
+// alias this.xxx
+ctrl.alias()
+
+// execute {verb}()
+ctrl.get()
+
+// after
+ctrl.after()
+```
+
+- before 是{verb}()之前调用的
+- after 是{verb}()之后调用的
+- alias 是用于定义别名的
+
+
+alias 别名定义：如果支持bodyparser，那么把this.ctx.request.body简化为this.pp，避免特别长的方法调用。
+
+```
+ alias() {
+    if (this.ctx.request.body) {
+        this.pp = this.ctx.request.body
+    }
+  }
+```
+
+### BaseController
+
+```
+module.exports = class BaseController {
+  constructor(app, ctx, next) {
+    this.app = app
+    this.ctx = ctx
+    this.next = next
+    this.renderType = 'default'
+    this.data = {}
+    this.tpl = 'index'
+    
+    this.result = '{verb}() call result'
+  }
+
+  // lifecycle
+  before() {
+    
+  }
+  
+  alias() {
+    if (this.ctx.request.body) {
+        this.pp = this.ctx.request.body
+    }
+  }
+  
+  after() {
+    
+  }
+}
+```
+
+说明
+
+- renderType：default | view
+
+### 扩展controller
+
+定义自己的controller，
+
+- 一定要注意名字，它会被用于子类继承，所以一定要见名之意。
+- 继承自BaseController
+- 可选实现上面的生命周期方法
+
+```
+'use strict';
+
+const BaseController = require('slet-basecontroller')
+
+module.exports = class BasicController extends BaseController{
+  constructor(app, ctx, next) {
+    super(app, ctx, next)
+    
+    this.query = ctx.query
+
+    this.global_filter = ['koa-bodyparser']
+  }
+}
+```
+
+在app.js中使用defineController方法加载这个控制器
+
+```
+app.defineController(require('slet-basiccontroller'))
+```
+
+然后，在自己的类中
+
+```
+'use strict';
+
+const BasicController = require('../../../').BasicController
+
+module.exports = class SomeController extends BasicController {
+  constructor(app, ctx, next) {
+    super(app, ctx, next)
+  }
+  
+  get() { 
+    var a = this.query.a
+    
+    return {
+      a:1,
+      b: a
+    }
+  } 
+}
+
+```
+     
 ## Router
 
 ### 第一种，暴露path和controller
