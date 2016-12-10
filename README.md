@@ -94,11 +94,7 @@ $ node app.js
     - upload：上传文件
       - [UploadController](https://github.com/sletjs/UploadController)
       - [UploadViewController](https://github.com/sletjs/UploadViewController)
-    - session：返回tpl和data，如果无，从this变量上获取
-
-- 方法：支持2种
-    - 默认的httpverb（methods模块支持的都支持）
-    - 自定义的，比如upload等
+    - session：会话
 
 ### 生命周期
 
