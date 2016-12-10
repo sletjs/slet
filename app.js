@@ -6,6 +6,9 @@ const app = new Slet({
     debug: true
 });
 
+app.defineController(require('slet-basiccontroller'))
+app.defineController(require('slet-viewcontroller'))
+
 // app.defineMiddleware('custom_filter', function(ctx, next){
 //     console.log('a before')
 //     return next().then(function(){

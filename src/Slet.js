@@ -12,8 +12,8 @@ const bodyParser = require('koa-bodyparser');
 const compose = require('koa-compose')
 
 // local
-const BaseController = require('./controller/BaseController')
-const ViewController = require('./controller/ViewController')
+// const BasicController = require('./controller/BasicController')
+// const ViewController = require('./controller/ViewController')
 const defaultConfig = require('./config')
 const _ctx = defaultConfig.mockCtx
 const _next = function(){}
@@ -27,6 +27,7 @@ class Slet {
     //
     this.app =  new Koa();
     this.routes = []
+    this.controllers = []
     this.middlewares = {}
 
     if (this.opts.debug === true) {
@@ -45,6 +46,14 @@ class Slet {
     this.middlewares[name] = fn
   }
   
+  defineController(controller) {
+    if (typeof controller === 'function') {
+      this.controllers.push(controller)
+      this._registerControllerClass(controller)
+    } else {
+      console.log('please use class Controller')
+    }
+  }
   // global middleware && application filter
   use(middleware) {
     this.app.use(middleware)
@@ -116,14 +125,7 @@ class Slet {
     }
 
     if (this.opts.debug) {
-      let t
-      if(mockCtx instanceof BaseController) {
-        t = 'Api'
-      }
-      
-      if(mockCtx instanceof ViewController) {
-        t = 'View'
-      }
+      let t = (Controller + "").split(' extends')[0]
 
       this.routes.push({
         path: path, 
@@ -171,27 +173,21 @@ class Slet {
       
       _middlewares.push(function last(ctx, next) {
         let arg = slice.call(arguments, 1)
-
-        // alias this.xxx
-        ctrl = require('./alias')(ctrl, ctx)
-
-        if(ctrl instanceof BaseController) { 
-          return ctx.body = ctrl[verb].apply(ctrl, arg);
-        }
         
-        if(ctrl instanceof ViewController) {
-          var result = ctrl[verb].apply(ctrl, arg);
-
-          var obj = {
-            data: ctrl.data,
-            tpl: ctrl.tpl
-          }
-          Object.assign(obj, result);
-
-          return ctx.render(obj.tpl, obj.data) 
-        }
-
-        return ctx.body = "ctrl instanceof Controller error"
+        // before
+        ctrl.before()
+        
+        // alias this.xxx
+        ctrl.alias()
+        
+        // execute {verb}()
+        ctrl.result = ctrl[verb].apply(ctrl, arg)
+        
+        // renderType: default | view
+        ctrl.render()
+        
+        // after
+        ctrl.after()
       })
 
       debug(_middlewares)
@@ -216,6 +212,18 @@ class Slet {
     return re
   }
 
+  _getControllerName (Controller) {
+    let i = (Controller + "").split(' extends')[0]
+    let j = i.split('class')[1]
+    return i.split('{')[0].replace('class', '').trim()
+  }
+  
+  _registerControllerClass(Controller){
+    let clz = this._getControllerName(Controller)
+    
+    Slet[clz] = Controller
+  }
+  
   start() {
     if (this.opts.debug) {
       console.log(this.routes)
@@ -244,7 +252,7 @@ class Slet {
   }
 }
 
-Slet.Base = BaseController
-Slet.View = ViewController
+// Slet.Base = BaseController
+// Slet.View = ViewController
 
 module.exports = Slet 
