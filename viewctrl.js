@@ -9,12 +9,12 @@ module.exports = class MyController extends ViewController {
   
   get() { 
     var a = this.query.a
-    this.renderType='default'
+    // this.renderType='view'
     
     return {
       tpl: 'index',
       data: {
-        title: 'ssddssdd a= '+a
+        title: 'ssddssdd a= ' + a
       }
     }
   } 
