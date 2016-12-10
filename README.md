@@ -35,7 +35,7 @@ const app = new Slet({
 
 app.router('/', require('./viewctrl') )  
 
-app.start(3000) 
+app.start(3000)
 ```
 
 然后编写viewctrl.js
@@ -43,9 +43,9 @@ app.start(3000)
 ```
 'use strict';
 
-const ViewController = require('.').ViewController
+const BasicController = require('slet').BasicController
 
-module.exports = class MyController extends ViewController {
+module.exports = class MyController extends BasicController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
   }
@@ -54,7 +54,7 @@ module.exports = class MyController extends ViewController {
     var a = this.query.a
     // this.renderType='view'
     return {
-      a: 'index',
+      a: 'this is a',
       b: {
         c: 'ssddssdd a= ' + a
       }
@@ -69,6 +69,8 @@ module.exports = class MyController extends ViewController {
 ```
 $ node app.js
 ```
+
+在浏览器中打开 http://127.0.0.1:3000/?a=2
 
 ## Controller
 
