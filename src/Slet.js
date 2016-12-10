@@ -8,7 +8,6 @@ const Koa = require('koa');
 const methods = require('methods');
 const slice = Array.prototype.slice;
 const router = require('koa-router')();
-const views = require('koa-views');
 const bodyParser = require('koa-bodyparser');
 const compose = require('koa-compose')
 
@@ -40,7 +39,6 @@ class Slet {
   
   _initMiddleware() {
     this.middlewares['koa-bodyparser'] = bodyParser()
-    this.middlewares['koa-views'] = views(this.viewPath, this.opts.views.option)
   }
   
   defineMiddleware(name, fn) {

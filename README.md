@@ -154,6 +154,12 @@ app.defineMiddleware('custom_filter', function(ctx, next){
 })
 ```
 
+或者
+
+```
+app.middlewares['koa-views'] = views(this.viewPath, this.opts.views.option)
+```
+
 然后在对应的类中
 
 ```
@@ -263,6 +269,24 @@ module.exports = PathController
   - db
 继承view
   - 
+
+## 插件扩展
+
+```
+'use strict';
+
+module.exports = class BaseController {
+  constructor(app, ctx, next) {
+    this.app = app
+    this.ctx = ctx
+    this.query = ctx.query
+    this.next = next
+
+    this.global_filter = ['koa-bodyparser']
+  }
+}
+
+```
 
 
 ## 集成
