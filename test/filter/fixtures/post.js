@@ -1,6 +1,6 @@
 'use strict';
 
-const Base = require('../../../').Base
+const Base = require('../../../').BasicController
 
 class PathController extends Base {
   constructor(app, ctx, next) {

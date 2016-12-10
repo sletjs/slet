@@ -19,6 +19,9 @@ const app = new Slet({
     debug: false
 });
 
+app.defineController(require('slet-basiccontroller'))
+app.defineController(require('slet-viewcontroller'))
+
 app.start(5001)
 // support file path or Controller
 app.router('/r', require('./fixtures/viewctrl'))  

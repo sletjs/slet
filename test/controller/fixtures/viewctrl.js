@@ -1,10 +1,12 @@
 'use strict';
 
-const ViewController = require('../../../').View
+const ViewController = require('../../../').ViewController
 
 module.exports = class MyController extends ViewController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
+    
+    console.log(app)
   }
   
   get() { 
