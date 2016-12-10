@@ -5,6 +5,10 @@ const ApiController = require('../../../').Base
 class PathController extends ApiController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
+
+    this.app = app
+    this.app.xxxxx = "custom"
+    
   }
   
   get() { 

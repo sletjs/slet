@@ -65,7 +65,7 @@ class Slet {
     
     for(let i in controllers) {
       let Controller = controllers[i]
-      let mockCtx = new Controller(_ctx, _next)
+      let mockCtx = new Controller(this, _ctx, _next)
       // 兼容static.path
       if (Controller.path) this.router(Controller)
       // 兼容object.path 
@@ -100,7 +100,7 @@ class Slet {
       Controller =  require(file)
     }
     
-    var mockCtx = new Controller(_ctx, _next)
+    var mockCtx = new Controller(self, _ctx, _next)
     var avaiableMethods = this._avaiableMethods(mockCtx)
 
     // 如果attr controller this.path =xxx
@@ -138,7 +138,7 @@ class Slet {
 
     router.all(path, function (ctx, next) {
       let verb = ctx.request.method.toLowerCase();
-      var ctrl = new Controller(this, ctx, next)
+      var ctrl = new Controller(self, ctx, next)
       debug(ctx.request.method)
       debug(ctx.request.path)
 
