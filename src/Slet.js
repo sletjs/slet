@@ -243,7 +243,6 @@ class Slet {
   
   _registerControllerClass(Controller){
     let clz = this._getControllerName(Controller)
-    
     Slet[clz] = Controller
   }
   

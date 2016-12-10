@@ -16,9 +16,13 @@ const axios = require('axios')
 const Slet = require('../..');
 const app = new Slet({
     root: __dirname,
-    debug: false
+    debug: false,
+    "views" :{
+        "path" : __dirname + '/fixtures',
+        "option": { "map": {"html": "nunjucks" }}
+    }
 });
-
+ 
 app.defineController(require('slet-basiccontroller'))
 app.defineController(require('slet-viewcontroller'))
 
