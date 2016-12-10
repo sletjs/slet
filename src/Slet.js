@@ -54,6 +54,7 @@ class Slet {
       console.log('please use class Controller')
     }
   }
+  
   // global middleware && application filter
   use(middleware) {
     this.app.use(middleware)
