@@ -3,8 +3,8 @@
 const Base = require('../../../').Base
 
 class PathController extends Base {
-  constructor(ctx, next) {
-    super(ctx, next)
+  constructor(app, ctx, next) {
+    super(app, ctx, next)
     
     this.path = '/c'
     // this.global_filter.push('custom_filter')

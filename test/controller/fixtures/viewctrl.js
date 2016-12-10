@@ -3,8 +3,8 @@
 const ViewController = require('../../../').View
 
 module.exports = class MyController extends ViewController {
-  constructor(ctx, next) {
-    super(ctx, next)
+  constructor(app, ctx, next) {
+    super(app, ctx, next)
   }
   
   get() { 

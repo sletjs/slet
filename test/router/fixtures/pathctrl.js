@@ -3,8 +3,8 @@
 const ApiController = require('../../../').Base
 
 class PathController extends ApiController {
-  constructor(ctx, next) {
-    super(ctx, next)
+  constructor(app, ctx, next) {
+    super(app, ctx, next)
   }
   
   get() { 

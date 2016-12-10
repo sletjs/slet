@@ -138,7 +138,7 @@ class Slet {
 
     router.all(path, function (ctx, next) {
       let verb = ctx.request.method.toLowerCase();
-      var ctrl = new Controller(ctx, next)
+      var ctrl = new Controller(this, ctx, next)
       debug(ctx.request.method)
       debug(ctx.request.path)
 
@@ -233,15 +233,7 @@ class Slet {
   }
   
   listen() {
-    if (this.opts.debug) {
-      console.log(this.routes)
-    }
-    
-    this.app
-      .use(router.routes())
-      .use(router.allowedMethods());
-    
-    return this.app.listen(...arguments)
+    return this.start() 
   }
 
   run() {
