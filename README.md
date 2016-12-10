@@ -16,12 +16,18 @@
 
 ## Getting Start
 
+安装slet模块
+
+```
+$ npm i -S slet
+```
+
 从app.js开始
 
 ```
 'use strict';
 
-const Slet = require('./');
+const Slet = require('slet');
 const app = new Slet({
     root: __dirname,
     debug: true
