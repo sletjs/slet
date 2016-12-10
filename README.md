@@ -16,13 +16,13 @@
 
 ## Getting Start
 
-安装slet模块
+### 安装slet模块
 
 ```
 $ npm i -S slet
 ```
 
-从app.js开始
+### 从app.js开始
 
 ```
 'use strict';
@@ -33,19 +33,19 @@ const app = new Slet({
     debug: true
 });
 
-app.router('/', require('./viewctrl') )  
+app.router('/', require('./basicctrl') )  
 
 app.start(3000)
 ```
 
-然后编写viewctrl.js
+### 编写basicctrl.js
 
 ```
 'use strict';
 
 const BasicController = require('slet').BasicController
 
-module.exports = class MyController extends BasicController {
+module.exports = class MyBasicController extends BasicController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
   }
@@ -64,13 +64,23 @@ module.exports = class MyController extends BasicController {
 
 ```
 
+### 启动server
+
 最后，执行app.js，启动server
 
 ```
 $ node app.js
 ```
 
+### 查验结果
+
 在浏览器中打开 http://127.0.0.1:3000/?a=2
+
+### 更多示例
+
+- [example-basic](https://github.com/sletjs/example-basic)
+- [example-basic-autorouter](https://github.com/sletjs/example-basic-autorouter)
+- [example-view](https://github.com/sletjs/example-basic)
 
 ## Controller
 
