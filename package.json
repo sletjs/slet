@@ -25,12 +25,9 @@
     "koa-bodyparser": "next",
     "koa-compose": "next",
     "koa-router": "next",
-    "koa-views": "next",
     "methods": "^1.1.2",
-    "nunjucks": "^3.0.0",
     "require-dir": "^0.3.1",
     "slet-basiccontroller": "^1.0.2",
-    "slet-viewcontroller": "^1.0.5",
     "v7": "^1.0.1"
   },
   "devDependencies": {
@@ -39,6 +36,8 @@
     "codecov": "^1.0.1",
     "ghooks": "^1.3.2",
     "nyc": "^10.0.0",
+    "nunjucks": "^3.0.0",
+    "slet-viewcontroller": "^1.0.5",
     "standard": "^8.6.0"
   },
   "config": {
