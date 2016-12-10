@@ -1,6 +1,7 @@
 'use strict';
 var debug = require('debug')('slet')
 
+const http = require('http');
 const fs = require('fs')
 const resolve = require('path').resolve
 const Koa = require('koa');
@@ -44,6 +45,11 @@ class Slet {
   
   defineMiddleware(name, fn) {
     this.middlewares[name] = fn
+  }
+  
+  // global middleware && application filter
+  use(middleware) {
+    this.app.use(middleware)
   }
 
   routerDir(dir) {
@@ -212,7 +218,7 @@ class Slet {
     return re
   }
 
-  start(port=3000) {
+  start() {
     if (this.opts.debug) {
       console.log(this.routes)
     }
@@ -220,8 +226,31 @@ class Slet {
     this.app
       .use(router.routes())
       .use(router.allowedMethods());
+    
+    debug('listen');
+    const server = http.createServer(this.app.callback());
+    return server.listen.apply(server, arguments);
+  }
+  
+  listen() {
+    if (this.opts.debug) {
+      console.log(this.routes)
+    }
+    
+    this.app
+      .use(router.routes())
+      .use(router.allowedMethods());
+    
+    return this.app.listen(...arguments)
+  }
 
-    this.app.listen(port)
+  run() {
+    let self = this
+    
+    return this.start(function(){
+      self.port = this.address().port
+      console.log('Slet listening on port', this.address().port);
+    }) 
   }
 }
 

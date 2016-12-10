@@ -112,6 +112,7 @@ app.routerDir('app/controller' )
 
 ### 分类
 
+- app.use 和koa的use用法是一样的
 - global_filter 从全局的middlewares里按照名字取，一般定义在base类里，如果需要子类也可以重写
   - 示例this.global_filter = ['koa-bodyparser', 'koa-views']
 - {verb}_filter 是特定请求verb之的拦截器，仅限于当前verb
@@ -119,7 +120,13 @@ app.routerDir('app/controller' )
 
 ### 加载顺序
 
-> global_filter（父类默认继承） > {verb}_filter （当前文件） > {verb}() （当前文件）
+> app.use > global_filter（父类默认继承） > {verb}_filter （当前文件） > {verb}() （当前文件）
+
+### app.use 
+
+和Koa 2.x的use用法是一样的，参数Koa 2.x的中间件，只能用于加载app级别的filter
+
+参见 https://github.com/koajs/koa/tree/v2.x
 
 ###  global_filter说明
 

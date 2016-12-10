@@ -30,4 +30,5 @@ app.routerDir('test/router/fixtures')
 //  app.router('/d', './controller/a') 
 
 
-app.start() 
+app.listen() 
+
