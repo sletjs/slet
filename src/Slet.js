@@ -33,11 +33,11 @@ class Slet {
     if (this.opts.debug === true) {
       console.log(this.opts)
     }
-
-    this.routerDir(this.opts.automount.path)
-    this._initMiddleware()
     
     this.defineController(require('slet-basiccontroller'))
+
+    this._initMiddleware()
+    this.routerDir(this.opts.automount.path)
   }
   
   _initMiddleware() {
