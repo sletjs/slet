@@ -184,15 +184,33 @@ class Slet {
         ctrl.result = ctrl[verb].apply(ctrl, arg)
         
         // renderType: default | view
-        ctrl.render()
-        
-        // after
-        ctrl.after()
-      })
+        // ctrl.render()
+        if (ctrl.renderType === 'default') {
+          return ctx.body = ctrl.result
+        }
 
+        if (ctrl.renderType === 'view') {
+          var obj = {
+            data: ctrl.data,
+            tpl: ctrl.tpl
+          }
+          Object.assign(obj, ctrl.result);
+
+          return ctx.render(obj.tpl, obj.data).then(function(){
+            // after
+            ctrl.after()
+          })
+        }
+   
+        // after
+        // ctrl.after()
+      })
+      
       debug(_middlewares)
 
-      return compose(_middlewares)(ctx, next)
+      return compose(_middlewares)(ctx, next).catch(function(error) {
+        console.log(error)
+      })
     });
   }
 

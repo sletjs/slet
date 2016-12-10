@@ -1,10 +1,11 @@
 'use strict';
 
-const ViewController = require('../../../').ViewController
+const ViewController = require('.').ViewController
 
 module.exports = class MyController extends ViewController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
+  
   }
   
   get() { 
@@ -17,4 +18,8 @@ module.exports = class MyController extends ViewController {
       }
     }
   } 
+  
+  after() {
+    console.log('after')
+  }
 }
