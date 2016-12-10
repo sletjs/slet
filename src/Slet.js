@@ -36,6 +36,8 @@ class Slet {
 
     this.routerDir(this.opts.automount.path)
     this._initMiddleware()
+    
+    this.defineController(require('slet-basiccontroller'))
   }
   
   _initMiddleware() {
