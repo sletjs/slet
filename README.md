@@ -89,6 +89,8 @@ $ node app.js
     - basic：直接返回json或其他内容
     - view：返回tpl和data，如果无，从this变量上获取
     - upload：上传文件
+      - [UploadController](https://github.com/sletjs/UploadController)
+      - [UploadViewController](https://github.com/sletjs/UploadViewController)
     - session：返回tpl和data，如果无，从this变量上获取
 
 - 方法：支持2种
