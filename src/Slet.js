@@ -33,7 +33,7 @@ class Slet {
     if (this.opts.debug === true) {
       console.log(this.opts)
     }
-    
+    // must before this.routerDir()
     this.defineController(require('slet-basiccontroller'))
 
     this._initMiddleware()
