@@ -43,11 +43,11 @@ class Slet {
     let self = this;
     return new Promise(function(resolve, reject){  
       parseController(path, function(resultArray) {
-        console.log(resultArray)
+        // console.log(resultArray)
         resolve(resultArray)
       })
     }).then(function(resultArray){
-      console.log(resultArray)
+      // console.log(resultArray)
       for(var i in resultArray) {
         var lib = resultArray[i].dep_controller
         self.defineController(require(lib))
