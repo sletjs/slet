@@ -74,6 +74,10 @@ class Slet {
     var controllers = requireDir(this.routerPath, this.opts.automount.option);
     
     for(let i in controllers) {
+      if (i === '.git' || i === 'package.json') {
+        return;
+      }
+      
       let Controller = controllers[i]
       let mockCtx = new Controller(this, _ctx, _next)
       // 兼容static.path
