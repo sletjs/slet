@@ -12,8 +12,6 @@ const bodyParser = require('koa-bodyparser');
 const compose = require('koa-compose')
 
 // local
-// const BasicController = require('./controller/BasicController')
-// const ViewController = require('./controller/ViewController')
 const defaultConfig = require('./config')
 const _ctx = defaultConfig.mockCtx
 const _next = function(){}
@@ -28,6 +26,7 @@ class Slet {
     this.app =  new Koa();
     this.routes = []
     this.controllers = []
+    this.controllerDependency = []
     this.middlewares = {}
 
     if (this.opts.debug === true) {
@@ -63,30 +62,39 @@ class Slet {
   }
 
   routerDir(dir) {
+    var self = this
     this.routerPath = resolve(this.opts.root, dir)
 
     if (fs.existsSync(this.routerPath) === false) {
       if (this.opts.debug === true) console.log('router path is not exists: ' + this.routerPath)
       return;
     }
-
-    var requireDir = require('require-dir');
-    var controllers = requireDir(this.routerPath, this.opts.automount.option);
     
-    for(let i in controllers) {
-      if (i === '.git' || i === 'package.json') {
-        return;
+    require('parseController')(this.routerPath, function(resultArray) {
+        console.log(resultArray)
+      for(var i in resultArray) {
+        var lib = resultArray[i].dep_controller
+        self.defineController(require(lib))
+      }
+      var requireDir = require('require-dir');
+      var controllers = requireDir(self.routerPath, self.opts.automount.option);
+    
+      for(let i in controllers) {
+        if (i === '.git' || i === 'package.json') {
+          return;
+        }
+      
+        let Controller = controllers[i]
+        let mockCtx = new Controller(self, _ctx, _next)
+        // 兼容static.path
+        if (Controller.path) self.router(Controller)
+        // 兼容object.path 
+        else if (mockCtx.path) self.router(Controller)  
+        // warn log
+        else console.warn('[WARNING] routerDir at ' + self.routerPath + ' no path config in ' + Controller) 
       }
       
-      let Controller = controllers[i]
-      let mockCtx = new Controller(this, _ctx, _next)
-      // 兼容static.path
-      if (Controller.path) this.router(Controller)
-      // 兼容object.path 
-      else if (mockCtx.path) this.router(Controller)  
-      // warn log
-      else console.warn('[WARNING] routerDir at ' + this.routerPath + ' no path config in ' + Controller) 
-    }
+    })
   }
 
   router() {
@@ -113,9 +121,11 @@ class Slet {
       // console.log(file) 
       Controller =  require(file)
     }
+  
+    let lib = this._getControllerBaseName (Controller) 
+    this.controllerDependency.push(lib)
     
-    if (this.opts.auto) {
-      let lib = this._getControllerBaseName (Controller) 
+    if (this.opts.auto) {  
       this.defineController(require(lib))
     }
     
@@ -273,6 +283,7 @@ class Slet {
   start() {
     if (this.opts.debug) {
       console.log(this.routes)
+      console.log(this.controllerDependency)
     }
     
     this.app

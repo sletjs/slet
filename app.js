@@ -50,6 +50,7 @@ const app = new Slet({
 
 // app.router('./pathctrl') 
 
+// app.routerDir('test/controller/fixtures') 
 app.routerDir('test/router/fixtures') 
 
 
