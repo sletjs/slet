@@ -1,8 +1,8 @@
 'use strict';
 
-const Base = require('../../../').BasicController
+const BasicController = require('../../../').BasicController
 
-class PathController extends Base {
+class PathController extends BasicController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
     

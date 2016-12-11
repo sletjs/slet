@@ -4,8 +4,8 @@ const app = new Slet({
     debug: false
 });
 
-app.defineController(require('slet-basiccontroller'))
-app.defineController(require('slet-viewcontroller'))
+// app.defineController(require('slet-basiccontroller'))
+// app.defineController(require('slet-viewcontroller'))
 
 app.start(6000)
 

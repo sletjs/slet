@@ -32,11 +32,27 @@ class Slet {
     if (this.opts.debug === true) {
       console.log(this.opts)
     }
-    // must before this.routerDir()
-    this.defineController(require('slet-basiccontroller'))
+    
+    let self = this;
 
-    this._initMiddleware()
-    this.routerDir(this.opts.automount.path)
+    self._initMiddleware()
+    self.routerDir(this.opts.automount.path)
+  }
+  
+  buildDept(path) {
+    let self = this;
+    return new Promise(function(resolve, reject){  
+      parseController(path, function(resultArray) {
+        console.log(resultArray)
+        resolve(resultArray)
+      })
+    }).then(function(resultArray){
+      console.log(resultArray)
+      for(var i in resultArray) {
+        var lib = resultArray[i].dep_controller
+        self.defineController(require(lib))
+      }
+    })
   }
   
   _initMiddleware() {
@@ -70,12 +86,7 @@ class Slet {
       return;
     }
     
-    parseController(this.routerPath, function(resultArray) {
-        console.log(resultArray)
-      for(var i in resultArray) {
-        var lib = resultArray[i].dep_controller
-        self.defineController(require(lib))
-      }
+    return self.buildDept(self.routerPath).then(function(){
       var requireDir = require('require-dir');
       var controllers = requireDir(self.routerPath, self.opts.automount.option);
     
@@ -93,10 +104,17 @@ class Slet {
         // warn log
         else console.warn('[WARNING] routerDir at ' + self.routerPath + ' no path config in ' + Controller) 
       }
-      
     })
   }
-
+  
+  asyncRouter(cb){
+    let self = this 
+    return self.buildDept(this.opts.root).then(function(){
+      // must before this.routerDir()
+      cb()
+    })
+  }
+  
   router() {
     let self = this
     let path, controller
@@ -119,10 +137,10 @@ class Slet {
       // file.exists
       let file = resolve(this.opts.root, controller)
       // console.log(file) 
-      //
+      // 自动注入依赖
       var _file = /.js$/.test(file)?file: file + '.js'
       var info = parseController(_file)
-      console.log(info)
+      // console.log(info)
       self.defineController(require(info.dep_controller))
       Controller =  require(file)
     }

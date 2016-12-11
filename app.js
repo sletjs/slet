@@ -42,10 +42,12 @@ const app = new Slet({
 // // support file path or Controller
 // app.router('/', './ctrl' )  
 
-// app.router('/', require('./ctrl') )  
+app.router('/', ('./viewctrl') )
 
-// app.router('/2', require('./viewctrl') )  
-app.router('/2', ('./viewctrl') )  
+// app.router('/2', ('./viewctrl') )  
+app.asyncRouter(function(){
+   app.router('/2', require('./viewctrl') )  
+})  
 
 // app.router(require('./pathctrl') )  
 
