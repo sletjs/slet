@@ -26,6 +26,7 @@ class Slet {
     this.app =  new Koa();
     this.routes = []
     this.controllers = []
+    this.scanedControllerArray = [] // 扫码opts.root得到的所有的controller信息
     this.controllerDependency = []
     this.middlewares = {}
 
@@ -37,6 +38,17 @@ class Slet {
 
     self._initMiddleware()
     self.routerDir(this.opts.automount.path)
+  }
+  
+  identifyDept() {
+    let self = this;
+    return new Promise(function(resolve, reject){  
+      parseController(self.opts.root, function(resultArray) {
+        // console.log(resultArray)
+        self.scanedControllerArray = resultArray
+        resolve(resultArray)
+      })
+    })
   }
   
   buildDept(path) {
