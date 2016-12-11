@@ -252,7 +252,7 @@ app.router('/', './ctrl')
 
 ### 第二种，将path写到controller里
 
-2.1
+2.1 通过对象（可以实现，但不如通过路径方便）
 
 如果依赖已安装，即`app.defineController(require('slet-viewcontroller'))`，这样才加载的时候才不会报错。
 
@@ -270,7 +270,7 @@ app.asyncRouter(function(){
 
 or
 
-2.2
+2.2 通过路径（推荐）
 
 ```
 app.router('./pathctrl')  
