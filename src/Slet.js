@@ -10,7 +10,7 @@ const slice = Array.prototype.slice;
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
 const compose = require('koa-compose')
-
+const parseController = require('parseController')
 // local
 const defaultConfig = require('./config')
 const _ctx = defaultConfig.mockCtx
@@ -70,7 +70,7 @@ class Slet {
       return;
     }
     
-    require('parseController')(this.routerPath, function(resultArray) {
+    parseController(this.routerPath, function(resultArray) {
         console.log(resultArray)
       for(var i in resultArray) {
         var lib = resultArray[i].dep_controller
@@ -119,6 +119,11 @@ class Slet {
       // file.exists
       let file = resolve(this.opts.root, controller)
       // console.log(file) 
+      //
+      var _file = /.js$/.test(file)?file: file + '.js'
+      var info = parseController(_file)
+      console.log(info)
+      self.defineController(require(info.dep_controller))
       Controller =  require(file)
     }
   

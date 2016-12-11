@@ -45,6 +45,7 @@ const app = new Slet({
 // app.router('/', require('./ctrl') )  
 
 // app.router('/2', require('./viewctrl') )  
+app.router('/2', ('./viewctrl') )  
 
 // app.router(require('./pathctrl') )  
 
