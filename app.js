@@ -4,21 +4,22 @@ const Slet = require('./');
 const app = new Slet({
     root: __dirname,
     debug: true,
+    auto:true,
     "views" :{
         "path" : __dirname,
         "option": { "map": {"html": "nunjucks" }}
     }
 });
 
-const views = require('koa-views');
-
-var _views = views(__dirname,{ "map": {"html": "nunjucks" }})
-// app.defineMiddleware('koa-views', _views)
-
-app.use(_views)
-
-app.defineController(require('slet-viewcontroller'))
-app.router('/2', require('./viewctrl') )
+// const views = require('koa-views');
+//
+// var _views = views(__dirname,{ "map": {"html": "nunjucks" }})
+// // app.defineMiddleware('koa-views', _views)
+//
+// app.use(_views)
+//
+// app.defineController(require('slet-viewcontroller'))
+// app.router('/2', require('./viewctrl') )
 
 // app.use(function (ctx, next) {
 //   return ctx.render('index', {
@@ -49,7 +50,7 @@ app.router('/2', require('./viewctrl') )
 
 // app.router('./pathctrl') 
 
-// app.routerDir('test/router/fixtures') 
+app.routerDir('test/router/fixtures') 
 
 
 //  app.router('/d', './controller/a') 

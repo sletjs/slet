@@ -1,8 +1,8 @@
 'use strict';
 
-const ApiController = require('../../../').BasicController
+const BasicController = require('../../../').BasicController
 
-class PathController extends ApiController {
+class PathController extends BasicController {
   constructor(app, ctx, next) {
     super(app, ctx, next)    
   }

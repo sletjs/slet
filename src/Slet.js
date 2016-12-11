@@ -114,6 +114,11 @@ class Slet {
       Controller =  require(file)
     }
     
+    if (this.opts.auto) {
+      let lib = this._getControllerBaseName (Controller) 
+      this.defineController(require(lib))
+    }
+    
     var mockCtx = new Controller(self, _ctx, _next)
     var avaiableMethods = this._avaiableMethods(mockCtx)
 
@@ -246,6 +251,18 @@ class Slet {
     let i = (Controller + "").split(' extends')[0]
     let j = i.split('class')[1]
     return i.split('{')[0].replace('class', '').trim()
+  }
+  
+  _getControllerBaseName (Controller) {
+    let i = (Controller + "").split(' extends')[1]
+
+    let j = i.split('{')[0]
+    
+    let base = j.trim()
+    
+    debug('slet-' + base.toLowerCase())
+    
+    return 'slet-' + base.toLowerCase()
   }
   
   _registerControllerClass(Controller){
