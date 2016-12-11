@@ -240,11 +240,25 @@ app.router('/', './ctrl')
 
 ### 第二种，将path写到controller里
 
+2.1
+
+如果依赖已安装，即`app.defineController(require('slet-viewcontroller'))`，这样才加载的时候才不会报错。
+
 ```
 app.router(require('./pathctrl') )  
 ```
 
+如果没有装依赖，那么需要在asyncRouter里注册这样的路由。asyncRouter会自动检测root下面的所有依赖，并提前注入。
+
+```
+app.asyncRouter(function(){
+   app.router('/2', require('./viewctrl') )  
+}) 
+``` 
+
 or
+
+2.2
 
 ```
 app.router('./pathctrl')  
@@ -299,6 +313,7 @@ app.routerDir('app/controller' )
 此种情况会默认加载某个目录下的controller，请确保你的controller里有path，无论是属性，还是static属性方式都行。
 
 已测
+
 
 ## Filter
 
