@@ -10,7 +10,7 @@ const slice = Array.prototype.slice;
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
 const compose = require('koa-compose')
-const parseController = require('parseController')
+const parseController = require('parsecontroller')
 // local
 const defaultConfig = require('./config')
 const _ctx = defaultConfig.mockCtx
