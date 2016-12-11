@@ -12,6 +12,7 @@
 - Micro Kernel
 - Pluggable Controller
 - Build-in Router && Auto-mount Router
+- Auto-inject Controller Dependency
 - Convention over Configuration
 
 ## Getting Start
@@ -219,6 +220,17 @@ module.exports = class SomeController extends BasicController {
   } 
 }
 
+```
+
+Slet会自动注入依赖，所以请遵守以下约定
+
+```
+// 约定：
+// 
+// - 所有的模块必须以slet-开头
+// - 对外暴露的class的小写，作为后面的名字
+//    - 比如：BasicController，对应的模块为slet-basiccontroller
+// 
 ```
 
 ## Router
