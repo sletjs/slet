@@ -43,8 +43,9 @@ class Slet {
   identifyDept() {
     let self = this;
     return new Promise(function(resolve, reject){  
+      console.log(self.opts.root)
       parseController(self.opts.root, function(resultArray) {
-        // console.log(resultArray)
+        console.log(resultArray)
         self.scanedControllerArray = resultArray
         resolve(resultArray)
       })
