@@ -43,7 +43,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run standard"
+      "pre-commit": "npm run standard && npm test"
     }
   }
 }
