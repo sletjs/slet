@@ -513,7 +513,7 @@ module.exports = PathController
 
 ### sletTest
 
-supertest是express和koa里常用的api测试工具，非常简单，方便，如果在slet中想集成supertest也是非常简单的，原因是slet的listen和run方法返回的koa的app.listen，所以集成方式是一样的。
+supertest是express和koa里常用的api测试工具，非常简单，方便，如果在slet中想集成supertest也是非常简单的，原因是slet的listen和run方法返回的koa的app.listen，所以集成方式是一样的。为了简单，这里提供slettest简单封装。
 
 ```
 $ npm i -D slettest
