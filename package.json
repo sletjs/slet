@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/nyc ./node_modules/.bin/ava -v test",
     "report-coverage": "./node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && codecov",
-    "standard": "./node_modules/.bin/standard src"
+    "standard": "./node_modules/.bin/standard src/Slet.js "
   },
   "repository": {
     "type": "git",
