@@ -346,7 +346,8 @@ class Slet {
   }
 
   plugin () {
-    return Slet.plugin.call(Slet.plugin, arguments)
+    let args = slice.call(arguments, 1)
+    return Slet.plugin.apply(Slet.plugin, args)
   }
 }
 
