@@ -13,8 +13,11 @@
     "url": "git+https://github.com/sletjs/slet.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "i5ting",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 7"
+  },
   "bugs": {
     "url": "https://github.com/sletjs/slet/issues"
   },
