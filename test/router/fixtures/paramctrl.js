@@ -16,7 +16,6 @@ module.exports = class MyParamsController extends BasicController {
   get () { 
     // matches "GET /hello/foo" and "GET /hello/bar"
     // params['name'] is 'foo' or 'bar'
-    let n = this.params['name']
     return `Hello ${this.params['name']}!`
   } 
 }

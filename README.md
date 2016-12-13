@@ -34,7 +34,7 @@ const app = new Slet({
     debug: true
 });
 
-app.router('/', require('./basicctrl') )  
+app.router('/', './basicctrl')  
 
 app.start(3000)
 ```
