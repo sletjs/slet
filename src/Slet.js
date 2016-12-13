@@ -344,31 +344,28 @@ class Slet {
       console.log('Slet listening on port', this.address().port)
     })
   }
+
+  plugin () {
+    return Slet.plugin.call(Slet.plugin, arguments)
+  }
 }
 
-// Slet.Base = BaseController
-// Slet.View = ViewController
+Slet.plugin = function () {
+  function _copyProperties (target, source) {
+    for (let key of Reflect.ownKeys(source)) {
+      if (key !== 'constructor' && key !== 'prototype' && key !== 'name') {
+        let desc = Object.getOwnPropertyDescriptor(source, key)
+        Object.defineProperty(target, key, desc)
+      }
+    }
+  }
 
-// Slet.plugin = function (...mixins) {
-//   class Mix {}
-//
-//   function _copyProperties (target, source) {
-//     for (let key of Reflect.ownKeys(source)) {
-//       if (key !== 'constructor' && key !== 'prototype' && key !== 'name') {
-//         let desc = Object.getOwnPropertyDescriptor(source, key)
-//         Object.defineProperty(target, key, desc)
-//       }
-//     }
-//   }
-//
-//   // 以编程方式给Mix类添加
-//   // mixins的所有方法和访问器
-//   for (let mixin of mixins) {
-//     _copyProperties(Mix, mixin)
-//     _copyProperties(Mix.prototype, mixin.prototype)
-//   }
-//
-//   return Mix
-// }
+  for (let mixin of arguments) {
+    _copyProperties(Slet, mixin)
+    _copyProperties(Slet.prototype, mixin.prototype)
+  }
+
+  return Slet
+}
 
 module.exports = Slet

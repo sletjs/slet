@@ -492,6 +492,76 @@ module.exports = PathController
 继承view
   - 
 
+## Plugins
+
+### 方法1
+
+```
+'use strict';
+
+const static = require('slet-plugin-static');
+
+const Slet = require('slet');
+
+// 经典用法
+Slet.plugin(static)
+
+const app = new Slet({
+    root: __dirname,
+    debug: true
+});
+
+app.static()
+
+app.start(3000)
+```
+
+### 方法2
+
+```
+'use strict';
+
+const static = require('slet-plugin-static');
+
+const Slet = require('slet');
+
+// 经典用法
+app.plugin(static)
+
+const app = new Slet({
+    root: __dirname,
+    debug: true
+});
+
+app.static()
+
+app.start(3000)
+```
+
+### 插件定义方法
+
+```
+module.exports = class StaticPlugin {
+
+  static() {
+    if (!this.opts.static) {
+      this.opts.static = {
+        path: this.opts.root + '/public',
+        opts: {} // https://github.com/koajs/static#options
+      }
+    }
+    
+    this.use(require('koa-static')(this.opts.static.path, this.opts.static.opts));
+  }
+}
+```
+
+说明：
+
+- this.opts是从slet的构造函数里传入的，可以多处改写
+- this.use即koa 2.x的use方法，传中间件即可
+- 只有用到static()方法的时候，才加载require('koa-static')，懒加载
+
 ## 扩展
 
 ### controller扩展
