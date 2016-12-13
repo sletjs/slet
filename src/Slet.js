@@ -348,7 +348,7 @@ class Slet {
 // Slet.Base = BaseController
 // Slet.View = ViewController
 
-Slet.mix = function (...mixins) {
+Slet.plugin = function (...mixins) {
   class Mix {}
   
   function _copyProperties(target, source) {

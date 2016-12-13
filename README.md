@@ -508,6 +508,10 @@ module.exports = PathController
 通过filter方式，实现扩展。所有的扩展都是Koa 2.x标准中间件，可以更好的复用已有的中间件
 
 
+### plugin
+
+采用mix的方式将插件挂载进去
+
 ## 集成
 
 第三方集成
