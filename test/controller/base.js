@@ -46,3 +46,20 @@ test.cb('GET　/r?a=１ return json', t => {
     t.end() 
   });
 })
+
+test.cb('POST　/r?a=１ return json', t => {
+  axios.post('http://127.0.0.1:5000/r', {a:1})
+  .then(function (response) {
+    // console.log(response);
+    t.true(response.status === 200)
+    t.is(response.data.a, 1)
+    // t.is(parseInt(response.data.b), 1)
+    t.pass();
+    t.end() 
+  })
+  .catch(function (error) {
+    console.log(error);
+    t.fail();
+    t.end() 
+  });
+})
