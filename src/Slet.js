@@ -348,4 +348,26 @@ class Slet {
 // Slet.Base = BaseController
 // Slet.View = ViewController
 
+Slet.mix = function (...mixins) {
+  class Mix {}
+  
+  function _copyProperties(target, source) {
+    for (let key of Reflect.ownKeys(source)) {
+      if (key !== "constructor" && key !== "prototype" && key !== "name") {
+        let desc = Object.getOwnPropertyDescriptor(source, key);
+        Object.defineProperty(target, key, desc);
+      }
+    }
+  }
+  
+  // 以编程方式给Mix类添加
+  // mixins的所有方法和访问器
+  for (let mixin of mixins) {
+    _copyProperties(Mix, mixin);
+    _copyProperties(Mix.prototype, mixin.prototype);
+  }
+  
+  return Mix;
+}
+
 module.exports = Slet 

@@ -107,11 +107,11 @@ $ node app.js
 // before
 ctrl.before()
 
-// alias this.xxx
-ctrl.alias()
+// only {verb} filter
+ctrl.{verb}_filter = []
 
-// execute {verb}()
-ctrl.get()
+// execute {verb}()，比如get(){}、post(){}
+ctrl.{verb}()
 
 // after
 ctrl.after()
@@ -119,8 +119,9 @@ ctrl.after()
 
 - before 是{verb}()之前调用的
 - after 是{verb}()之后调用的
-- alias 是用于定义别名的
+- ctrl.{verb}_filter = [] 利用koa 2.x中间件原理，拦截{verb}()请求前和请求后
 
+另外还提供了一个辅助定义别名的 alias 方法
 
 alias 别名定义：如果支持bodyparser，那么把this.ctx.request.body简化为this.pp，避免特别长的方法调用。
 
