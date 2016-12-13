@@ -494,39 +494,52 @@ module.exports = PathController
 
 ## Plugins
 
+已有
+
+- [slet-plugin-static](https://github.com/sletjs/slet-plugin-static)
+
 ### 方法1
 
+
 ```
-'use strict';
+'use strict'
 
-const static = require('slet-plugin-static');
+const StaticPlugin = require('slet-plugin-static')
 
-const Slet = require('slet');
+const Slet = require('slet')
 
 // 经典用法
-Slet.plugin(static)
+Slet.plugin(StaticPlugin)
 
 const app = new Slet({
-    root: __dirname,
-    debug: true
-});
+  root: __dirname,
+  debug: false
+})
 
+// lazy load plugin
 app.static()
 
-app.start(3000)
+// app.start(3005)
+module.exports = app
+
 ```
 
+步骤
+
+- 1）const StaticPlugin = require('.')
+- 2）Slet.plugin(StaticPlugin)
+- 3) app.static()
 ### 方法2
 
 ```
 'use strict';
 
-const static = require('slet-plugin-static');
+const StaticPlugin = require('slet-plugin-static')
 
 const Slet = require('slet');
 
 // 经典用法
-app.plugin(static)
+app.plugin(StaticPlugin)
 
 const app = new Slet({
     root: __dirname,
@@ -543,7 +556,7 @@ app.start(3000)
 ```
 module.exports = class StaticPlugin {
 
-  static() {
+  static () {
     if (!this.opts.static) {
       this.opts.static = {
         path: this.opts.root + '/public',
