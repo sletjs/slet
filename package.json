@@ -39,9 +39,10 @@
     "axios": "^0.15.3",
     "codecov": "^1.0.1",
     "ghooks": "^1.3.2",
-    "nyc": "^10.0.0",
     "nunjucks": "^3.0.0",
+    "nyc": "^10.0.0",
     "slet-viewcontroller": "^1.0.5",
+    "slettest": "^1.0.4",
     "standard": "^8.6.0"
   },
   "config": {
