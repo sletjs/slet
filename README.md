@@ -1,6 +1,6 @@
 # slet
 
-> slet = servlet in Node.js
+> slet = servlet in Node.js 7.x
 
 [![NPM version](https://img.shields.io/npm/v/slet.svg?style=flat-square)](https://www.npmjs.com/package/slet)
 [![Build](https://travis-ci.org/sletjs/slet.svg?branch=master)](https://travis-ci.org/sletjs/slet)
