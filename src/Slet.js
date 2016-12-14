@@ -203,7 +203,7 @@ class Slet {
       var match = avaiableMethods.find(function (n) {
         return n === verb
       })
-      if (!match) {
+      if (!match && ctrl.all === undefined) {
         console.log(path + ' ' + (Controller + '').split(' extends')[0] + ' #' + verb + '() not impl')
         ctx.body = {
           code: 1,
@@ -240,8 +240,11 @@ class Slet {
         // alias this.xxx
         ctrl.alias()
 
+        // all
+        if (ctrl['all']) ctrl.result = ctrl['all'].apply(ctrl, arg)
+
         // execute {verb}()
-        ctrl.result = ctrl[verb].apply(ctrl, arg)
+        if (ctrl[verb]) ctrl.result = ctrl[verb].apply(ctrl, arg)
 
         // renderType: default | view
         // ctrl.render()
