@@ -15,8 +15,10 @@ exec('node ' + __dirname + '/fixtures/postapp > ' + process.cwd() + '/post_filte
   // console.log(stderr);
 });
 
+// var app = require('./fixtures/postapp')
+
 test.cb('POST　use this.log before 1 after', t => {
-  axios.post('http://127.0.0.1:6001/c',{
+  axios.post('http://127.0.0.1:6006/c',{
     a:1
   })
   .then(function (response) {
@@ -26,6 +28,7 @@ test.cb('POST　use this.log before 1 after', t => {
     // t.end()
     setTimeout(function() {
       var c = fs.readFileSync( process.cwd() + '/post_filter.log').toString().split(/\r?\n/ig)
+      // console.log(c)
       t.is(c[0], 'before')
       t.is(c[1], '1')
       t.is(c[2], 'after')

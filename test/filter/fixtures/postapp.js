@@ -6,8 +6,9 @@ const app = new Slet({
 
 // app.defineController(require('slet-basiccontroller'))
 // app.defineController(require('slet-viewcontroller'))
-
-app.start(6001)
-
 // support file path or Controller
 app.router('./post')  
+
+app.start(6006)
+
+module.exports = app

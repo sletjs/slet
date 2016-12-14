@@ -1,6 +1,8 @@
 'use strict';
 
-const BasicController = require('../../../').BasicController
+const BasicController = require('slet-basiccontroller')
+
+// console.log(BasicController)
 
 class PathController extends BasicController {
   constructor(app, ctx, next) {
@@ -19,7 +21,8 @@ class PathController extends BasicController {
   }
 
   post() {
-    var a = this.pp.a
+    // console.log(this)
+    var a = this.body.a
     console.log(a)
     setTimeout(function(){
        process.exit(0)
