@@ -240,11 +240,13 @@ class Slet {
         // alias this.xxx
         ctrl.alias()
 
-        // all
-        if (ctrl['all']) ctrl.result = ctrl['all'].apply(ctrl, arg)
-
-        // execute {verb}()
-        if (ctrl[verb]) ctrl.result = ctrl[verb].apply(ctrl, arg)
+        // 如果有all方法，也有对应的verb请求，此种情况下，只会执行all()
+        if (ctrl['all']) {
+          ctrl.result = ctrl['all'].apply(ctrl, arg)
+        } else {
+          // execute {verb}()
+          ctrl.result = ctrl[verb].apply(ctrl, arg)
+        }
 
         // renderType: default | view
         // ctrl.render()

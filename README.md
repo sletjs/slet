@@ -126,12 +126,16 @@ ctrl.after()
 alias 别名定义：如果支持bodyparser，那么把this.ctx.request.body简化为this.pp，避免特别长的方法调用。
 
 ```
- alias() {
-    if (this.ctx.request.body) {
-        this.pp = this.ctx.request.body
-    }
+alias() {
+  if (this.ctx.request.body) {
+      this.pp = this.ctx.request.body
   }
+}
 ```
+
+all方法适用于处理所有verb的请求
+
+如果有all方法，也有对应的verb请求，此种情况下，只会执行all()
 
 ### BaseController
 
