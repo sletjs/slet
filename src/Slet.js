@@ -69,6 +69,8 @@ class Slet {
   }
 
   _initMiddleware () {
+    // post参数的解析，最常用的是其中的json和urlencoded的parser，可分别对以JSON格式的post参数和urlencoeded的post参数进行解析，均可获得一个JSON化的req.body
+    // TODO: 细化
     this.middlewares['koa-bodyparser'] = bodyParser()
   }
 
