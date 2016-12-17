@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "lerna run test",
-    "report-coverage": "./node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && codecov",
+    "p": "lerna publish",
     "standard": "./node_modules/.bin/standard packages/slet/src/Slet.js "
   },
   "repository": {
@@ -48,7 +48,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run standard && npm test"
+      "pre-commit": "npm test"
     }
   }
 }
