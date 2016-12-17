@@ -1,0 +1,38 @@
+{
+  "name": "slet-basecontroller",
+  "version": "1.0.7",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "../../node_modules/.bin/nyc ../../node_modules/.bin/ava -v",
+    "report-coverage": "../../node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && codecov",
+    "standard": "../../node_modules/.bin/standard index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sletjs/BaseController.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sletjs/BaseController/issues"
+  },
+  "homepage": "https://github.com/sletjs/BaseController#readme",
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "co-exec": "^1.0",
+    "codecov": "^1.0.1",
+    "ghooks": "^1.2.4",
+    "nyc": "^7.0.0",
+    "slet": "^1.0.11",
+    "slettest": "^1.0.4",
+    "standard": "^7.1.2"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run standard && npm test"
+    }
+  },
+  "dependencies": {}
+}

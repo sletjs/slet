@@ -1,0 +1,23 @@
+{
+  "name": "slet-basiccontroller",
+  "version": "1.0.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sletjs/BasicController.git"
+  },
+  "keywords": [],
+  "author": "i5ting",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sletjs/BasicController/issues"
+  },
+  "homepage": "https://github.com/sletjs/BasicController#readme",
+  "dependencies": {
+    "slet-basecontroller": "^1.0.7"
+  }
+}
