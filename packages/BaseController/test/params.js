@@ -1,7 +1,7 @@
 import test from 'ava'
 
 var sletTest = require('slettest')
-const Slet = require('slet')
+const Slet = require('../../slet')
 
 const app = new Slet({
   root: __dirname,

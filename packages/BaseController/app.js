@@ -1,6 +1,6 @@
 'use strict'
 
-const Slet = require('slet')
+const Slet = require('../slet')
 
 const app = new Slet({
   root: __dirname,
