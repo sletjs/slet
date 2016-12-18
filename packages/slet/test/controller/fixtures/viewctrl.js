@@ -10,8 +10,9 @@ module.exports = class MyController extends BasicController {
   get() { 
     var a = this.query.a
     
-    // if this.renderType = 'view'
-    //
+    // if 
+    // this.renderType = 'view'
+    
     // return {
     //   tpl: 'index',
     //   data: {
@@ -21,17 +22,26 @@ module.exports = class MyController extends BasicController {
     
     // if this.render, make this.renderType = 'view' 
     // use default
+    // this.tpl = 'index'
+    // this.data =  {
+    //   title: 'ssddssdd a= '+a
+    // }
     // return this.render()
     // use tpl
+    //  this.data = {}
     // return this.render('tpl')
     // use tpl && data
     // return this.render('tpl', {
     //   a:1
     // })
-
-    return this.render('index', {
+    // this.data =  {
+    //   title: 'ssddssdd a= '+a
+    // }
+    // return this.render('index')
+    this.tpl = 'index'
+    this.data =  {
       title: 'ssddssdd a= '+a
-    })
-
+    }
+    return this.render()
   } 
 }
