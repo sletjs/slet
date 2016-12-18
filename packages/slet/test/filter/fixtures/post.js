@@ -1,6 +1,6 @@
 'use strict';
 
-const BasicController = require('slet-basiccontroller')
+const BasicController = require('../../../../slet-basecontroller')
 
 // console.log(BasicController)
 

@@ -1,6 +1,5 @@
 'use strict'
-
-const BasicController = require('../../../').BasicController
+const BasicController = require('../../../../slet-basecontroller')
 
 module.exports = class MyParamsController extends BasicController {
   constructor(app, ctx, next) {

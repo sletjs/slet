@@ -1,6 +1,6 @@
 'use strict';
 
-const BasicController = require('../../../').BasicController
+const BasicController = require('../../../../slet-basecontroller')
 
 class PathController extends BasicController {
   constructor(app, ctx, next) {

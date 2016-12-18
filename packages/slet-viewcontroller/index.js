@@ -1,5 +1,12 @@
-module.exports = class BaseController {
+'use strict';
+
+const BaseController = require('slet-basecontroller')
+console.log(BaseController)
+
+module.exports = class ViewController extends BaseController {
   constructor (app, ctx, next) {
+    super(app, ctx, next)
+
     this.app = app
     this.ctx = ctx
     this.res = this.ctx.res
@@ -48,7 +55,7 @@ module.exports = class BaseController {
     let end = this.res.end.bind(this.res)
     end.apply(end, arguments)
   }
-  
+
   compile (tpl, data) {
     let self = this
     return new Promise(function(resolve, reject){
@@ -61,7 +68,13 @@ module.exports = class BaseController {
     if (tpl) this.tpl = tpl
     if (data) this.data = data
   }
- 
+
+  getTplPath (tpl) {
+    let self = this
+    let viewPath = self.app.opts.root + '/' + self.app.opts.views.path
+    return viewPath + '/' + tpl + '.' + self.app.opts.views.extension
+  }
+  
   execute () {
     let self = this;
     if (this.renderType === 'default') {

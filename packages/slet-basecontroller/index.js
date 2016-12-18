@@ -1,8 +1,5 @@
-'use strict';
 
-const BaseController = require('slet-basecontroller')
-
-module.exports = class ViewController extends BaseController {
+module.exports = class BaseController {
   constructor (app, ctx, next) {
     this.app = app
     this.ctx = ctx
@@ -52,7 +49,7 @@ module.exports = class ViewController extends BaseController {
     let end = this.res.end.bind(this.res)
     end.apply(end, arguments)
   }
-
+  
   compile (tpl, data) {
     let self = this
     return new Promise(function(resolve, reject){
@@ -65,7 +62,7 @@ module.exports = class ViewController extends BaseController {
     if (tpl) this.tpl = tpl
     if (data) this.data = data
   }
-
+ 
   execute () {
     let self = this;
     if (this.renderType === 'default') {

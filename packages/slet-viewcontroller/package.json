@@ -1,10 +1,9 @@
 {
   "name": "slet-viewcontroller",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sletjs/viewcontroller.git"
