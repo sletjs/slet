@@ -251,31 +251,11 @@ class Slet {
         }
 
         // renderType: default | view
-        // ctrl.render()
-        if (ctrl.renderType === 'default') {
-          return new Promise(function (resolve, reject) {
-            resolve(ctx.body = ctrl.result)
-          }).then(function () {
-            // after
-            ctrl.after()
-          })
-        }
-
-        if (ctrl.renderType === 'view') {
-          var obj = {
-            data: ctrl.data,
-            tpl: ctrl.tpl
-          }
-          Object.assign(obj, ctrl.result)
-
-          return ctx.render(obj.tpl, obj.data).then(function () {
-            // after
-            ctrl.after()
-          })
-        }
-
-        // after
-        // ctrl.after()
+        return ctrl.execute().then(function (str) {
+          ctx.body = str
+          // after
+          ctrl.after()
+        })
       })
 
       debug(_middlewares)

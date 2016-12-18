@@ -17,14 +17,11 @@ const Slet = require('../..');
 const app = new Slet({
     root: __dirname + '/fixtures',
     debug: false,
-    "views" :{
-        "path" : __dirname + '/fixtures',
-        "option": { "map": {"html": "nunjucks" }}
+    views:{
+      path: '/', 
+      extension: 'html'
     }
 });
-
-app.defineController(require('slet-basiccontroller'))
-app.defineController(require('slet-viewcontroller'))
 
 app.start(5001)
 // support file path or Controller
