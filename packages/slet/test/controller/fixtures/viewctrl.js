@@ -1,8 +1,8 @@
 'use strict';
 
-const BasicController = require('./base')
+const BaseViewController = require('./base')
 
-module.exports = class MyController extends BasicController {
+module.exports = class MyViewController extends BaseViewController {
 
   get() { 
     var a = this.query.a
