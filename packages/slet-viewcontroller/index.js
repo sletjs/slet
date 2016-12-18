@@ -1,7 +1,6 @@
 'use strict';
 
 const BaseController = require('slet-basecontroller')
-console.log(BaseController)
 
 module.exports = class ViewController extends BaseController {
   constructor (app, ctx, next) {
@@ -74,7 +73,7 @@ module.exports = class ViewController extends BaseController {
     let viewPath = self.app.opts.root + '/' + self.app.opts.views.path
     return viewPath + '/' + tpl + '.' + self.app.opts.views.extension
   }
-  
+
   execute () {
     let self = this;
     if (this.renderType === 'default') {
