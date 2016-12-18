@@ -1,9 +1,9 @@
 {
     "debug": false,
 
-    "views" :{
-        "path" : ".",
-        "option": { "map": {"html": "nunjucks" }}
+    "views":{
+        "path": "/", 
+        "extension": "html"
     },
     "automount": {
         "path": "controllers",
@@ -11,7 +11,6 @@
             "recurse": true
         }
     },
-
     "mockCtx": {
         "request":{
             "body": {

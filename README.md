@@ -7,40 +7,17 @@
 [![codecov.io](https://codecov.io/github/sletjs/slet/coverage.svg?branch=master)](https://codecov.io/github/sletjs/slet?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+- slet
+- slet-basecontroller
+
 ## Features
 
 - Micro Kernel
 - Pluggable Controller
 - Build-in Router && Auto-mount Router
 - Auto-inject Controller Dependency
+- Custom View Render
 - Convention over Configuration
-
-## Config
-
-```
-{
-    "debug": false,
-
-    "views" :{
-        "path" : ".",
-        "option": { "map": {"html": "nunjucks" }}
-    },
-    "automount": {
-        "path": "controllers",
-        "option": {
-            "recurse": true
-        }
-    },
-
-    "mockCtx": {
-        "request":{
-            "body": {
-
-            }
-        }
-    }
-}
-```
 
 ## 可视化todo
 
