@@ -1,5 +1,4 @@
-
-module.exports = class BaseController {
+class BaseController {
   constructor (app, ctx, next) {
     this.app = app
     this.ctx = ctx
@@ -49,20 +48,7 @@ module.exports = class BaseController {
     let end = this.res.end.bind(this.res)
     end.apply(end, arguments)
   }
-  
-  compile (tpl, data) {
-    let self = this
-    return new Promise(function(resolve, reject){
-      resolve(self.result)
-    })
-  }
 
-  render (tpl, data) {
-    this.renderType = 'view'
-    if (tpl) this.tpl = tpl
-    if (data) this.data = data
-  }
- 
   execute () {
     let self = this;
     if (this.renderType === 'default') {
@@ -84,5 +70,26 @@ module.exports = class BaseController {
         })
       })
     }
+  }
+}
+
+module.exports = class ViewController extends BaseController{
+  getTplPath (tpl) {
+    let self = this
+    let viewPath = self.app.opts.root + '/' + self.app.opts.views.path
+    return viewPath + '/' + tpl + '.' + self.app.opts.views.extension
+  }
+
+  compile (tpl, data) {
+    let self = this
+    return new Promise(function(resolve, reject){
+      resolve(self.result)
+    })
+  }
+
+  render (tpl, data) {
+    this.renderType = 'view'
+    if (tpl) this.tpl = tpl
+    if (data) this.data = data
   }
 }

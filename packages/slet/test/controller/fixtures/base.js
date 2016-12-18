@@ -1,6 +1,6 @@
 'use strict';
 
-const ViewController = require('../../../../slet-viewcontroller')
+const ViewController = require('../../../../slet-basecontroller')
 
 module.exports = class MyViewController extends ViewController {
   compile (tpl, data) {
