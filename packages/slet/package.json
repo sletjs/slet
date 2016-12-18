@@ -1,6 +1,6 @@
 {
   "name": "slet",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "methods": "^1.1.2",
     "parsecontroller": "^1.0.1",
     "require-dir": "^0.3.1",
-    "slet-basiccontroller": "^1.2.4",
+    "slet-basiccontroller": "^1.2.6",
     "v7": "^1.0.1"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "ghooks": "^1.3.2",
     "nunjucks": "^3.0.0",
     "nyc": "^10.0.0",
-    "slet-viewcontroller": "^1.2.5",
+    "slet-viewcontroller": "^1.2.6",
     "slettest": "^1.0.4",
     "standard": "^8.6.0"
   },

@@ -1,6 +1,6 @@
 {
   "name": "slet-viewcontroller",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "",
   "main": "index.js",
   "scripts": {},
@@ -16,6 +16,6 @@
   },
   "homepage": "https://github.com/sletjs/viewcontroller#readme",
   "dependencies": {
-    "slet-basecontroller": "^1.2.4"
+    "slet-basecontroller": "^1.2.6"
   }
 }
