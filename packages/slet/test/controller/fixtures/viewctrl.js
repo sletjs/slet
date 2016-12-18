@@ -3,10 +3,7 @@
 const BasicController = require('./base')
 
 module.exports = class MyController extends BasicController {
-  constructor(app, ctx, next) {
-    super(app, ctx, next)
-  }
-  
+
   get() { 
     var a = this.query.a
     
