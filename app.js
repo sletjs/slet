@@ -1,13 +1,12 @@
 'use strict'
 
 const Slet = require('./packages/slet')
-const BaseViewController = require('./packages/slet-basecontroller')
 
 const app = new Slet({
     root: __dirname
 })
 
-class MyController extends BaseViewController {
+class MyController extends Slet.BaseController {
   get () { 
     var a = this.query.a
 
