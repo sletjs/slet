@@ -28,7 +28,7 @@ const Slet = require('slet')
 const BaseViewController = require('slet-basecontroller')
 
 const app = new Slet({
-    root: __dirname,
+    root: __dirname
 })
 
 class MyController extends BaseViewController {
