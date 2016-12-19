@@ -22,14 +22,14 @@
 ## Usages
 
 ```
-'use strict';
+'use strict'
 
-const Slet = require('slet');
+const Slet = require('slet')
 const BaseViewController = require('slet-basecontroller')
 
 const app = new Slet({
     root: __dirname,
-});
+})
 
 
 class MyController extends BaseViewController {
