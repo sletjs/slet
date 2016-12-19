@@ -19,3 +19,30 @@
 - Custom View Render
 - Convention over Configuration
 
+## Usages
+
+```
+'use strict';
+
+const Slet = require('slet');
+const app = new Slet({
+    root: __dirname,
+});
+
+const BaseViewController = require('slet-basecontroller')
+console.log(BaseViewController)
+
+class MyController extends BaseViewController {
+  get() { 
+    var a = this.query.a
+
+    return `hello world ${a}`
+  } 
+}
+
+app.router('/', MyController)
+
+
+app.start(3000) 
+
+```

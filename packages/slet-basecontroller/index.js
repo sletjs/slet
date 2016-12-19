@@ -1,3 +1,5 @@
+'use strict'
+
 class BaseController {
   constructor (app, ctx, next) {
     this.app = app
