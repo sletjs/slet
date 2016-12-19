@@ -1,6 +1,6 @@
 'use strict'
-var debug = require('debug')('slet')
 
+const debug = require('debug')('slet')
 const http = require('http')
 const fs = require('fs')
 const resolve = require('path').resolve
@@ -11,6 +11,7 @@ const router = require('koa-router')()
 const bodyParser = require('koa-bodyparser')
 const compose = require('koa-compose')
 const parseController = require('parsecontroller')
+
 // local
 const defaultConfig = require('./config')
 const _ctx = defaultConfig.mockCtx
@@ -338,22 +339,16 @@ class Slet {
   }
 }
 
-Slet.plugin = function () {
-  function _copyProperties (target, source) {
-    for (let key of Reflect.ownKeys(source)) {
-      if (key !== 'constructor' && key !== 'prototype' && key !== 'name') {
-        let desc = Object.getOwnPropertyDescriptor(source, key)
-        Object.defineProperty(target, key, desc)
-      }
+Slet.plugin = function (Parent) {
+  // Use slice as node 4 does not support param spread.
+  let mixins = slice.call(arguments, 1)
+  class Mixed extends Parent {}
+  for (let mixin of mixins) {
+    for (let prop in mixin) {
+      Mixed.prototype[prop] = mixin[prop]
     }
   }
-
-  for (let mixin of arguments) {
-    _copyProperties(Slet, mixin)
-    _copyProperties(Slet.prototype, mixin.prototype)
-  }
-
-  return Slet
+  return Mixed
 }
 
 module.exports = Slet
