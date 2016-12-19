@@ -25,14 +25,15 @@
 'use strict';
 
 const Slet = require('slet');
+const BaseViewController = require('slet-basecontroller')
+
 const app = new Slet({
     root: __dirname,
 });
 
-const BaseViewController = require('slet-basecontroller')
 
 class MyController extends BaseViewController {
-  get() { 
+  get () { 
     var a = this.query.a
 
     return `hello world ${a}`
@@ -40,7 +41,6 @@ class MyController extends BaseViewController {
 }
 
 app.router('/', MyController)
-
 
 app.start(3000) 
 

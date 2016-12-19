@@ -1,20 +1,14 @@
-'use strict';
+'use strict'
 
-const Slet = require('./packages/slet');
-const app = new Slet({
-    root: __dirname,
-    debug: true,
-    "views" :{
-        "path" : __dirname,
-        "option": { "map": {"html": "nunjucks" }}
-    }
-});
-
+const Slet = require('./packages/slet')
 const BaseViewController = require('./packages/slet-basecontroller')
-console.log(BaseViewController)
+
+const app = new Slet({
+    root: __dirname
+})
 
 class MyController extends BaseViewController {
-  get() { 
+  get () { 
     var a = this.query.a
 
     return `hello world ${a}`
@@ -23,6 +17,4 @@ class MyController extends BaseViewController {
 
 app.router('/', MyController)
 
-
 app.start(3000) 
-
