@@ -1,6 +1,6 @@
 'use strict'
 
-class BaseController {
+class Base {
   constructor (app, ctx, next) {
     this.app = app
     this.ctx = ctx
@@ -75,7 +75,7 @@ class BaseController {
   }
 }
 
-module.exports = class ViewController extends BaseController{
+module.exports = class BaseController extends Base {
   getTplPath (tpl) {
     let self = this
     let viewPath = self.app.opts.root + '/' + self.app.opts.views.path
