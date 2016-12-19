@@ -30,7 +30,6 @@ const app = new Slet({
 });
 
 const BaseViewController = require('slet-basecontroller')
-console.log(BaseViewController)
 
 class MyController extends BaseViewController {
   get() { 
