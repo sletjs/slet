@@ -12,10 +12,8 @@ class PathController extends BasicController {
   }
   
   log(ctx, next){
-    // console.log('before')
     ctx.someText = 'some'
     return next().then(function(){
-      // console.log('after')
     })
   }
 

@@ -18,7 +18,6 @@ class Base {
     this.global_filter = ['koa-bodyparser']
   }
 
-  // lifecycle
   before () {
 
   }
