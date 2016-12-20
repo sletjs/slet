@@ -266,7 +266,7 @@ class Slet {
         ctrl.before()
 
         // alias this.xxx
-        ctrl.alias()
+        ctrl.alias(req, res)
 
         // 如果有all方法，也有对应的verb请求，此种情况下，只会执行all()
         if (ctrl['all']) {

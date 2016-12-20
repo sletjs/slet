@@ -23,7 +23,7 @@ class Base {
 
   }
 
-  alias () {
+  alias (req, res) {
     if (this.ctx.request.body) {
       this.body = this.ctx.request.body
     }
@@ -36,6 +36,7 @@ class Base {
     // this.params['name'] is 'foo' or 'bar'
     if (this.ctx.params) {
       this.params = this.ctx.params
+      req.params = this.ctx.params
     }
   }
 

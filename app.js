@@ -12,6 +12,6 @@ class MyController extends Slet.BaseController {
   } 
 }
 
-app.router('/', MyController)
+app.router('/:id', MyController)
 
 app.start(3000) 
