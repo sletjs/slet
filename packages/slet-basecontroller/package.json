@@ -13,8 +13,8 @@
     "url": "git+https://github.com/sletjs/BaseController.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "i5ting",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sletjs/BaseController/issues"
   },

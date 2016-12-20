@@ -16,7 +16,7 @@
   "author": "i5ting",
   "license": "MIT",
   "engines": {
-    "node": ">= 7"
+    "node": ">= 4"
   },
   "bugs": {
     "url": "https://github.com/sletjs/slet/issues"
