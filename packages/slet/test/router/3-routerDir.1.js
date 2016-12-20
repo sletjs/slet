@@ -17,7 +17,8 @@ const app = new Slet({
 });
 app.start(4004)
 // support file path or Controller
-app.routerDir('./fixtures' )  
+app.routerDir('./fixtures')  
+
 
 test.cb('GET /path/a?a=１ static.path', t => {
   axios.get('http://127.0.0.1:4004/path/a?a=1')

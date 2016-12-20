@@ -1,6 +1,6 @@
 {
     "debug": false,
-
+    "prefix": "",
     "views":{
         "path": "/", 
         "extension": "html"

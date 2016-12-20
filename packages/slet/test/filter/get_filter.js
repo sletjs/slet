@@ -1,40 +1,31 @@
 import test from 'ava'
 
-const exec = require('child_process').exec;
-const axios = require('axios')
-const fs = require('fs')
+var sletTest = require('slettest') 
+const Slet = require('../..');
 
-fs.writeFileSync( process.cwd() + '/get_filter.log', "")
-
-exec('node ' + __dirname + '/fixtures/app > ' + process.cwd() + '/get_filter.log', (err, stdout, stderr) => {
-  // if (err) {
-  //   console.log(err);
-  // }
-
-  // console.log(stdout);
-  // console.log(stderr);
+const app = new Slet({
+    root: __dirname,
+    debug: false
 });
 
-test.cb('GET　use this.log before 1 after', t => {
-  axios.get('http://127.0.0.1:6000/c?a=1')
-  .then(function (response) {
-    // console.log(response);
-    t.true(response.status === 200)
-    t.is(response.data.a, 1)
+app.router('fixtures/get')
 
-    // setTimeout(function() {
-   //    var c = fs.readFileSync( process.cwd() + '/get_filter.log').toString().split(/\r?\n/ig)
-   //    t.is(c[0], 'before')
-   //    t.is(c[1], '1')
-   //    t.is(c[2], 'after')
-   //
-   //    t.end()
-   //  }, 200)
-      t.end() 
-  })
-  .catch(function (error) {
-    console.log(error);
-    t.fail();
-    t.end() 
-  });
+test.cb('GET /c', t => {
+  sletTest(app)
+    .get('/c')
+    .expect(200, function (err, res) {
+      t.ifError(err)
+      t.is(res.text, 'some', 'res.text == Hello foo!')
+      t.end()
+    })
 })
+//
+// test.cb('GET /hello/bar', t => {
+//   sletTest(app)
+//     .get('/hello/bar')
+//     .expect(200, function (err, res) {
+//       t.ifError(err)
+//       t.is(res.text, 'Hello bar!', 'res.text == Hello bar!')
+//       t.end()
+//     })
+// })

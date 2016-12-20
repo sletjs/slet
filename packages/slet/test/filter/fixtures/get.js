@@ -7,25 +7,26 @@ class PathController extends BasicController {
     super(app, ctx, next)
     
     this.path = '/c'
-    // this.global_filter.push('custom_filter')
+
     this.get_filter = [this.log]
   }
   
   log(ctx, next){
-    console.log('before')
+    // console.log('before')
+    ctx.someText = 'some'
     return next().then(function(){
-      console.log('after')
+      // console.log('after')
     })
   }
 
   get() {
     var a = this.query.a
-    console.log(a)
+    // console.log(a)
     setTimeout(function(){
        process.exit(0)
     }, 100)
 
-    return {a:1}
+    return this.ctx.someText
   } 
 }
 

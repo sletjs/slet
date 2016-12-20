@@ -103,7 +103,9 @@ class Slet {
     this.app.use(middleware)
   }
 
-  routerDir (dir) {
+  // routerDir ('webapp', '/web')
+  // prefix[optional]
+  routerDir (dir, prefix) {
     var self = this
     this.routerPath = resolve(this.opts.root ? this.opts.root : this.root, dir)
 
@@ -123,12 +125,23 @@ class Slet {
 
         let Controller = controllers[i]
         let mockCtx = new Controller(self, _ctx, _next)
+
         // 兼容static.path
-        if (Controller.path) self.router(Controller)
-        // 兼容object.path
-        else if (mockCtx.path) self.router(Controller)
-        // warn log
-        else console.warn('[WARNING] routerDir at ' + self.routerPath + ' no path config in ' + Controller)
+        if (Controller.path) {
+          if (prefix) {
+            Controller.prefix = prefix
+          }
+          self.router(Controller)
+        } else if (mockCtx.path) {
+          // 兼容object.path
+          if (prefix) {
+            Controller.prefix = prefix
+          }
+          self.router(Controller)
+        } else {
+          // warn log
+          console.warn('[WARNING] routerDir at ' + self.routerPath + ' no path config in ' + Controller)
+        }
       }
     })
   }
@@ -161,8 +174,8 @@ class Slet {
     if (typeof controller === 'string') {
       // 注意.ctrl && ctrl
       // file.exists
-      let file = resolve(this.opts.root, controller)
-      // console.log(file)
+      let file = resolve(this.opts.root ? this.opts.root : this.root, controller)
+      //
       // 自动注入依赖
       var _file = /.js$/.test(file) ? file : file + '.js'
       var info = parseController(_file)
@@ -183,12 +196,12 @@ class Slet {
 
     // 如果attr controller this.path =xxx
     if (!path && mockCtx.path) {
-      path = mockCtx.path
+      path = (Controller.prefix ? Controller.prefix : '') + mockCtx.path
     }
 
     // 如果static controller.path =xxx
     if (!path) {
-      path = Controller.path
+      path = (Controller.prefix ? Controller.prefix : '') + Controller.path
     }
 
     if (!path) {
@@ -206,8 +219,9 @@ class Slet {
         global_filter: mockCtx.global_filter
       })
     }
-
-    router.all(path, function (ctx, next) {
+    // console.log(path)
+    debug(this.opts['prefix'] + path)
+    router.all(this.opts['prefix'] + path, function (ctx, next) {
       let verb = ctx.request.method.toLowerCase()
       var ctrl = new Controller(self, ctx, next)
       debug(ctx.request.method)

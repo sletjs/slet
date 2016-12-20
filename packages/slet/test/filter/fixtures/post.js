@@ -14,23 +14,22 @@ class PathController extends BasicController {
   }
   
   log(ctx, next){
-    console.log('before')
+    ctx.someText = 'some'
+    // console.log('before')
     return next().then(function(){
-      console.log('after')
+      // console.log('after')
     })
   }
 
   post() {
     // console.log(this)
     var a = this.body.a
-    console.log(a)
+    // console.log(a)
     setTimeout(function(){
        process.exit(0)
     }, 100)
     
-    return {
-      dddd:1
-    }
+    return this.ctx.someText
   } 
 }
 
