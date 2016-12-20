@@ -6,7 +6,7 @@
   "scripts": {
     "test": "lerna run test",
     "p": "yrm use npm && lerna publish --skip-git &&  yrm use cnpm",
-    "standard": "./node_modules/.bin/standard packages/slet/src/Slet.js "
+    "standard": "./node_modules/.bin/standard packages/slet/src/Slet.js --fix"
   },
   "repository": {
     "type": "git",

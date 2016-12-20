@@ -26,9 +26,7 @@
 
 const Slet = require('slet')
 
-const app = new Slet({
-    root: __dirname
-})
+const app = new Slet()
 
 class MyController extends Slet.BaseController {
   get () { 

@@ -9,8 +9,8 @@ class Base {
     this.renderType = 'default'
     this.data = {}
     this.tpl = 'index'
-
     this.result = '{verb}() call result'
+    this.url = 'redirect url'
 
     this.global_filter = ['koa-bodyparser']
   }
@@ -72,6 +72,27 @@ class Base {
         })
       })
     }
+    
+    // for this.redirect()
+    if (this.renderType === 'redirect') {
+      return new Promise(function (resolve, reject) {
+        resolve(true)
+      })
+    }
+    
+    // for this.end()
+    if (this.renderType === 'customEnd') {
+      return new Promise(function (resolve, reject) {
+        resolve(true)
+      })
+    }
+  }
+  
+  redirect (url) {
+    if (url) this.url = url
+      
+    this.renderType === 'redirect'
+    this.ctx.redirect(this.url)
   }
 }
 

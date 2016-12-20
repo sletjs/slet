@@ -5,8 +5,6 @@ const ViewController = require('../../../../slet-basecontroller')
 module.exports = class MyViewController extends ViewController {
   compile (tpl, data) {
     const vt = require('nunjucks')
-    console.log(tpl)
-    console.log(data)
     let self = this
     
     return new Promise(function(resolve, reject){

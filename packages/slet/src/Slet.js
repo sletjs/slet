@@ -3,6 +3,7 @@
 const debug = require('debug')('slet')
 const http = require('http')
 const fs = require('fs')
+const dirname = require('path').dirname
 const resolve = require('path').resolve
 const Koa = require('koa')
 const methods = require('methods')
@@ -18,8 +19,11 @@ const _ctx = defaultConfig.mockCtx
 const _next = function () {}
 
 class Slet {
-  constructor (opts) {
+  constructor (opts, root = dirname(require.main.filename)) {
+    this.root = root
     this.opts = Object.assign(defaultConfig, opts)
+
+    if (this.opts.root) this.root = this.opts.root
 
     this.viewPath = resolve(this.opts.root, this.opts.views.path)
 
