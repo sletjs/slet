@@ -19,8 +19,13 @@ const _ctx = defaultConfig.mockCtx
 const _next = function () {}
 
 class Slet {
-  constructor (opts, root = dirname(require.main.filename)) {
-    this.root = root
+  constructor (opts, root) {
+    if (!root) {
+      this.root = dirname(require.main.filename)
+    } else {
+      this.root = root
+    }
+
     this.opts = Object.assign(defaultConfig, opts)
 
     if (this.opts.root) this.root = this.opts.root
