@@ -105,7 +105,7 @@ class Slet {
 
   routerDir (dir) {
     var self = this
-    this.routerPath = resolve(this.opts.root, dir)
+    this.routerPath = resolve(this.opts.root ? this.opts.root : this.root, dir)
 
     if (fs.existsSync(this.routerPath) === false) {
       if (this.opts.debug === true) console.log('router path is not exists: ' + this.routerPath)
