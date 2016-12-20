@@ -5,10 +5,10 @@ const Slet = require('./packages/slet')
 const app = new Slet()
 
 class MyController extends Slet.BaseController {
-  get () { 
-    var a = this.query.a
+  get (req, res) { 
+    var a = req.query.a
 
-    return `hello world ${a}`
+    return res.body = `hello world ${a}`
   } 
 }
 

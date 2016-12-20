@@ -259,20 +259,21 @@ class Slet {
       debug(_middlewares)
 
       _middlewares.push(function last (ctx, next) {
-        let arg = slice.call(arguments, 1)
+        let req = ctx.request
+        let res = ctx.response
 
         // before
         ctrl.before()
 
         // alias this.xxx
         ctrl.alias()
-
+        
         // 如果有all方法，也有对应的verb请求，此种情况下，只会执行all()
         if (ctrl['all']) {
-          ctrl.result = ctrl['all'].apply(ctrl, arg)
+          ctrl.result = ctrl['all'](req, res, next)
         } else {
           // execute {verb}()
-          ctrl.result = ctrl[verb].apply(ctrl, arg)
+          ctrl.result = ctrl[verb](req, res, next)
         }
 
         // renderType: default | view
