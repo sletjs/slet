@@ -9,7 +9,11 @@ module.exports = class MyParamsController extends BasicController {
     this.path = '/redirect'
   }
 
+  post () {
+    return this.redirect('http://baidu.com');
+  }
+  
   get () {
-    return this.redirect('http://baidu.com')
+    return this.redirect('back', '/index.html');
   }
 }

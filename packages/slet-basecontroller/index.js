@@ -1,5 +1,8 @@
 'use strict'
 
+const debug = require('debug')('slet-basecontroller')
+const slice = Array.prototype.slice
+
 class Base {
   constructor (app, ctx, next) {
     this.app = app
@@ -88,11 +91,20 @@ class Base {
     }
   }
   
-  redirect (url) {
-    if (url) this.url = url
-      
+  redirect (url, alt) {
     this.renderType === 'redirect'
-    this.ctx.redirect(this.url)
+
+    if (url) this.url = url
+
+    if (alt) {
+      this.alt = alt
+      debug('this.redirect(back, alt) ' + this.url + ' - ' + this.alt) 
+      return this.ctx.redirect(this.url, this.alt)      
+    }
+    
+    debug('this.redirect(url) ' + this.url) 
+
+    return this.ctx.redirect(this.url)      
   }
 }
 

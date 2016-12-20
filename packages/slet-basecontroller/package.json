@@ -33,5 +33,7 @@
       "pre-commit": "npm run standard && npm test"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "debug": "^2.4.5"
+  }
 }
