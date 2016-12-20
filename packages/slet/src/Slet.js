@@ -20,15 +20,15 @@ const _next = function () {}
 
 class Slet {
   constructor (opts, root) {
+    this.opts = Object.assign(defaultConfig, opts)
+    if (this.opts.root) this.root = this.opts.root
+
     if (!root) {
       this.root = dirname(require.main.filename)
+      // this.opts.root = this.root
     } else {
       this.root = root
     }
-
-    this.opts = Object.assign(defaultConfig, opts)
-
-    if (this.opts.root) this.root = this.opts.root
 
     this.viewPath = resolve(this.opts.root, this.opts.views.path)
 
@@ -41,6 +41,7 @@ class Slet {
     this.middlewares = {}
 
     if (this.opts.debug === true) {
+      console.log('require.main.filename = ' + require.main.filename)
       console.log(this.opts)
     }
 
