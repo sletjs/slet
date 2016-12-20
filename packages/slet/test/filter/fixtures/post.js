@@ -24,10 +24,6 @@ class PathController extends BasicController {
   post() {
     // console.log(this)
     var a = this.body.a
-    // console.log(a)
-    setTimeout(function(){
-       process.exit(0)
-    }, 100)
     
     return this.ctx.someText
   } 
