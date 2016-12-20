@@ -27,11 +27,6 @@ const app = new Slet({
 //   })
 // })
 
-//
-//
-// app.defineController(require('slet-basiccontroller'))
-// app.defineController(require('slet-viewcontroller'))
-
 // app.defineMiddleware('custom_filter', function(ctx, next){
 //     console.log('a before')
 //     return next().then(function(){
