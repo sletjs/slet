@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/sletjs/slet.git"
   },
-  "keywords": [],
+  "keywords": ["web","servlet"],
   "author": "i5ting",
   "license": "MIT",
   "engines": {
