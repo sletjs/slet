@@ -1,8 +1,8 @@
 'use strict';
 
-const BasicController = require('../../../../slet-basecontroller')
+const BaseController = require('../../../../slet-basecontroller')
 
-module.exports = class MainController extends BasicController {
+module.exports = class MainController extends BaseController {
   get() { 
     var a = this.query.a
     

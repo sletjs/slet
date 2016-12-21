@@ -1,10 +1,10 @@
 'use strict';
 
-const BasicController = require('../../../../slet-basecontroller')
+const BaseController = require('../../../../slet-basecontroller')
 
 // console.log(BasicController)
 
-class PathController extends BasicController {
+class PathController extends BaseController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
     

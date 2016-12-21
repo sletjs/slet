@@ -1,8 +1,8 @@
 'use strict'
 
-const BasicController = require('../../')
+const BaseController = require('../../')
 
-module.exports = class MyParamsController extends BasicController {
+module.exports = class MyParamsController extends BaseController {
   constructor (app, ctx, next) {
     super(app, ctx, next)
 

@@ -1,8 +1,8 @@
 'use strict';
 
-const ViewController = require('../../../../slet-basecontroller')
+const BaseController = require('../../../../slet-basecontroller')
 
-module.exports = class MyViewController extends ViewController {
+module.exports = class MyViewController extends BaseController {
   compile (tpl, data) {
     const vt = require('nunjucks')
     let self = this
