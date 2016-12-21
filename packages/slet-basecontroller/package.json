@@ -1,6 +1,6 @@
 {
   "name": "slet-basecontroller",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "basecontroller",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/sletjs/BaseController.git"
   },
-  "keywords": ["slet", "servlet"],
+  "keywords": [
+    "slet",
+    "servlet"
+  ],
   "author": "i5ting",
   "license": "MIT",
   "bugs": {
