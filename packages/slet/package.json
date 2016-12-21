@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "../../node_modules/.bin/nyc ../../node_modules/.bin/ava -v test",
-    "report-coverage": "../../node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && codecov",
-    "standard": "../../node_modules/.bin/standard src/Slet.js "
+    "test": "../../node_modules/.bin/nyc ../../node_modules/.bin/ava -v",
+    "report-coverage": "../../node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && codecov"
   },
   "repository": {
     "type": "git",
@@ -35,8 +34,6 @@
     "v7": "^1.0.1"
   },
   "config": {
-    "ghooks": {
-      "pre-commit": "npm run standard && npm test"
-    }
+
   }
 }

@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "../../node_modules/.bin/nyc ../../node_modules/.bin/ava -v",
-    "report-coverage": "../../node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && codecov",
-    "standard": "../../node_modules/.bin/standard index.js"
+    "report-coverage": "../../node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && codecov"
   },
   "repository": {
     "type": "git",
@@ -23,9 +22,6 @@
   },
   "homepage": "https://github.com/sletjs/BaseController#readme",
   "config": {
-    "ghooks": {
-      "pre-commit": "npm run standard && npm test"
-    }
   },
   "dependencies": {
     "debug": "^2.4.5"
