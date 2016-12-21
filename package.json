@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "lerna run test",
+    "test": "./node_modules/.bin/ava -v packages/slet/test ",
     "p": "yrm use npm && lerna publish --skip-git &&  yrm use cnpm",
     "standard": "./node_modules/.bin/standard packages/slet/src/Slet.js --fix"
   },
