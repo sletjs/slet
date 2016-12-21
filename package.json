@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "t": "lerna run test",
     "test": "lerna bootstrap && lerna run test",
     "p": "yrm use npm && lerna publish --skip-git &&  yrm use cnpm",
     "standard": "./node_modules/.bin/standard packages/slet/src/Slet.js --fix"
@@ -47,7 +48,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm test"
+
     }
   }
 }
