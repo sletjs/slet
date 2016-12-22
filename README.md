@@ -41,3 +41,11 @@ app.router('/', MyController)
 app.start(3000) 
 
 ```
+
+
+## alias 
+
+this.alias = {
+  req: {},
+  req: {}
+}

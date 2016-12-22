@@ -21,11 +21,11 @@ class PathController extends BaseController {
     })
   }
 
-  post() {
-    // console.log(this)
+  post(req, res) {
+    console.log(this.ctx.someText)
     var a = this.body.a
     
-    return this.ctx.someText
+    return res.body = this.ctx.someText
   } 
 }
 

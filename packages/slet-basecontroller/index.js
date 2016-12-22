@@ -14,28 +14,57 @@ class Base {
     this.tpl = 'index'
     this.result = '{verb}() call result'
     this.url = 'redirect url'
+    
+    //for alias
+    this.alias = {
+      req: {
+        
+      },
+      res: {}
+    }
+    
+    let self = this
+    this.app.defineMiddleware('registerBaseAlias', function registerBaseAlias(ctx, next) {
+      console.log(ctx.request.body)
+      if (ctx.request.body) {
+        self.reqbody = ctx.request.body
+        self.alias.req.body = ctx.request.body
+      }
 
-    this.global_filter = ['koa-bodyparser']
+      if (self.ctx.request.query) {
+        self.query = ctx.request.query
+      }
+
+      // matches "GET /hello/foo" and "GET /hello/bar"
+      // self.params['name'] is 'foo' or 'bar'
+      if (self.ctx.params) {
+        self.params = ctx.params
+        self.alias.req.params = ctx.params
+      }
+  
+      if (self.redirect) self.alias.res.redirect = self.redirect
+        
+      return next()
+    })
+    
+    this.global_filter = ['koa-bodyparser', 'registerBaseAlias']
   }
+  
 
   before () {
 
   }
-
-  alias (req, res) {
-    if (this.ctx.request.body) {
-      this.body = this.ctx.request.body
+  
+  // only for app
+  __bindAlias (req, res) {
+    for(var k in this.alias.req) {
+      let v = this.alias.req[k]
+      req[k] = v
     }
-
-    if (this.ctx.request.query) {
-      this.query = this.ctx.request.query
-    }
-
-    // matches "GET /hello/foo" and "GET /hello/bar"
-    // this.params['name'] is 'foo' or 'bar'
-    if (this.ctx.params) {
-      this.params = this.ctx.params
-      req.params = this.ctx.params
+    
+    for(var k in this.alias.res) {
+      let v = this.alias.res[k]
+      res[k] = v
     }
   }
 
@@ -54,7 +83,7 @@ class Base {
     end.apply(end, arguments)
   }
 
-  execute () {
+  __execute () {
     let self = this;
     if (this.renderType === 'default') {
       return new Promise(function (resolve, reject) {
@@ -109,6 +138,19 @@ class Base {
 }
 
 module.exports = class BaseController extends Base {
+  constructor (app, ctx, next) {
+    super(app, ctx, next)
+    
+    let self = this
+    this.app.defineMiddleware('registerBaseControllerAlias', function registerBaseControllerAlias(ctx, next) {
+      self.alias.res.render = self.render
+      self.alias.res.getTplPath = self.getTplPath
+            return next()
+    })
+    
+    this.global_filter.push('registerBaseControllerAlias')
+  }
+  
   getTplPath (tpl) {
     let self = this
     let viewPath = self.app.opts.root + '/' + self.app.opts.views.path

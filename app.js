@@ -8,7 +8,14 @@ class MyController extends Slet.BaseController {
   get (req, res) { 
     var a = req.query.a
 
-    return res.body = `hello world ${a}`
+    // return res.body = `hello world ${a}`
+    return `hello world ${a}`
+  }
+  
+  post(req, res) {
+    var a = this.pp.a
+    
+    return res.body = "ssss" +a
   } 
 }
 

@@ -264,9 +264,9 @@ class Slet {
 
         // before
         ctrl.before()
-
-        // alias this.xxx
-        ctrl.alias(req, res)
+        
+        // bind alias req.xxx and res.yyy
+        ctrl.__bindAlias(req, res)
 
         // 如果有all方法，也有对应的verb请求，此种情况下，只会执行all()
         if (ctrl['all']) {
@@ -277,8 +277,8 @@ class Slet {
         }
 
         // renderType: default | view
-        return ctrl.execute().then(function (str) {
-          ctx.body = str
+        return ctrl.__execute().then(function (str) {
+          if (str) ctx.body = str
           // after
           ctrl.after()
         })
