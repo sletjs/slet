@@ -41,7 +41,10 @@ class Base {
         self.alias.req.params = ctx.params
       }
   
-      if (self.redirect) self.alias.res.redirect = self.redirect
+      if (ctx.response.redirect) {
+        self.alias.res.redirect = ctx.response.redirect
+        self.redirect = ctx.redirect
+      }
         
       return next()
     })
@@ -117,22 +120,6 @@ class Base {
         resolve(true)
       })
     }
-  }
-  
-  redirect (url, alt) {
-    this.renderType === 'redirect'
-
-    if (url) this.url = url
-
-    if (alt) {
-      this.alt = alt
-      debug('this.redirect(back, alt) ' + this.url + ' - ' + this.alt) 
-      return this.ctx.redirect(this.url, this.alt)      
-    }
-    
-    debug('this.redirect(url) ' + this.url) 
-
-    return this.ctx.redirect(this.url)      
   }
 }
 

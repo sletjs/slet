@@ -12,6 +12,6 @@ module.exports = class MyParamsController extends BaseController {
   post () {
     // matches "POST /post"
     // pp['name'] is 'foo' or 'bar'
-    return `Hello ${this.body['name']}!`
+    return `Hello ${this.reqbody['name']}!`
   }
 }
