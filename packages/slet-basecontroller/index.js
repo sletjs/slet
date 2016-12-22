@@ -25,7 +25,6 @@ class Base {
     
     let self = this
     this.app.defineMiddleware('registerBaseAlias', function registerBaseAlias(ctx, next) {
-      console.log(ctx.request.body)
       if (ctx.request.body) {
         self.reqbody = ctx.request.body
         self.alias.req.body = ctx.request.body

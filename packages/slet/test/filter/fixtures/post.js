@@ -23,7 +23,7 @@ class PathController extends BaseController {
 
   post(req, res) {
     console.log(this.ctx.someText)
-    var a = this.body.a
+    var a = this.reqbody.a
     
     return res.body = this.ctx.someText
   } 
