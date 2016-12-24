@@ -45,6 +45,11 @@ class Base {
         self.alias.res.redirect = ctx.response.redirect
         self.redirect = ctx.redirect
       }
+
+      // cookies
+      self.alias.req.cookies = ctx.cookies
+      // fresh
+      self.alias.req.fresh = ctx.fresh
         
       return next()
     })
