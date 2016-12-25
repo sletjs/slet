@@ -226,6 +226,8 @@ class Slet {
       var ctrl = new Controller(self, ctx, next)
       debug(ctx.request.method)
       debug(ctx.request.path)
+      // http://expressjs.com/en/4x/api.html#req.route
+      ctx.request.route = router
 
       var match = avaiableMethods.find(function (n) {
         return n === verb

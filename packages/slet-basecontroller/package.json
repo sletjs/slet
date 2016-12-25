@@ -23,6 +23,7 @@
   "homepage": "https://github.com/sletjs/BaseController#readme",
   "config": {},
   "dependencies": {
-    "debug": "^2.4.5"
+    "debug": "^2.4.5",
+    "range-parser": "^1.2.0"
   }
 }

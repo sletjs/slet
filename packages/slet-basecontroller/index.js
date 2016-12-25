@@ -48,9 +48,16 @@ class Base {
 
       // cookies
       self.alias.req.cookies = ctx.cookies
-      // fresh
-      self.alias.req.fresh = ctx.fresh
-        
+      // xhr
+      self.alias.req.xhr = self.xhr
+      // param
+      self.alias.req.param = self.param
+      // range
+      self.alias.req.range = self.range
+      // throw
+      self.alias.req.throw = ctx.throw
+      self.alias.res.throw = ctx.throw
+
       return next()
     })
     
@@ -88,6 +95,34 @@ class Base {
     this.renderType = 'customEnd'
     let end = this.res.end.bind(this.res)
     end.apply(end, arguments)
+  }
+
+  get xhr () {
+    let val = this.ctx.headers['X-Requested-With'] || ''
+    return val.toLowerCase() === 'xmlhttprequest'
+  }
+
+  range (size, options) {
+    var range = this.ctx.get('Range')
+    if (!range) return
+    return require('range-parser')(size, range, options)
+  }
+
+  param (name, defaultValue) {
+    let params = this.params || {}
+    let body = this.body || {}
+    let query = this.query || {}
+
+    let args = arguments.length === 1
+      ? 'name'
+      : 'name, default';
+    console.log('req.param(' + args + '): Use req.params, req.body, or req.query instead')
+
+    if (null != params[name] && params.hasOwnProperty(name)) return params[name]
+    if (null != body[name]) return body[name]
+    if (null != query[name]) return query[name]
+
+    return defaultValue
   }
 
   __execute () {
