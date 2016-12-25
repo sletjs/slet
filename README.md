@@ -18,6 +18,7 @@
 - Auto-inject Controller Dependency
 - Custom View Render
 - Convention over Configuration
+- Use Expressjs-like req && res api
 
 ## Usages
 
@@ -42,10 +43,6 @@ app.start(3000)
 
 ```
 
+## work
 
-## alias 
-
-this.alias = {
-  req: {},
-  req: {}
-}
+- express req 已经整理完成
