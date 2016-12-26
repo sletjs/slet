@@ -75,7 +75,7 @@ test.cb('should return false otherwise', t => {
 // app.defineController(require('../..'))
  
 
-test.cb('should return false otherwise', t => {
+test.cb('should accept an argument list of type names', t => {
   app.router('fixtures/reqaccepts2')
   
   sletTest(app)
@@ -84,17 +84,6 @@ test.cb('should return false otherwise', t => {
     .expect('json', t.end);
 })
 
-//
-// var express = require('../')
-//   , request = require('supertest');
-//
-// describe('req', function(){
-//   describe('.accepts(type)', function(){
-
-
-
-//
-//   describe('.accepts(types)', function(){
 //     it('should return the first when Accept is not present', function(done){
 //       var app = express();
 //
@@ -106,7 +95,15 @@ test.cb('should return false otherwise', t => {
 //       .get('/')
 //       .expect('json', done);
 //     })
-//
+test.cb('should return the first when Accept is not present', t => {
+  app.router('fixtures/reqaccepts2')
+  
+  sletTest(app)
+    .get('/2')
+    // .set('Accept', 'application/json')
+    .expect('json', t.end);
+})
+
 //     it('should return the first acceptable type', function(done){
 //       var app = express();
 //
@@ -119,7 +116,18 @@ test.cb('should return false otherwise', t => {
 //       .set('Accept', 'text/html')
 //       .expect('html', done);
 //     })
-//
+
+test.cb('should return the first acceptable type', t => {
+  app.router('fixtures/reqaccepts2')
+  
+  sletTest(app)
+    .get('/2')
+    .set('Accept', 'text/html')
+    .expect('html', t.end);
+})
+
+
+
 //     it('should return false when no match is made', function(done){
 //       var app = express();
 //
@@ -132,7 +140,15 @@ test.cb('should return false otherwise', t => {
 //       .set('Accept', 'foo/bar, bar/baz')
 //       .expect('nope', done);
 //     })
-//
+test.cb('should return false when no match is made', t => {
+  app.router('fixtures/reqaccepts3')
+  
+  sletTest(app)
+    .get('/3')
+    .set('Accept', 'foo/bar, bar/baz')
+    .expect('nope', t.end);
+})
+
 //     it('should take quality into account', function(done){
 //       var app = express();
 //
@@ -145,7 +161,17 @@ test.cb('should return false otherwise', t => {
 //       .set('Accept', '*/html; q=.5, application/json')
 //       .expect('application/json', done);
 //     })
-//
+
+
+test.cb('should take quality into account', t => {
+  app.router('fixtures/reqaccepts4')
+  
+  sletTest(app)
+    .get('/4')
+    .set('Accept', '*/html; q=.5, application/json')
+    .expect('application/json', t.end);
+})
+
 //     it('should return the first acceptable type with canonical mime types', function(done){
 //       var app = express();
 //
@@ -158,5 +184,12 @@ test.cb('should return false otherwise', t => {
 //       .set('Accept', '*/html')
 //       .expect('text/html', done);
 //     })
-//   })
-// })
+
+test.cb('should return the first acceptable type with canonical mime types', t => {
+  app.router('fixtures/reqaccepts4')
+  
+  sletTest(app)
+    .get('/4')
+    .set('Accept', '*/html')
+    .expect('text/html', t.end);
+})
