@@ -103,6 +103,50 @@ class Slet {
     this.app.use(middleware)
   }
 
+  get context () {
+    return this.app.context
+  }
+
+  set name (k){
+    this.app.name = k
+  }
+
+  get name () {
+    return this.app.name
+  }
+
+  set env (k){
+    this.app.env = k
+  }
+
+  get env () {
+    return this.app.env
+  }
+
+  set proxy (k){
+    this.app.proxy = k
+  }
+
+  get proxy () {
+    return this.proxy.env
+  }
+
+  set subdomainOffset (k){
+    this.app.subdomainOffset = k
+  }
+
+  get subdomainOffset () {
+    return this.subdomainOffset.env
+  }
+
+  set keys (k){
+    this.app.keys = k
+  }
+
+  get keys () {
+    return this.app.keys
+  }
+
   // routerDir ('webapp', '/web')
   // prefix[optional]
   routerDir (dir, prefix) {
