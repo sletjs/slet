@@ -66,6 +66,10 @@ class Base {
       self.alias.req.range = self.range
       // acceptsCharset
       self.alias.req.acceptsCharset = self.acceptsCharset
+      // acceptsEncoding
+      self.alias.req.acceptsEncoding = self.acceptsEncoding
+      // acceptsLanguage
+      self.alias.req.acceptsLanguage = self.acceptsLanguage
       // throw
       self.alias.req.throw = ctx.throw
       self.alias.res.throw = ctx.throw
@@ -123,9 +127,17 @@ class Base {
   }
 
   end () {
+    // this.ctx.status = 200
+    this.res.statusCode = 200
     this.renderType = 'customEnd'
     let end = this.res.end.bind(this.res)
-    end.apply(end, arguments)
+    
+
+    if (arguments.length > 0) {
+      end.apply(end, arguments)
+    } else {
+      end.apply(end, [this.status + ''])
+    }
   }
   // request
   get xhr () {
@@ -172,9 +184,25 @@ class Base {
     return this.ctx.request.acceptsCharsets
   }
 
-  set acceptsCharset (val){
+  set acceptsCharset (val) {
     return this.ctx.request.acceptsCharsets = val
   }
+
+  get acceptsEncoding () {
+    return this.ctx.request.acceptsEncodings
+  }
+
+  set acceptsEncoding (val) {
+    return this.ctx.request.acceptsEncodings = val
+  }
+
+  get acceptsLanguage () {
+    return this.ctx.request.acceptsLanguages
+  }
+
+  set acceptsLanguage (val) {
+    return this.ctx.request.acceptsLanguages = val
+  }  
 
   clearCookie (name, options) {
     var opts = merge({ expires: new Date(1), path: '/' }, options)
