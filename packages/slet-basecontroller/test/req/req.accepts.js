@@ -2,6 +2,7 @@ import test from 'ava'
 
 var sletTest = require('slettest')
 const Slet = require('../../../slet')
+const BaseController = require('../..')
 
 const app = new Slet({
   root: __dirname,
@@ -18,37 +19,7 @@ test.cb('should return true when Accept is not present', t => {
     .expect('yes', t.end);
 })
 
-//
-// it('should return true when Accept is not present', function(done){
-//   var app = express();
-//
-//   app.use(function(req, res, next){
-//     res.end(req.accepts('json') ? 'yes' : 'no');
-//   });
-//
-//   request(app)
-//   .get('/')
-//   .expect('yes', done);
-// })
 
-//
-// var express = require('../')
-//   , request = require('supertest');
-//
-// describe('req', function(){
-//   describe('.accepts(type)', function(){
-//     it('should return true when Accept is not present', function(done){
-//       var app = express();
-//
-//       app.use(function(req, res, next){
-//         res.end(req.accepts('json') ? 'yes' : 'no');
-//       });
-//
-//       request(app)
-//       .get('/')
-//       .expect('yes', done);
-//     })
-//
 //     it('should return true when present', function(done){
 //       var app = express();
 //
@@ -61,7 +32,13 @@ test.cb('should return true when Accept is not present', t => {
 //       .set('Accept', 'application/json')
 //       .expect('yes', done);
 //     })
-//
+test.cb('should return true when present', t => {
+  sletTest(app)
+    .get('/')
+    .set('Accept', 'application/json')
+    .expect('yes', t.end);
+})
+
 //     it('should return false otherwise', function(done){
 //       var app = express();
 //
@@ -75,7 +52,13 @@ test.cb('should return true when Accept is not present', t => {
 //       .expect('no', done);
 //     })
 //   })
-//
+test.cb('should return false otherwise', t => {
+  sletTest(app)
+    .get('/')
+    .set('Accept', 'text/html')
+    .expect('no', t.end);
+})
+
 //   it('should accept an argument list of type names', function(done){
 //     var app = express();
 //
@@ -88,6 +71,28 @@ test.cb('should return true when Accept is not present', t => {
 //     .set('Accept', 'application/json')
 //     .expect('json', done);
 //   })
+
+// app.defineController(require('../..'))
+ 
+
+test.cb('should return false otherwise', t => {
+  app.router('fixtures/reqaccepts2')
+  
+  sletTest(app)
+    .get('/2')
+    .set('Accept', 'application/json')
+    .expect('json', t.end);
+})
+
+//
+// var express = require('../')
+//   , request = require('supertest');
+//
+// describe('req', function(){
+//   describe('.accepts(type)', function(){
+
+
+
 //
 //   describe('.accepts(types)', function(){
 //     it('should return the first when Accept is not present', function(done){

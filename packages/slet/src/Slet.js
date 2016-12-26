@@ -227,15 +227,23 @@ class Slet {
       self.defineController(require(info.dep_controller))
       Controller = require(file)
     }
+    
+    if (typeof controller === 'function') {
+        // console.log("function Controller" + Controller)
+      // let i = (Controller + "").split('(')[0].replace('function', '').trim()
+//       console.log(i)
+//       Controller = eval(i
+//       console.log(Controller)
+    }
+    
     if (typeof Controller === 'object'){
       console.error('fatal error: you need add module.exports = class xxx')
       return
     }
 
-    let lib = this._getControllerBaseName(Controller)
-    this.controllerDependency.push(lib)
-
     if (this.opts.auto) {
+      let lib = this._getControllerBaseName(Controller)
+      this.controllerDependency.push(lib)
       this.defineController(require(lib))
     }
 
@@ -364,7 +372,12 @@ class Slet {
   }
 
   _getControllerBaseName (Controller) {
+    if (typeof Controller === 'function'){
+      console.log("Controller")
+      return
+    }
     let i = (Controller + '').split(' extends')[1]
+    console.log(i)
     let j = i.split('{')[0]
 
     let base = j.trim()
