@@ -83,6 +83,9 @@ class Base {
       self.alias.res.location = self.location
       self.alias.res.json = self.json
       self.alias.res.jsonp = self.jsonp
+      self.alias.res.format = self.format
+      self.alias.res.getHeader = self.getHeader
+      self.alias.res.setHeader = self.setHeader
 
       return next()
     })
@@ -195,6 +198,14 @@ class Base {
     return koasend(this.ctx, _filepath, _options)
   }
 
+  getHeader (field) {
+    return this.ctx.get[field]
+  }
+
+  setHeader (field, value) {
+    return this.ctx.set(field, value)
+  }
+  
   setStatus (code) {
     this.ctx.status= parseInt(code)
     return this
@@ -241,6 +252,10 @@ class Base {
   }
 
   json (obj) {
+    if (obj === null){
+      obj = {}
+    }
+
     return this.ctx.body = obj
   }
 
@@ -261,6 +276,66 @@ class Base {
     }
 
     return this.ctx.body = jsonp(_body, cb)
+  }
+
+  format (obj) {
+    var req = this.ctx.request;
+    var next = req.next;
+
+    function acceptParams(str, index) {
+      var parts = str.split(/ *; */);
+      var ret = { value: parts[0], quality: 1, params: {}, originalIndex: index };
+
+      for (var i = 1; i < parts.length; ++i) {
+        var pms = parts[i].split(/ *= */);
+        if ('q' === pms[0]) {
+          ret.quality = parseFloat(pms[1]);
+        } else {
+          ret.params[pms[0]] = pms[1];
+        }
+      }
+
+      return ret;
+    }
+
+    function normalizeType(type){
+      return ~type.indexOf('/')
+        ? acceptParams(type)
+        : { value: mime.lookup(type), params: {} };
+    }
+
+    function normalizeTypes(types){
+      var ret = [];
+
+      for (var i = 0; i < types.length; ++i) {
+        ret.push(exports.normalizeType(types[i]));
+      }
+
+      return ret;
+    }
+
+    var fn = obj.default;
+    if (fn) delete obj.default;
+    var keys = Object.keys(obj);
+
+    var key = keys.length > 0
+      ? req.accepts(keys)
+      : false;
+
+    this.ctx.response.vary("Accept");
+
+    let _body = {}
+    if (key) {
+      this.ctx.response.set('Content-Type', normalizeType(key).value);
+      _body = obj[key](req, this.ctx.response, this.next);
+    } else if (fn) {
+      _body = fn();
+    } else {
+      var err = new Error('Not Acceptable');
+      err.status = err.statusCode = 406;
+      err.types = normalizeTypes(keys).map(function(o){ return o.value });
+      this.throw(err);
+    }
   }
 
   __execute () {
@@ -330,7 +405,8 @@ module.exports = class BaseController extends Base {
 
   render (tpl, data) {
     this.renderType = 'view'
+    let _data = data ? data : this.ctx.state 
     if (tpl) this.tpl = tpl
-    if (data) this.data = data
+    if (data) this.data = _data
   }
 }
