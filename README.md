@@ -18,7 +18,7 @@
 - Auto-inject Controller Dependency
 - Custom View Render
 - Convention over Configuration
-- Use Expressjs-like req && res api
+- Use Express or Koa req && res api
 
 ## Usages
 
@@ -33,7 +33,7 @@ class MyController extends Slet.BaseController {
   get (req, res) { 
     var a = req.query.a
 
-    return res.body = `hello world ${a}`
+    return res.send(`hello world ${a}`)
   } 
 }
 
@@ -46,3 +46,4 @@ app.start(3000)
 ## work
 
 - [express req 已经整理完成](http://sletjs.com/zh-cn/api/request.html)
+- [express res 已经整理完成](http://sletjs.com/zh-cn/api/response.html)
