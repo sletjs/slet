@@ -227,6 +227,10 @@ class Slet {
       self.defineController(require(info.dep_controller))
       Controller = require(file)
     }
+    if (typeof Controller === 'object'){
+      console.error('fatal error: you need add module.exports = class xxx')
+      return
+    }
 
     let lib = this._getControllerBaseName(Controller)
     this.controllerDependency.push(lib)
@@ -361,7 +365,6 @@ class Slet {
 
   _getControllerBaseName (Controller) {
     let i = (Controller + '').split(' extends')[1]
-
     let j = i.split('{')[0]
 
     let base = j.trim()
