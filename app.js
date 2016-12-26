@@ -8,8 +8,10 @@ class MyController extends Slet.BaseController {
   get (req, res) { 
     var a = req.query.a
 
+    //  res.locals.user = {a:1}
     // return res.body = `hello world ${a}`
-    res.send(`hello world ${a}`)
+    // res.send(`hello world ${a}`)
+    return res.sendFile('/package.json')
   }
   
   post(req, res) {

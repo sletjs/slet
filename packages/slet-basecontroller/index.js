@@ -1,6 +1,9 @@
 'use strict'
 
 const debug = require('debug')('slet-basecontroller')
+const merge = require('utils-merge')
+const contentDisposition = require('content-disposition')
+const koasend = require('slet-send')
 const slice = Array.prototype.slice
 
 class Base {
@@ -48,6 +51,8 @@ class Base {
       // request
       // cookies
       self.alias.req.cookies = ctx.cookies
+      self.alias.res.cookie = ctx.cookies
+      self.alias.res.clearCookie = self.clearCookie
       // xhr
       self.alias.req.xhr = self.xhr
       // param
@@ -61,6 +66,9 @@ class Base {
       // response
       // send
       self.alias.res.send = self.send
+      self.alias.res.locals = self.locals
+      self.alias.res.sendFile = self.sendFile
+      self.alias.res.download = self.download
 
       return next()
     })
@@ -131,6 +139,46 @@ class Base {
   // response
   send (text) {
     return this.ctx.body = text
+  }
+
+  get locals () {
+    return this.ctx.state
+  }
+
+  set locals (val){
+    return this.ctx.state = val
+  }
+
+  clearCookie (name, options) {
+    var opts = merge({ expires: new Date(1), path: '/' }, options)
+
+    return this.ctx.cookies(name, '', opts)
+  }
+
+  download (path, filename) {
+    var name = filename
+
+    // support function as second arg
+    if (typeof filename === 'function') {
+      done = filename
+      name = null
+    }
+
+    // set Content-Disposition when file is sent
+    var headers = {
+      'Content-Disposition': contentDisposition(name || path)
+    }
+
+    // Resolve the full path for sendFile
+    var fullPath = resolve(path)
+
+    return this.sendFile(fullPath, { headers: headers })
+  }
+
+  sendFile (filepath, options) {
+    let _filepath = filepath || this.ctx.path
+    let _options = options || {}
+    return koasend(this.ctx, _filepath, _options)
   }
 
   __execute () {
