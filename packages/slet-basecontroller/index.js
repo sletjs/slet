@@ -1,10 +1,13 @@
 'use strict'
 
 const debug = require('debug')('slet-basecontroller')
+const http = require('http')
 const merge = require('utils-merge')
 const contentDisposition = require('content-disposition')
 const koasend = require('slet-send')
 const resolve = require('path').resolve
+const vary = require('vary')
+const statusCodes = http.STATUS_CODES
 const slice = Array.prototype.slice
 
 class Base {
@@ -70,6 +73,11 @@ class Base {
       self.alias.res.locals = self.locals
       self.alias.res.sendFile = self.sendFile
       self.alias.res.download = self.download
+      self.alias.res.end = self.end
+      self.alias.res.write = self.write
+      self.alias.res.setStatus = self.setStatus
+      self.alias.res.sendStatus = self.sendStatus
+      self.alias.res.vary = self.vary
 
       return next()
     })
@@ -180,6 +188,30 @@ class Base {
     let _filepath = filepath || this.ctx.path
     let _options = options || {}
     return koasend(this.ctx, _filepath, _options)
+  }
+
+  setStatus (code) {
+    this.ctx.status= parseInt(code)
+    return this
+  }
+
+  sendStatus (code) {
+    this.ctx.status= parseInt(code)
+    let txt = statusCodes[statusCode] || String(statusCode);
+
+    return this.ctx.body = txt
+  }
+
+  vary (field) {
+    // checks for back-compat
+    if (!field || (Array.isArray(field) && !field.length)) {
+      console.log('res.vary(): Provide a field name');
+      return this;
+    }
+
+    vary(this.ctx.response, field);
+
+    return this;
   }
 
   __execute () {

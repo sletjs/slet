@@ -11,7 +11,10 @@ class MyController extends Slet.BaseController {
     //  res.locals.user = {a:1}
     // return res.body = `hello world ${a}`
     // res.send(`hello world ${a}`)
-    return res.download('/lerna.json')
+    // return res.download('/lerna.json')
+    // res.status = 201
+    return res.sendStatus(200)
+    // return res.setStatus(201).end('sss')
   }
   
   post(req, res) {
