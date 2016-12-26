@@ -126,8 +126,8 @@ class Base {
     write.apply(write, arguments)
   }
 
-  end () {
-    this.res.statusCode = 200
+  end (code) {
+    this.res.statusCode = code || 200
     this.renderType = 'customEnd'
     let end = this.res.end.bind(this.res)
 

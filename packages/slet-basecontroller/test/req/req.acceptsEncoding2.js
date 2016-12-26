@@ -25,7 +25,7 @@ const app = new Slet({
 //     })
 
 test.cb('should be true if encoding accpeted', t => {
-  app.router('fixtures/req.acceptsEncoding')
+  app.router('fixtures/req.acceptsEncodings')
   
   sletTest(app)
     .get('/')
@@ -48,7 +48,7 @@ test.cb('should be true if encoding accpeted', t => {
 //       .expect(200, done);
 //     })
 test.cb('should be false if encoding not accpeted', t => {
-  app.router('fixtures/req.acceptsEncoding2')
+  app.router('fixtures/req.acceptsEncodings2')
   
   sletTest(app)
     .get('/')
