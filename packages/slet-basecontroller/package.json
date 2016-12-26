@@ -25,6 +25,8 @@
   "dependencies": {
     "content-disposition": "^0.5.2",
     "debug": "^2.4.5",
+    "encodeurl": "^1.0.1",
+    "jsonp-body": "^1.0.0",
     "range-parser": "^1.2.0",
     "slet-send": "^3.2.0",
     "utils-merge": "^1.0.0",

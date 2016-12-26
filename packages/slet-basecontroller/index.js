@@ -21,6 +21,7 @@ class Base {
     this.tpl = 'index'
     this.result = '{verb}() call result'
     this.url = 'redirect url'
+    this.jsonp_callback_name = 'callback'
     
     //for alias
     this.alias = {
@@ -78,6 +79,9 @@ class Base {
       self.alias.res.setStatus = self.setStatus
       self.alias.res.sendStatus = self.sendStatus
       self.alias.res.vary = self.vary
+      self.alias.res.links = self.links
+      self.alias.res.location = self.location
+      self.alias.res.jsonp = self.jsonp
 
       return next()
     })
@@ -212,6 +216,46 @@ class Base {
     vary(this.ctx.response, field);
 
     return this;
+  }
+
+  links (links) {
+    var link = this.ctx.response.get('Link') || ''
+    if (link) link += ', '
+    return this.ctx.response.set('Link', link + Object.keys(links).map(function(rel){
+      return '<' + links[rel] + '>; rel="' + rel + '"';
+    }).join(', '))
+  }
+
+  location (url) {
+    const encodeUrl = require('encodeurl')
+    var loc = url
+
+    // "back" is an alias for the referrer
+    if (url === 'back') {
+      loc = this.ctx.request.get('Referrer') || '/'
+    }
+
+    // set location
+    return this.ctx.response.set('Location', encodeUrl(loc))
+  }
+
+  jsonp (obj) {
+    let _body = {}
+    if (obj && obj !== null) _body = obj
+
+    const jsonp = require('jsonp-body')
+    let query = this.ctx.request.querystring
+    let cb = query || this.jsonp_callback_name
+
+    this.ctx.response.set('X-Content-Type-Options', 'nosniff')
+
+    if (cb) {
+      this.ctx.response.set('Content-Type', 'text/javascript')
+    } else {
+      this.ctx.response.set('Content-Type', 'application/json')
+    }
+
+    return this.ctx.body = jsonp(_body, cb)
   }
 
   __execute () {

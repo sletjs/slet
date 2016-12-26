@@ -13,7 +13,10 @@ class MyController extends Slet.BaseController {
     // res.send(`hello world ${a}`)
     // return res.download('/lerna.json')
     // res.status = 201
-    return res.sendStatus(200)
+    // return res.sendStatus(200)
+    return res.jsonp(null)
+    return res.location('/foo/bar');
+
     // return res.setStatus(201).end('sss')
   }
   
