@@ -127,11 +127,9 @@ class Base {
   }
 
   end () {
-    // this.ctx.status = 200
     this.res.statusCode = 200
     this.renderType = 'customEnd'
     let end = this.res.end.bind(this.res)
-    
 
     if (arguments.length > 0) {
       end.apply(end, arguments)
@@ -139,6 +137,7 @@ class Base {
       end.apply(end, [this.status + ''])
     }
   }
+
   // request
   get xhr () {
     let val = this.ctx.headers['X-Requested-With'] || ''
