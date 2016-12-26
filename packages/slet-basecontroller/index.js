@@ -64,6 +64,8 @@ class Base {
       self.alias.req.param = self.param
       // range
       self.alias.req.range = self.range
+      // acceptsCharset
+      self.alias.req.acceptsCharset = self.acceptsCharset
       // throw
       self.alias.req.throw = ctx.throw
       self.alias.res.throw = ctx.throw
@@ -164,6 +166,14 @@ class Base {
 
   set locals (val){
     return this.ctx.state = val
+  }
+
+  get acceptsCharset () {
+    return this.ctx.request.acceptsCharsets
+  }
+
+  set acceptsCharset (val){
+    return this.ctx.request.acceptsCharsets = val
   }
 
   clearCookie (name, options) {
