@@ -9,11 +9,9 @@ const app = new Slet({
   debug: false
 })
 
-app.router('fixtures/reqaccepts')
-// app.router('/', __dirname  + '/fixtures/req.accepts')
-
-
 test.cb('should return true when Accept is not present', t => {
+  app.router('fixtures/reqaccepts')
+  
   sletTest(app)
     .get('/')
     .expect('yes', t.end);
@@ -33,6 +31,8 @@ test.cb('should return true when Accept is not present', t => {
 //       .expect('yes', done);
 //     })
 test.cb('should return true when present', t => {
+  app.router('fixtures/reqaccepts')
+  
   sletTest(app)
     .get('/')
     .set('Accept', 'application/json')
@@ -53,6 +53,8 @@ test.cb('should return true when present', t => {
 //     })
 //   })
 test.cb('should return false otherwise', t => {
+  app.router('fixtures/reqaccepts')
+  
   sletTest(app)
     .get('/')
     .set('Accept', 'text/html')
