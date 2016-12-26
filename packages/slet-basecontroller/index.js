@@ -4,6 +4,7 @@ const debug = require('debug')('slet-basecontroller')
 const merge = require('utils-merge')
 const contentDisposition = require('content-disposition')
 const koasend = require('slet-send')
+const resolve = require('path').resolve
 const slice = Array.prototype.slice
 
 class Base {
