@@ -45,7 +45,7 @@ class Base {
         self.alias.res.redirect = ctx.response.redirect
         self.redirect = ctx.redirect
       }
-
+      // request
       // cookies
       self.alias.req.cookies = ctx.cookies
       // xhr
@@ -57,6 +57,10 @@ class Base {
       // throw
       self.alias.req.throw = ctx.throw
       self.alias.res.throw = ctx.throw
+
+      // response
+      // send
+      self.alias.res.send = self.send
 
       return next()
     })
@@ -96,7 +100,7 @@ class Base {
     let end = this.res.end.bind(this.res)
     end.apply(end, arguments)
   }
-
+  // request
   get xhr () {
     let val = this.ctx.headers['X-Requested-With'] || ''
     return val.toLowerCase() === 'xmlhttprequest'
@@ -123,6 +127,10 @@ class Base {
     if (null != query[name]) return query[name]
 
     return defaultValue
+  }
+  // response
+  send (text) {
+    return this.ctx.body = text
   }
 
   __execute () {

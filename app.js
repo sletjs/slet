@@ -9,7 +9,7 @@ class MyController extends Slet.BaseController {
     var a = req.query.a
 
     // return res.body = `hello world ${a}`
-    return `hello world ${a}`
+    res.send(`hello world ${a}`)
   }
   
   post(req, res) {
