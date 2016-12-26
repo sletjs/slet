@@ -81,6 +81,7 @@ class Base {
       self.alias.res.vary = self.vary
       self.alias.res.links = self.links
       self.alias.res.location = self.location
+      self.alias.res.json = self.json
       self.alias.res.jsonp = self.jsonp
 
       return next()
@@ -237,6 +238,10 @@ class Base {
 
     // set location
     return this.ctx.response.set('Location', encodeUrl(loc))
+  }
+
+  json (obj) {
+    return this.ctx.body = obj
   }
 
   jsonp (obj) {
