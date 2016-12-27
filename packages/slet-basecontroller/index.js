@@ -96,7 +96,10 @@ class Base {
       return next()
     })
     
-    this.global_filter = ['koa-bodyparser', 'registerBaseAlias']
+    this.app.defineMiddleware('conditional', require('koa-conditional-get')())
+    this.app.defineMiddleware('etag', require('koa-etag')())
+
+    this.global_filter = ['conditional', 'etag', 'koa-bodyparser', 'registerBaseAlias']
   }
   
 
@@ -126,15 +129,15 @@ class Base {
     write.apply(write, arguments)
   }
 
-  end (code) {
-    this.res.statusCode = code || 200
+  end () {
+    this.res.statusCode = 200
     this.renderType = 'customEnd'
     let end = this.res.end.bind(this.res)
 
     if (arguments.length > 0) {
       end.apply(end, arguments)
     } else {
-      end.apply(end, [this.status + ''])
+      end.apply(end, [this.ctx.response.status + ''])
     }
   }
 

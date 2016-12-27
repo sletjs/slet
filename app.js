@@ -8,6 +8,8 @@ class MyController extends Slet.BaseController {
   get (req, res) { 
     req.accepts(['json']);
     var a = req.query.a
+    // res.status = 200
+    return res.end()
 
     //  res.locals.user = {a:1}
     // return res.body = `hello world ${a}`
