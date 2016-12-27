@@ -54,6 +54,7 @@ class Base {
         self.redirect = ctx.redirect
       }
       // request
+      self.alias.req.qs = self.qs
       // cookies
       self.alias.req.cookies = ctx.cookies
       self.alias.res.cookie = ctx.cookies
@@ -139,6 +140,15 @@ class Base {
     } else {
       end.apply(end, [this.ctx.response.status + ''])
     }
+  }
+  
+  get qs () {
+    const qs = require('qs')
+    return this.qs = qs.parse(this.ctx.request.querystring)
+  }
+  
+  set qs (q) {
+    // this.qs = q
   }
 
   // request
