@@ -73,3 +73,27 @@ test.cb('should return empty string otherwise', t => {
     .post('/2')
     .expect('', t.end);
 })
+
+// it('should work with IPv6 Host', function(done){
+//   var app = express();
+//
+//   app.use(function(req, res){
+//     res.end(req.hostname);
+//   });
+//
+//   request(app)
+//   .post('/')
+//   .set('Host', '[::1]')
+//   .expect('[::1]', done);
+// })
+// 目前版本koa还不支持，已经提了pr
+// test.cb('should work with IPv6 Host', t => {
+//   app.router('fixtures/hostname')
+//
+//   sletTest(app)
+//     .post('/')
+//     .set('Host', '[::1]:3000')
+//     .expect('[::1]', t.end);
+// })
+
+
