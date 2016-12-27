@@ -56,3 +56,24 @@ test.cb('should return false when the resource is modified', t => {
     .set('If-None-Match', '"12345"')
     .expect(200, 'false', t.end)
 })
+
+// it('should return false without response headers', function(done){
+//       var app = express();
+
+//       app.use(function(req, res){
+//         res._headers = null;
+//         res.send(req.fresh);
+//       });
+
+//       request(app)
+//       .get('/')
+//       .expect(200, 'false', done);
+//     })
+
+test.cb('should return false without response headers', t => {
+  app.router('fixtures/reqfresh3')
+
+  sletTest(app)
+    .get('/3')
+    .expect(200, 'false', t.end)
+})
