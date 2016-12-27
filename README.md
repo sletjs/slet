@@ -31,9 +31,9 @@ const app = new Slet()
 
 class MyController extends Slet.BaseController {
   get (req, res) { 
-    var a = req.query.a
+    let username = req.query.username
 
-    return res.send(`hello world ${a}`)
+    return res.send(`hello world ${username}`)
   } 
 }
 
