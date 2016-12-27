@@ -33,3 +33,26 @@ test.cb('should return true when the resource is not modified', t => {
     .set('If-None-Match', etag)
     .expect(304, t.end);
 })
+
+// it('should return false when the resource is modified', function(done){
+//       var app = express();
+
+//       app.use(function(req, res){
+//         res.set('ETag', '"123"');
+//         res.send(req.fresh);
+//       });
+
+//       request(app)
+//       .get('/')
+//       .set('If-None-Match', '"12345"')
+//       .expect(200, 'false', done);
+//     })
+
+test.cb('should return false when the resource is modified', t => {
+  app.router('fixtures/reqfresh2')
+
+  sletTest(app)
+    .get('/2')
+    .set('If-None-Match', '"12345"')
+    .expect(200, 'false', t.end)
+})
