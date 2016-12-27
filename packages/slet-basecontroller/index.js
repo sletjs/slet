@@ -143,8 +143,9 @@ class Base {
 
   // request
   get xhr () {
-    let val = this.ctx.headers['X-Requested-With'] || ''
-    return val.toLowerCase() === 'xmlhttprequest'
+    let val = this.getHeader('X-Requested-With') || ''
+    return val
+    if (val) return val.toLowerCase() === 'xmlhttprequest'
   }
 
   range (size, options) {
@@ -424,7 +425,7 @@ module.exports = class BaseController extends Base {
     this.app.defineMiddleware('registerBaseControllerAlias', function registerBaseControllerAlias(ctx, next) {
       self.alias.res.render = self.render
       self.alias.res.getTplPath = self.getTplPath
-            return next()
+      return next()
     })
     
     this.global_filter.push('registerBaseControllerAlias')

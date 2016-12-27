@@ -54,3 +54,24 @@ test.cb('should special-case Referer', t => {
     .expect('http://foobar.com', t.end);
 })
 
+
+// it('should throw missing header name', function (done) {
+//   var app = express()
+//
+//   app.use(function (req, res) {
+//     res.end(req.get())
+//   })
+//
+//   request(app)
+//   .get('/')
+//   .expect(500, /TypeError: name argument is required to req.get/, done)
+// })
+
+// test.cb('should throw missing header name', t => {
+//   app.router('fixtures/reqget2')
+//
+//   sletTest(app)
+//     .post('/2')
+//     .expect(500, /TypeError: name argument is required to req.get/, t.end);
+// })
+
