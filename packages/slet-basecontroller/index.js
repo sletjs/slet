@@ -162,7 +162,7 @@ class Base {
     let args = arguments.length === 1
       ? 'name'
       : 'name, default';
-    console.log('req.param(' + args + '): Use req.params, req.body, or req.query instead')
+    //console.log('req.param(' + args + '): Use req.params, req.body, or req.query instead')
 
     if (null != params[name] && params.hasOwnProperty(name)) return params[name]
     if (null != body[name]) return body[name]
