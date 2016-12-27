@@ -49,7 +49,7 @@ test.cb('should strip port number', t => {
   sletTest(app)
     .post('/')
     .set('Host', 'example.com:3000')
-    .expect('example.com', t.end);
+    .expect('example.com:3000', t.end);
 })
 
 
@@ -74,4 +74,27 @@ test.cb('should return undefined otherwise', t => {
   sletTest(app)
     .post('/2')
     .expect('', t.end);
+})
+
+
+// it('should work with IPv6 Host', function(done){
+//   var app = express();
+//
+//   app.use(function(req, res){
+//     res.end(req.host);
+//   });
+//
+//   request(app)
+//   .post('/')
+//   .set('Host', '[::1]')
+//   .expect('[::1]', done);
+// })
+//
+test.cb('should work with IPv6 Host', t => {
+  app.router('fixtures/host')
+
+  sletTest(app)
+    .post('/')
+    .set('Host', '[::1]')
+    .expect('[::1]', t.end);
 })

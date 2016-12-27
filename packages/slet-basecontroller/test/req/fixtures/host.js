@@ -11,6 +11,6 @@ module.exports = class MyController extends BaseController {
   
   post (req, res) {
     // console.log(req.get())
-    res.end(req.hostname)
+    res.end(req.host)
   }
 }
