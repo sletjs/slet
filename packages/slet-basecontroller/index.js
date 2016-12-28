@@ -306,7 +306,10 @@ class Base {
     if (obj === null) {
       obj = {}
     }
-
+    if (!this.ctx.response.type) {
+      this.ctx.response.remove('Content-Length');
+      this.ctx.response.type = 'json'
+    }
     return this.end(JSON.stringify(obj))
   }
 

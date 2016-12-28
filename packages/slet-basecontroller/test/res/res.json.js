@@ -14,6 +14,7 @@ test.cb('should not support jsonp callbacks', t => {
 
   sletTest(app)
     .get('/?callback=foo')
+    .expect('Content-Type', 'application/json; charset=utf-8')
     .expect('{"foo":"bar"}', t.end);
 })
 
