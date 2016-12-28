@@ -219,7 +219,8 @@ class Base {
   clearCookie (name, options) {
     var opts = merge({ expires: new Date(1), path: '/' }, options)
 
-    return this.ctx.cookies(name, '', opts)
+    this.ctx.cookies.set(name, '', opts)
+    return this
   }
 
   download (path, filename) {
