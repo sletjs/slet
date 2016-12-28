@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "async": "node --harmony-async-await app.async.js",
     "t": "lerna run test",
     "test": "lerna bootstrap && lerna run test",
     "p": "yrm use npm && lerna publish --skip-git &&  yrm use cnpm",
