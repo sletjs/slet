@@ -21,7 +21,6 @@ class Base {
     this.tpl = 'index'
     this.result = '{verb}() call result'
     this.url = 'redirect url'
-    this.jsonp_callback_name = 'callback'
     
     //for alias
     this.alias = {
@@ -90,6 +89,7 @@ class Base {
       self.alias.res.location = self.location
       self.alias.res.json = self.json
       self.alias.res.jsonp = self.jsonp
+      self.alias.res.jsonp_callback_name = self.jsonp_callback_name
       self.alias.res.format = self.format
       self.alias.res.getHeader = self.getHeader
       self.alias.res.setHeader = self.setHeader
@@ -149,6 +149,14 @@ class Base {
   
   set qs (q) {
     // this.qs = q
+  }
+  
+  get jsonp_callback_name () {
+    return this._jsonp_callback_name || 'callback'
+  }
+  
+  set jsonp_callback_name (q) {
+    this._jsonp_callback_name = q
   }
 
   // request
@@ -318,8 +326,13 @@ class Base {
     if (obj && obj !== null) _body = obj
 
     const jsonp = require('jsonp-body')
-    let query = this.ctx.request.querystring
-    let cb = query || this.jsonp_callback_name
+    let cb
+         
+    if (this.ctx.request.qs[this.jsonp_callback_name] && typeof this.ctx.request.qs[this.jsonp_callback_name] === 'object'){
+      cb = this.ctx.request.qs[this.jsonp_callback_name][0]
+    } else {
+      cb = this.ctx.request.qs[this.jsonp_callback_name]
+    }
 
     this.ctx.response.set('X-Content-Type-Options', 'nosniff')
 
