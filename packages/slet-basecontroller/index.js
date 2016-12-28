@@ -303,11 +303,11 @@ class Base {
   }
 
   json (obj) {
-    if (obj === null){
+    if (obj === null) {
       obj = {}
     }
 
-    return this.ctx.body = obj
+    return this.end(JSON.stringify(obj))
   }
 
   jsonp (obj) {
