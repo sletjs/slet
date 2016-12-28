@@ -22,6 +22,8 @@
 
 ## Usages
 
+### Use Promise
+
 ```js
 'use strict'
 
@@ -43,9 +45,10 @@ app.start(3000)
 
 ```
 
+### Use Async/Await
 you can also use Async function in Controller
 
-```
+```js
 'use strict'
 
 const Slet = require('./packages/slet')
