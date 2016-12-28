@@ -5,14 +5,28 @@
 [![codecov.io](https://codecov.io/github/sletjs/BaseController/coverage.svg?branch=master)](https://codecov.io/github/sletjs/BaseController?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-## 获取请求参数的3种方式
 
-- this.body
-- this.query
-- this.params
+- 支持express和koa的res和req api
+- 集成基础模块，保证类似于express的基础功能
 
 ## api
 
-- this.write()
-- this.end()
+- [express req 已经整理完成](http://sletjs.com/zh-cn/api/request.html)
+- [express res 已经整理完成](http://sletjs.com/zh-cn/api/response.html)
 
+## 依赖
+
+- "content-disposition": "^0.5.2",
+- "debug": "^2.4.5",
+- "encodeurl": "^1.0.1",
+- "jsonp-body": "^1.0.0",
+- "koa-compress": "^2.0.0",
+- "koa-conditional-get": "^2.0.0",
+- "koa-etag": "^3.0.0",
+- "koa-favicon": "^2.0.0",
+- "mime": "^1.3.4",
+- "qs": "^6.3.0",
+- "range-parser": "^1.2.0",
+- "slet-send": "^3.2.0",
+- "utils-merge": "^1.0.0",
+- "vary": "^1.1.0"

@@ -75,7 +75,3 @@ app.start(3006)
 
 ```
 
-## work
-
-- [express req 已经整理完成](http://sletjs.com/zh-cn/api/request.html)
-- [express res 已经整理完成](http://sletjs.com/zh-cn/api/response.html)
