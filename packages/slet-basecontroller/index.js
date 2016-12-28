@@ -153,8 +153,7 @@ class Base {
 
   // request
   get xhr () {
-    let val = this.getHeader('X-Requested-With') || ''
-    return val
+    let val = this.ctx.request.header['x-requested-with'] || ''
     if (val) return val.toLowerCase() === 'xmlhttprequest'
   }
 
