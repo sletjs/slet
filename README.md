@@ -65,7 +65,7 @@ class MyController extends Slet.BaseController {
   }
   
   sleep (time) {
-    return new Promise((resolve)=>setTimeout(resolve, time))
+    return new Promise((resolve) => setTimeout(resolve, time))
   }
 }
 
