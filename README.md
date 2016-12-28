@@ -22,7 +22,9 @@
 
 ## Usages
 
-### Use Promise
+### Basic
+
+app.js
 
 ```js
 'use strict'
@@ -45,23 +47,40 @@ app.start(3000)
 
 ```
 
+you run it at Node.js 4.0 +
+
+```
+$ node app.js
+```
+
+
 ### Use Async/Await
+
 you can also use Async function in Controller
+
+you can use it in
+
+- Node.js 7.0 +
+- Babel
+- Typescript
+
+app.async.js
 
 ```js
 'use strict'
 
-const Slet = require('./packages/slet')
+const Slet = require('slet')
 
 const app = new Slet()
 
 class MyController extends Slet.BaseController {
-  async get (req, res) { 
+  async get (req, res) {
+    let username = req.query.username
     // logic
     await this.sleep(300)
     
     // send to browser
-    res.send({a:1})
+    return res.send(`hello world ${username}`)
   }
   
   sleep (time) {
@@ -75,3 +94,25 @@ app.start(3006)
 
 ```
 
+start app server in terminal
+
+```
+$ node --harmony-async-await app.async.js
+```
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+## Welcome fork or feedback
+
+- write by `i5ting` i5ting@126.com
+
+## License
+
+this repo is released under the [MIT
+License](http://www.opensource.org/licenses/MIT).

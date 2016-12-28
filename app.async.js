@@ -5,12 +5,13 @@ const Slet = require('./packages/slet')
 const app = new Slet()
 
 class MyController extends Slet.BaseController {
-  async get (req, res) { 
+  async get (req, res) {
+    let username = req.query.username
     // logic
     await this.sleep(300)
     
     // send to browser
-    res.send({a:1})
+    return res.send(`hello world ${username}`)
   }
   
   sleep (time) {
