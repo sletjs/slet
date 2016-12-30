@@ -178,3 +178,17 @@ test.cb('should override previous Content-Types with callback', t => {
   .expect('X-Content-Type-Options', 'nosniff')
   .expect(200, /cb\(\{"hello":"world"\}\);$/,  t.end);
 })
+
+test.cb('when given primitives', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp8')
+
+  sletTest(app)
+  .get('/8')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200, 'null',  t.end);
+})
