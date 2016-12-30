@@ -353,7 +353,7 @@ class Base {
         val = arguments[1];
       }
     }
-
+    
     // settings
     var app = this.app;
     var replacer = this.json_replacer;
@@ -364,7 +364,7 @@ class Base {
     var callback = this.ctx.request.qs[this.jsonp_callback_name];
 
     // content-type
-    if (!this.ctx.get('Content-Type')) {
+    if (!this.ctx.type) {
       this.ctx.set('X-Content-Type-Options', 'nosniff');
       this.ctx.set('Content-Type', 'application/json; charset=utf-8');
     }
@@ -393,15 +393,12 @@ class Base {
       body = '/**/ typeof ' + callback + ' === \'function\' && ' + callback + '(' + body + ');';
     }
 
-    return this.send(body);
-
-    // return this.ctx.body = jsonp(_body, cb)
+    
+    return this.end(body)
   }
   
   get json_replacer () {
-    return this._json_replacer || function(key, val){
-      return val
-    }
+    return this._json_replacer|| null
   }
 
   set json_replacer (fn) {
@@ -409,7 +406,7 @@ class Base {
   }  
   
   get json_spaces () {
-    return this._json_spaces || 0
+    return this._json_spaces || null
   }
 
   set json_spaces (val) {
