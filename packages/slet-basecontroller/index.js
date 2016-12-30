@@ -75,8 +75,8 @@ class Base {
       self.alias.res.throw = ctx.throw
       
       // stringify
-      self.alias.req.stringify = ctx.stringify
-      self.alias.res.stringify = ctx.stringify
+      self.alias.req.stringify = self.stringify
+      self.alias.res.stringify = self.stringify
 
       // response
       // send
@@ -324,9 +324,20 @@ class Base {
       this.ctx.response.remove('Content-Length');
       this.ctx.response.type = 'json'
     }
-    return this.end(JSON.stringify(obj))
+    return this.end(this.stringify(obj))
   }
 
+ /**
+  * Send JSON response with JSONP callback support.
+  *
+  * Examples:
+  *
+  *     res.jsonp(null);
+  *     res.jsonp({ user: 'tj' });
+  *
+  * @param {string|number|boolean|object} obj
+  * @public
+  */
   jsonp (obj) {
     var val = obj;
 
@@ -348,16 +359,8 @@ class Base {
     var replacer = this.json_replacer;
     var spaces = this.json_spaces;
     // console.log(this.ctx.response)
-    
-    function stringify (value, replacer, spaces) {
-      // v8 checks arguments.length for optimizing simple call
-      // https://bugs.chromium.org/p/v8/issues/detail?id=4730
-      return replacer || spaces
-        ? JSON.stringify(value, replacer, spaces)
-        : JSON.stringify(value)
-    }
-    
-    var body = stringify(val, replacer, spaces);
+  
+    var body = this.stringify(val, replacer, spaces);
     var callback = this.ctx.request.qs[this.jsonp_callback_name];
 
     // content-type
@@ -559,3 +562,4 @@ module.exports = class BaseController extends Base {
     if (data) this.data = _data
   }
 }
+
