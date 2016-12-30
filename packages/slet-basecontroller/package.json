@@ -26,7 +26,6 @@
     "content-disposition": "^0.5.2",
     "debug": "^2.4.5",
     "encodeurl": "^1.0.1",
-    "jsonp-body": "^1.0.0",
     "koa-compress": "^2.0.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",

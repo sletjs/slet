@@ -10,6 +10,7 @@ module.exports = class MyController extends BaseController {
   }
   
   get (req, res) {
+      // console.log(res)
     res.jsonp({ count: 1 });
   }
 }

@@ -73,6 +73,10 @@ class Base {
       // throw
       self.alias.req.throw = ctx.throw
       self.alias.res.throw = ctx.throw
+      
+      // stringify
+      self.alias.req.stringify = ctx.stringify
+      self.alias.res.stringify = ctx.stringify
 
       // response
       // send
@@ -88,6 +92,8 @@ class Base {
       self.alias.res.links = self.links
       self.alias.res.location = self.location
       self.alias.res.json = self.json
+      self.alias.res.json_replacer = self.json_replacer
+      self.alias.res.json_spaces = self.json_spaces
       self.alias.res.jsonp = self.jsonp
       self.alias.res.jsonp_callback_name = self.jsonp_callback_name
       self.alias.res.format = self.format
@@ -322,28 +328,91 @@ class Base {
   }
 
   jsonp (obj) {
-    let _body = {}
-    if (obj && obj !== null) _body = obj
+    var val = obj;
 
-    const jsonp = require('jsonp-body')
-    let cb
-         
-    if (this.ctx.request.qs[this.jsonp_callback_name] && typeof this.ctx.request.qs[this.jsonp_callback_name] === 'object'){
-      cb = this.ctx.request.qs[this.jsonp_callback_name][0]
-    } else {
-      cb = this.ctx.request.qs[this.jsonp_callback_name]
+    // allow status / body
+    if (arguments.length === 2) {
+      // res.json(body, status) backwards compat
+      if (typeof arguments[1] === 'number') {
+        // deprecate('res.jsonp(obj, status): Use res.status(status).json(obj) instead');
+        this.statusCode = arguments[1];
+      } else {
+        // deprecate('res.jsonp(status, obj): Use res.status(status).jsonp(obj) instead');
+        this.statusCode = arguments[0];
+        val = arguments[1];
+      }
     }
 
-    this.ctx.response.set('X-Content-Type-Options', 'nosniff')
+    // settings
+    var app = this.app;
+    var replacer = this.json_replacer;
+    var spaces = this.json_spaces;
+    // console.log(this.ctx.response)
+    
+    function stringify (value, replacer, spaces) {
+      // v8 checks arguments.length for optimizing simple call
+      // https://bugs.chromium.org/p/v8/issues/detail?id=4730
+      return replacer || spaces
+        ? JSON.stringify(value, replacer, spaces)
+        : JSON.stringify(value)
+    }
+    
+    var body = stringify(val, replacer, spaces);
+    var callback = this.ctx.request.qs[this.jsonp_callback_name];
 
-    if (cb) {
-      this.ctx.response.set('Content-Type', 'text/javascript')
-    } else {
-      this.ctx.response.set('Content-Type', 'application/json')
+    // content-type
+    if (!this.ctx.get('Content-Type')) {
+      this.ctx.set('X-Content-Type-Options', 'nosniff');
+      this.ctx.set('Content-Type', 'application/json; charset=utf-8');
     }
 
-    return this.ctx.body = jsonp(_body, cb)
+    // fixup callback
+    if (Array.isArray(callback)) {
+      callback = callback[0];
+    }
+
+    // jsonp
+    if (typeof callback === 'string' && callback.length !== 0) {
+      // this.ctx.charset = 'utf-8';
+      this.ctx.set('X-Content-Type-Options', 'nosniff');
+      this.ctx.set('Content-Type', 'text/javascript; charset=utf-8');
+
+      // restrict callback charset
+      callback = callback.replace(/[^\[\]\w$.]/g, '');
+
+      // replace chars not allowed in JavaScript that are in JSON
+      body = body
+        .replace(/\u2028/g, '\\u2028')
+        .replace(/\u2029/g, '\\u2029');
+
+      // the /**/ is a specific security mitigation for "Rosetta Flash JSONP abuse"
+      // the typeof check is just to reduce client error noise
+      body = '/**/ typeof ' + callback + ' === \'function\' && ' + callback + '(' + body + ');';
+    }
+
+    return this.send(body);
+
+    // return this.ctx.body = jsonp(_body, cb)
   }
+  
+  get json_replacer () {
+    return this._json_replacer || function(key, val){
+      return val
+    }
+  }
+
+  set json_replacer (fn) {
+    return this._json_replacer = fn
+  }  
+  
+  get json_spaces () {
+    return this._json_spaces || 0
+  }
+
+  set json_spaces (val) {
+    return this._json_spaces = val
+  }  
+  
 
   format (obj) {
     var req = this.ctx.request;
@@ -403,6 +472,19 @@ class Base {
       err.types = normalizeTypes(keys).map(function(o){ return o.value });
       this.throw(err);
     }
+  }
+  
+  /**
+   * Stringify JSON, like JSON.stringify, but v8 optimized.
+   * @private
+   */
+
+  stringify (value, replacer, spaces) {
+    // v8 checks arguments.length for optimizing simple call
+    // https://bugs.chromium.org/p/v8/issues/detail?id=4730
+    return replacer || spaces
+      ? JSON.stringify(value, replacer, spaces)
+      : JSON.stringify(value)
   }
 
   __execute () {
