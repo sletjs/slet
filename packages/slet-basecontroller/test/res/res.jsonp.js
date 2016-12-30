@@ -162,3 +162,19 @@ test.cb('should not override previous Content-Types with no callback', t => {
   // .expect(shouldNotHaveHeader('X-Content-Type-Options'))
   .expect(200, '{"hello":"world"}',  t.end);
 })
+
+
+test.cb('should override previous Content-Types with callback', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp7')
+
+  sletTest(app)
+  .get('/7?callback=cb')
+  .expect('Content-Type', 'text/javascript; charset=utf-8')
+  .expect('X-Content-Type-Options', 'nosniff')
+  .expect(200, /cb\(\{"hello":"world"\}\);$/,  t.end);
+})
