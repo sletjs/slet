@@ -204,7 +204,11 @@ class Base {
   }
   // response
   send (text) {
-    text ? this.ctx.body = text : this.ctx.body = ''
+    if (typeof text === 'boolean'){
+      this.ctx.body = text
+      return this
+    }
+    text !== undefined ? this.ctx.body = text : this.ctx.body = ''
     return this
   }
 
