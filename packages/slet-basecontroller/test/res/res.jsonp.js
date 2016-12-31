@@ -193,7 +193,7 @@ test.cb('when given primitives', t => {
     .expect(200, 'null',  t.end);
 })
 
-test.only.cb('when given an array', t => {
+test.cb('when given an array', t => {
   const app = new Slet({
     root: __dirname,
     debug: false
@@ -205,4 +205,104 @@ test.only.cb('when given an array', t => {
   .get('/9')
     .expect('Content-Type', 'application/json; charset=utf-8')
     .expect(200, '["foo","bar","baz"]', t.end);
+})
+
+test.cb('when given an object', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp10')
+
+  sletTest(app)
+    .get('/10')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200, '{"name":"tobi"}', t.end);
+})
+
+
+test.cb('should respond with json for null', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp8')
+
+  sletTest(app)
+    .get('/8')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200, 'null', t.end);
+})
+
+test.cb('should respond with json for Number', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp11')
+
+  sletTest(app)
+    .get('/11')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200, '300', t.end);
+})
+
+test.cb('should respond with json for String', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp12')
+
+  sletTest(app)
+    .get('/12')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200, '"str"', t.end);
+})
+
+
+test.cb('should be passed to JSON.stringify()', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp13')
+
+  sletTest(app)
+    .get('/13')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200, '{"name":"tobi"}', t.end);
+})
+
+test.cb('should be passed to JSON.stringify()', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp14')
+
+  sletTest(app)
+    .get('/14')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200, '{\n  "name": "tobi",\n  "age": 2\n}', t.end);
+})
+
+test.cb('should respond with json and set the .statusCode', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp15')
+
+  sletTest(app)
+    .get('/15')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(201, '{"id":1}', t.end);
 })

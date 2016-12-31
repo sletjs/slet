@@ -137,7 +137,10 @@ class Base {
   }
 
   end () {
-    this.res.statusCode = 200
+    // 
+    if (this.res.statusCode === 404) {
+      this.res.statusCode = 200
+    }
     this.renderType = 'customEnd'
     let end = this.res.end.bind(this.res)
 
@@ -324,6 +327,7 @@ class Base {
       this.ctx.response.remove('Content-Length');
       this.ctx.response.type = 'json'
     }
+    this.res.statusCode = 200
     return this.end(this.stringify(obj))
   }
 
@@ -340,7 +344,7 @@ class Base {
   */
   jsonp (obj) {
     var val = obj;
-
+    this.res.statusCode = 200
     // allow status / body
     if (arguments.length === 2) {
       // res.json(body, status) backwards compat
@@ -393,6 +397,9 @@ class Base {
       body = '/**/ typeof ' + callback + ' === \'function\' && ' + callback + '(' + body + ');';
     }
 
+    if (this.statusCode) {
+      this.res.statusCode = this.statusCode
+    }
     
     return this.end(body)
   }
@@ -406,7 +413,7 @@ class Base {
   }  
   
   get json_spaces () {
-    return this._json_spaces || null
+    return this._json_spaces || 0
   }
 
   set json_spaces (val) {
