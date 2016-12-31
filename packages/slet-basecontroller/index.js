@@ -322,7 +322,8 @@ class Base {
     }
 
     // set location
-    return this.ctx.response.set('Location', encodeUrl(loc))
+    this.ctx.response.set('Location', encodeUrl(loc))
+    return this
   }
 
   json (obj) {
