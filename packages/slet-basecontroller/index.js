@@ -307,9 +307,11 @@ class Base {
   links (links) {
     var link = this.ctx.response.get('Link') || ''
     if (link) link += ', '
-    return this.ctx.response.set('Link', link + Object.keys(links).map(function(rel){
+    
+    this.ctx.response.set('Link', link + Object.keys(links).map(function(rel){
       return '<' + links[rel] + '>; rel="' + rel + '"';
     }).join(', '))
+    return this
   }
 
   location (url) {
