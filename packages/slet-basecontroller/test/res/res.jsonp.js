@@ -192,3 +192,17 @@ test.cb('when given primitives', t => {
     .expect('Content-Type', 'application/json; charset=utf-8')
     .expect(200, 'null',  t.end);
 })
+
+test.only.cb('when given an array', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp9')
+
+  sletTest(app)
+  .get('/9')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200, '["foo","bar","baz"]', t.end);
+})
