@@ -1,6 +1,6 @@
 {
   "name": "slet-basecontroller",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "basecontroller",
   "main": "index.js",
   "scripts": {
