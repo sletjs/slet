@@ -110,6 +110,12 @@ class Base {
   }
   
 
+  /**
+   * 
+   * 
+   * 
+   * @memberOf Base
+   */
   before () {
 
   }
@@ -419,8 +425,14 @@ class Base {
   set json_spaces (val) {
     return this._json_spaces = val
   }  
-  
 
+  /**
+   * 
+   * 
+   * @param {any} obj
+   * 
+   * @memberOf Base
+   */
   format (obj) {
     var req = this.ctx.request;
     var next = req.next;
