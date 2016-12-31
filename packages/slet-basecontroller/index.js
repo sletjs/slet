@@ -204,7 +204,8 @@ class Base {
   }
   // response
   send (text) {
-    return this.ctx.body = text
+    text ? this.ctx.body = text : this.ctx.body = ''
+    return this
   }
 
   get locals () {
