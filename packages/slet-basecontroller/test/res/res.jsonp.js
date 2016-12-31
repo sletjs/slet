@@ -4,6 +4,8 @@ var sletTest = require('slettest')
 const Slet = require('../../../slet')
 const BaseController = require('../..')
 
+// all express jsonp test done!
+
 test.cb('should respond with jsonp', t => {
   const app = new Slet({
     root: __dirname,
@@ -264,7 +266,6 @@ test.cb('should respond with json for String', t => {
     .expect(200, '"str"', t.end);
 })
 
-
 test.cb('should be passed to JSON.stringify()', t => {
   const app = new Slet({
     root: __dirname,
@@ -305,4 +306,46 @@ test.cb('should respond with json and set the .statusCode', t => {
     .get('/15')
     .expect('Content-Type', 'application/json; charset=utf-8')
     .expect(201, '{"id":1}', t.end);
+})
+
+test.cb('should respond with json and set the .statusCode for backwards compat', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp16')
+
+  sletTest(app)
+    .get('/16')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(201, '{"id":1}', t.end);
+})
+
+test.cb('should use status as second number for backwards compat', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp17')
+
+  sletTest(app)
+    .get('/17')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(201, '200', t.end);
+})
+
+test.cb('should not override previous Content-Types', t => {
+  const app = new Slet({
+    root: __dirname,
+    debug: false
+  })
+  
+  app.router('fixtures/jsonp17')
+
+  sletTest(app)
+    .get('/17')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(201, '200', t.end);
 })

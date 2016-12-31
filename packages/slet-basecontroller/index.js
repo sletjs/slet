@@ -137,8 +137,8 @@ class Base {
   }
 
   end () {
-    // 
-    if (this.res.statusCode === 404) {
+    // default
+    if (this.headerSent === false && this.res.statusCode === 404) {
       this.res.statusCode = 200
     }
     this.renderType = 'customEnd'
