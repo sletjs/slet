@@ -10,6 +10,7 @@ const methods = require('methods')
 const slice = Array.prototype.slice
 const router = require('koa-router')()
 const bodyParser = require('koa-bodyparser')
+const logger = require('koa-pino-logger')
 const compose = require('koa-compose')
 const parseController = require('parsecontroller')
 
@@ -83,6 +84,7 @@ class Slet {
     // post参数的解析，最常用的是其中的json和urlencoded的parser，可分别对以JSON格式的post参数和urlencoeded的post参数进行解析，均可获得一个JSON化的req.body
     // TODO: 细化
     this.middlewares['koa-bodyparser'] = bodyParser()
+    this.middlewares['logger'] = logger()
   }
 
   defineMiddleware (name, fn) {

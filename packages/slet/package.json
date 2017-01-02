@@ -26,6 +26,7 @@
     "koa": "next",
     "koa-bodyparser": "next",
     "koa-compose": "next",
+    "koa-pino-logger": "^2.1.0",
     "koa-router": "next",
     "methods": "^1.1.2",
     "parsecontroller": "^1.0.1",

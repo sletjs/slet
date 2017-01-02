@@ -77,6 +77,8 @@ class Base {
       // stringify
       self.alias.req.stringify = self.stringify
       self.alias.res.stringify = self.stringify
+      
+      //logger
 
       // response
       // send
@@ -106,7 +108,7 @@ class Base {
     this.app.defineMiddleware('conditional', require('koa-conditional-get')())
     this.app.defineMiddleware('etag', require('koa-etag')())
 
-    this.global_filter = ['conditional', 'etag', 'koa-bodyparser', 'registerBaseAlias']
+    this.global_filter = ['logger','conditional', 'etag', 'koa-bodyparser', 'registerBaseAlias']
   }
   
 
