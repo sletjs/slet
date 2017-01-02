@@ -8,6 +8,8 @@ const app = new Slet({
   debug: false
 })
 
+app.silent = true
+
 app.router('fixtures/allctrl')
 
 test.cb('GET /all test this.all()', t => {
