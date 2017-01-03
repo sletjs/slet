@@ -560,8 +560,8 @@ module.exports = class BaseController extends Base {
     
     let self = this
     this.app.defineMiddleware('registerBaseControllerAlias', function registerBaseControllerAlias(ctx, next) {
-      self.alias.res.render = self.render
-      self.alias.res.getTplPath = self.getTplPath
+      self.alias.res.render = self.render.bind(self)
+      self.alias.res.getTplPath = self.getTplPath.bind(self)
       return next()
     })
     
