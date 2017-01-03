@@ -233,15 +233,7 @@ class Slet {
       self.defineController(require(info.dep_controller))
       Controller = require(file)
     }
-    
-    if (typeof controller === 'function') {
-        // console.log("function Controller" + Controller)
-      // let i = (Controller + "").split('(')[0].replace('function', '').trim()
-//       console.log(i)
-//       Controller = eval(i
-//       console.log(Controller)
-    }
-    
+
     if (typeof Controller === 'object'){
       console.error('fatal error: you need add module.exports = class xxx')
       return
