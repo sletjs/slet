@@ -1,4 +1,4 @@
-{
+module.exports = {
     "debug": false,
     "prefix": "",
     "views":{
@@ -17,5 +17,12 @@
 
             }
         }
+    },
+    "logger": {
+      // Define a custom request id function
+      genReqId: function (req) { return req.id },
+
+      // Logger level is `info` by default
+      useLevel: 'trace'
     }
 }
