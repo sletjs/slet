@@ -390,6 +390,20 @@ class Slet {
     Slet[clz] = Controller
   }
 
+  callback () {
+    if (this.opts.debug) {
+      console.log(this.routes)
+      console.log(this.controllerDependency)
+    }
+
+    this.app
+      .use(router.routes())
+      .use(router.allowedMethods())
+
+    debug('listen')
+    return this.app.callback()
+  }
+  
   start () {
     if (this.opts.debug) {
       console.log(this.routes)
