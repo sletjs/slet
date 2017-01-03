@@ -52,33 +52,33 @@ class Slet {
     self.routerDir(this.opts.automount.path)
   }
 
-  identifyDept () {
-    let self = this
-    return new Promise(function (resolve, reject) {
-      // console.log(self.opts.root)
-      parseController(self.opts.root, function (resultArray) {
-        // console.log(resultArray)
-        self.scanedControllerArray = resultArray
-        resolve(resultArray)
-      })
-    })
-  }
+  // identifyDept () {
+  //   let self = this
+  //   return new Promise(function (resolve, reject) {
+  //     // console.log(self.opts.root)
+  //     parseController(self.opts.root, function (resultArray) {
+  //       // console.log(resultArray)
+  //       self.scanedControllerArray = resultArray
+  //       resolve(resultArray)
+  //     })
+  //   })
+  // }
 
-  buildDept (path) {
-    let self = this
-    return new Promise(function (resolve, reject) {
-      parseController(path, function (resultArray) {
-        // console.log(resultArray)
-        resolve(resultArray)
-      })
-    }).then(function (resultArray) {
-      // console.log(resultArray)
-      for (var i in resultArray) {
-        var lib = resultArray[i].dep_controller
-        self.defineController(require(lib))
-      }
-    })
-  }
+  // buildDept (path) {
+ //    let self = this
+ //    return new Promise(function (resolve, reject) {
+ //      parseController(path, function (resultArray) {
+ //        // console.log(resultArray)
+ //        resolve(resultArray)
+ //      })
+ //    }).then(function (resultArray) {
+ //      // console.log(resultArray)
+ //      for (var i in resultArray) {
+ //        var lib = resultArray[i].dep_controller
+ //        self.defineController(require(lib))
+ //      }
+ //    })
+ //  }
 
   _initMiddleware () {
     // post参数的解析，最常用的是其中的json和urlencoded的parser，可分别对以JSON格式的post参数和urlencoeded的post参数进行解析，均可获得一个JSON化的req.body
@@ -164,7 +164,7 @@ class Slet {
       return
     }
 
-    return self.buildDept(self.routerPath).then(function () {
+    return Promise.resolve().then(function () {
       var requireDir = require('require-dir')
       var controllers = requireDir(self.routerPath, self.opts.automount.option)
 
@@ -239,11 +239,11 @@ class Slet {
       return
     }
 
-    if (this.opts.auto) {
-      let lib = this._getControllerBaseName(Controller)
-      this.controllerDependency.push(lib)
-      this.defineController(require(lib))
-    }
+    // if (this.opts.auto) {
+  //     let lib = this._getControllerBaseName(Controller)
+  //     this.controllerDependency.push(lib)
+  //     this.defineController(require(lib))
+  //   }
 
     var mockCtx = new Controller(self, _ctx, _next)
     var avaiableMethods = this._avaiableMethods(mockCtx)
