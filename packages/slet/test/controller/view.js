@@ -6,7 +6,8 @@ const app = new Slet({
     root: __dirname + '/fixtures',
     debug: false,
     views:{
-      path: '/', 
+      engine: "nunjucks",
+      path: '', 
       extension: 'html'
     }
 });

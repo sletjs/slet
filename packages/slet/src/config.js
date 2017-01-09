@@ -2,6 +2,7 @@ module.exports = {
     "debug": false,
     "prefix": "",
     "views":{
+        "engine": "nunjucks",
         "path": "/", 
         "extension": "html"
     },

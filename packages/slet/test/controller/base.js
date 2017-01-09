@@ -5,9 +5,10 @@ const Slet = require('../..');
 const app = new Slet({
     root: __dirname,
     debug: false,
-    "views" :{
-        "path" : __dirname + '/fixtures',
-        "option": { "map": {"html": "nunjucks" }}
+    views:{
+        engine: "nunjucks",
+        path: 'fixtures', 
+        extension: 'html'
     }
 });
 

@@ -7,6 +7,7 @@ const contentDisposition = require('content-disposition')
 const koasend = require('slet-send')
 const resolve = require('path').resolve
 const vary = require('vary')
+const consolidate = require('consolidate')
 const statusCodes = http.STATUS_CODES
 const slice = Array.prototype.slice
 
@@ -570,15 +571,14 @@ module.exports = class BaseController extends Base {
   
   getTplPath (tpl) {
     let self = this
-    let viewPath = self.app.opts.root + '/' + self.app.opts.views.path
-    return viewPath + '/' + tpl + '.' + self.app.opts.views.extension
+    return self.app.viewPath + '/' + tpl + '.' + self.app.opts.views.extension
   }
 
   compile (tpl, data) {
     let self = this
-    return new Promise(function(resolve, reject){
-      resolve(self.result)
-    })
+    let engine = self.app.opts.views.engine
+    debug(self.app.opts)
+    return consolidate[engine](self.getTplPath (tpl), data)
   }
 
   render (tpl, data) {

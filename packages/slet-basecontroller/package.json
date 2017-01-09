@@ -23,6 +23,7 @@
   "homepage": "https://github.com/sletjs/BaseController#readme",
   "config": {},
   "dependencies": {
+    "consolidate": "^0.14.5",
     "content-disposition": "^0.5.2",
     "debug": "^2.4.5",
     "encodeurl": "^1.0.1",
