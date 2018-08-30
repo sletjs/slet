@@ -46,7 +46,7 @@
     "nunjucks": "^3.0.0",
     "nyc": "^11.0.2",
     "slettest": "^1.0.4",
-    "standard": "^9.0.2"
+    "standard": "^12.0.1"
   },
   "config": {
     "ghooks": {
