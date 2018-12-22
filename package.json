@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/sletjs/slet#readme",
   "dependencies": {
-    "debug": "^3.0.0",
+    "debug": "^4.1.1",
     "koa": "next",
     "koa-bodyparser": "next",
     "koa-compose": "next",
